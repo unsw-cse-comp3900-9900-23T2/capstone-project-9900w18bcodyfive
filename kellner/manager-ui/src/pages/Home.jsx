@@ -29,7 +29,7 @@ const Home = () => {
 
     // Triggers the animation everytime the page loads
     React.useEffect(() => {
-        setChecked((checked) => !checked);
+        setChecked(true);
     },[]);
 
     return(
