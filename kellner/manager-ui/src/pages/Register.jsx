@@ -39,7 +39,7 @@ const Submit = styled('button')({
 
 });
 
-const Register = ()=>{
+const Register = (props)=>{
     const [values, setValues] = React.useState({
         userName:"",
         email:"",
@@ -113,7 +113,10 @@ const Register = ()=>{
         })
 
         const data = await response.json();
-        console.log(data)
+        if(response.status === 200){
+            props.storeToken(data.managerToken)
+        }
+        
     }
     
     const handleSubmit = (e)=> {

@@ -44,10 +44,14 @@ router.post('/api/login', async(req,res) => {
                 managerToken: user._id.valueOf()
             })
         } else {
-        res.status(401).send(JSON.stringify(" Incorrect Password Please check password :)"))
+        res.status(401).send({
+            errorMessage: "Incorrect username or password"
+        })
         }
     }catch(e){
-        res.status(400).send(e)
+        res.status(400).send({
+            errorMessage: e.message
+        })
     }
 })
 

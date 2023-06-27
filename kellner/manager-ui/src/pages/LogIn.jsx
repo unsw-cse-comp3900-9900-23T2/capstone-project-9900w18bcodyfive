@@ -40,7 +40,7 @@ const Submit = styled('button')({
 
 });
 
-const LogIn = () => {
+const LogIn = (props) => {
     const [values, setValues] = React.useState({
         email:"",
         password:""
@@ -80,8 +80,11 @@ const LogIn = () => {
         })
 
         const data = await response.json();
-        if (response.status === 401){
-            console.log(data) 
+        if (response.status === 200){
+            props.storeToken(data.managerToken)
+        } else {
+            console.log(data.errorMessage);
+            window.alert(data.errorMessage);
         }
     }
 
