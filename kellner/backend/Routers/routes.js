@@ -32,14 +32,19 @@ router.post('/api/register', async(req, res) => {
 // Login Route
 
 router.post('/api/login', async(req,res) => {
-    console.log(req.body)
+    //console.log(req.body)
     try{
-        const user = await Manager.findOne({emailID: req.body.email})
-        if(user){
+        const user = await Manager.findOne({email: req.body.email})
+        console.log(user)
+        console.log("User ID:", user._id.valueOf())
+        if(user.password===req.body.password){
+            console.log("User body:", user.body)
             res.status(200).send({
-                manager: user.body.userName,
-                managerToken: user.body.managerToken
+                manager: user.userName,
+                managerToken: user._id.valueOf()
             })
+        } else {
+        res.status(401).send(JSON.stringify("Please check password :)"))
         }
     }catch(e){
         res.status(400).send(e)
