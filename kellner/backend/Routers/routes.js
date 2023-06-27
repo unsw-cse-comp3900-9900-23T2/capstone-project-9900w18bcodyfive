@@ -10,7 +10,6 @@ const Item = require('../Schemas/itemModel')
 
 
 //New Registration Route
-
 router.post('/api/register', async(req, res) => {
     const newManager = new Manager(req.body) // Request body should follow the schema
     try {
@@ -19,18 +18,19 @@ router.post('/api/register', async(req, res) => {
             res.status(400).send(message) // Message from the backend
         }
         res.status(200).send({
-            userName: newManager.userName,
-            emailID: newManager.email,
-            managerToken: '10101010', // pop from a list of 100 random numbers generated and kept separately
+            token: newManager._id.valueOf()
         }) // Send the new manager back to the front-end
     } catch (e) {
-        res.status(400).send(e)
+        res.status(400).send({
+            errorMessage: e.message
+        })
     }
 
 })
 
-// Login Route
 
+
+// Login Route
 router.post('/api/login', async(req,res) => {
     //console.log(req.body)
     try{
@@ -44,15 +44,16 @@ router.post('/api/login', async(req,res) => {
                 managerToken: user._id.valueOf()
             })
         } else {
-        res.status(401).send(JSON.stringify("Please check password :)"))
+        res.status(401).send(JSON.stringify(" Incorrect Password Please check password :)"))
         }
     }catch(e){
         res.status(400).send(e)
     }
 })
 
-//Adding New Restaurant
 
+
+//Adding New Restaurant
 router.post('/api/newRestaurant', async(req, res) => {
     const newRestaurant = new Restaurant(req.body)
 
@@ -68,6 +69,8 @@ router.post('/api/newRestaurant', async(req, res) => {
 
 })
 
+
+// Routes to get the List of Restaurants
 router.get('/api/getRestaurant', async(req,res)=>{
     const restaurant = await Restaurant.find({ managerToken: req.body.managerToken})
     if (!restaurant){

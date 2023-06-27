@@ -70,9 +70,24 @@ const LogIn = () => {
         setValues({ ...values, [e.target.name]: e.target.value});
     };
 
+    async function logInUser() {
+        const response = await fetch('http://localhost:5000/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body : JSON.stringify(values)
+        })
+
+        const data = await response.json();
+        if (response.status === 401){
+            console.log(data) 
+        }
+    }
+
     const handleSubmit = (e)=> {
         e.preventDefault();
-        console.log(values)
+        logInUser();
     }
     return(
         <BackgroundContainer>

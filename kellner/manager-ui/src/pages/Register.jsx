@@ -41,7 +41,7 @@ const Submit = styled('button')({
 
 const Register = ()=>{
     const [values, setValues] = React.useState({
-        username:"",
+        userName:"",
         email:"",
         birthday:"",
         password:"",
@@ -51,7 +51,7 @@ const Register = ()=>{
     const inputs = [
         {
             id:1,
-            name:"username",
+            name:"userName",
             type:"text",
             placeholder:"Username",
             errorMessage:"Username should be 3 to 6 characters and shoudn't include any special character",
@@ -103,9 +103,23 @@ const Register = ()=>{
         setValues({ ...values, [e.target.name]: e.target.value});
     };
 
+    async function registerUser() {
+        const response = await fetch('http://localhost:5000/api/register', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body : JSON.stringify(values)
+        })
+
+        const data = await response.json();
+        console.log(data)
+    }
+    
     const handleSubmit = (e)=> {
         e.preventDefault();
-        console.log(values)
+        console.log(values);
+        registerUser();
     }
     return(
         <BackgroundContainer>
