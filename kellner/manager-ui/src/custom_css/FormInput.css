@@ -13,6 +13,17 @@
     display:none;
 }
 
-.formInput:invalid ~ .errorMessage {
+.formInput:invalid[focused="true"] {
+    border: 1px solid red;
+}
+
+/*
+    Checking for the value of focused property of the class formInput
+    If the formInput class is invalid and focused the prperty is true 
+    then the error message will be displayed
+
+*/
+
+.formInput:invalid[focused="true"] ~ .errorMessage {
     display: block;
 }

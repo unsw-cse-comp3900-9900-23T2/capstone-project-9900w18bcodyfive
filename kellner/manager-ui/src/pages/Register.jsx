@@ -1,9 +1,9 @@
 import React from "react";
 import { styled } from "@mui/material";
+import { Link } from "react-router-dom";
 
 import FormInput from "../components/FormInput";
 import LoginBg from '../assets/images/Login-Bg.jpg';
-
 
 const BackgroundContainer = styled('div')({
     backgroundImage: `url(${LoginBg})`,
@@ -15,6 +15,7 @@ const FormContainer = styled('div')({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'column'
 }
 );
 
@@ -55,12 +56,13 @@ const Register = ()=>{
             placeholder:"Username",
             errorMessage:"Username should be 3 to 6 characters and shoudn't include any special character",
             label:"Username",
+            pattern:"^[A-Za-z0-9]{3,16}$",
             required:true
         },
         {
             id:2,
             name:"email",
-            type:"text",
+            type:"email", // performs the work of the regex in the email field
             placeholder:"Email",
             errorMessage:"Please enter a valid email address",
             label:"Email",
@@ -82,6 +84,7 @@ const Register = ()=>{
             placeholder:"Password",
             errorMessage:"Passwords should be 8 - 20 characters and it should include atleast one letter, one number and one special character",
             label:"Password",
+            pattern:`^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
             required:true
         },
         {
@@ -91,6 +94,7 @@ const Register = ()=>{
             placeholder:"Confirm Password",
             errorMessage:"Passwords don't match",
             label:"Confirm Password",
+            pattern: values.password,
             required:true
         }
     ];
@@ -98,10 +102,15 @@ const Register = ()=>{
     const onChange = (e) =>{
         setValues({ ...values, [e.target.name]: e.target.value});
     };
+
+    const handleSubmit = (e)=> {
+        e.preventDefault();
+        console.log(values)
+    }
     return(
         <BackgroundContainer>
             <FormContainer>
-                <Form>
+                <Form onSubmit={handleSubmit}>
                     <h2 style={{color:'#006600'}}>Register Here</h2>
                     {inputs.map((input) =>{
                         return(
@@ -110,6 +119,7 @@ const Register = ()=>{
                     })}
                     <Submit>Submit</Submit>
                 </Form>
+                <Link to="/login">Already a user? Sign in now</Link>
             </FormContainer>
         </BackgroundContainer>
     );

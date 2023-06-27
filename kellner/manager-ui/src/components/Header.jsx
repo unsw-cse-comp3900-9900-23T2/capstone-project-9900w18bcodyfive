@@ -12,7 +12,7 @@ const Container = styled('div')({
     margin: 0,
     padding: 0,
     display: 'flex',
-    maxHeight: '15vh',
+    maxHeight: '10vh',
     background: 'none',
 });
 
@@ -25,7 +25,7 @@ const NameContainer = styled('div')({
     margin: 0,
     padding: '2rem 0rem',
     fontWeight: 'bolder',
-    fontSize: '4rem',
+    fontSize: '3rem',
 });
 
 const ButtonContainer = styled('div')({
@@ -35,7 +35,7 @@ const ButtonContainer = styled('div')({
     justifyContent: 'space-evenly'
 })
 
-const HomeHeader = () => {
+const Header = ()=>{
     const navigate = useNavigate();
     return(
         <MasterContainer>
@@ -44,11 +44,10 @@ const HomeHeader = () => {
                 <NameContainer><span style={{color:'#006600'}}>Kell</span>ner</NameContainer>
             </Container>
             <ButtonContainer>
-                <Button variant="contained" color='success' size='large' onClick={()=>{navigate('/login')}}>Log In</Button>
-                <Button variant="contained" color='success' size='large' onClick={()=>{navigate('/register')}}>Sign Up</Button>
+                <Button variant="contained" color='success' size='large' onClick={()=>{navigate('/')}}>Log Out</Button>
             </ButtonContainer>
         </MasterContainer>
     );
 }
 
-export default HomeHeader;
+export default Header;
