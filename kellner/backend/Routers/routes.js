@@ -101,15 +101,37 @@ router.post('/api/newRestaurant', async(req, res) => {
 })
 
 
-// Routes to get the List of Restaurants
+// Route to get the List of Restaurants
 router.get('/api/getRestaurant', async(req,res)=>{
     const restaurant = await Restaurant.find({ managerToken: req.header('Authorization')})
     if (!restaurant){
-        return res.status(404).json({error : 'No such restaurant exists!'})
-    }res.status(200).send({
+        return res.status(404).json({errorMessage : 'No restaurants exists!'})
+    }else {
+        res.status(200).send({
         restaurant
     })
+}
 
+})
+
+// Route to delete a particular restaurant
+router.delete('/api/deleteRestaurant/:id', async(req,res)=>{
+    console.log(req.params)
+    const restaurantId = req.params.id.slice(1);
+    console.log(restaurantId)
+    const objId = new mongoose.Types.ObjectId(restaurantId);
+    console.log(objId)
+    console.log(objId);
+    const restaurant = await Restaurant.find({ _id: objId});
+    console.log(restaurant);
+    if (!restaurant){
+        return res.status(404).send({errorMessage : 'No restaurants exists!'})
+    } else {
+        await Restaurant.deleteOne({ _id: objId})
+        res.status(200).send({
+            message: "Restaurant deleted"
+        })
+    }
 })
 
 router.post('/api/newCategory', async(req, res) => {

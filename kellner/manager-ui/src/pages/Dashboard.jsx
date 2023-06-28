@@ -67,9 +67,9 @@ const Dashboard = (props)=>{
                 <Container>
                     <Header/>
                     <RestaurantCardContainer>
-                        {restaurants.map((r)=>{
+                        {restaurants.map((r, idx)=>{
                             return(
-                                <RestaurantCard res={r}/>
+                                <RestaurantCard key={idx} res={r}/>
                             );
                         })}
                     </RestaurantCardContainer>
