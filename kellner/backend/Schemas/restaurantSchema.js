@@ -18,12 +18,10 @@ const restaurantSchema = new mongoose.Schema({
     managerToken:{
         type: String,
     },
-
     restaurantName: { 
         type: String, 
         required: [true, 'Restaurant requires a name!'] 
     },
-
     restaurantType: {
 
         type: String, 
@@ -36,13 +34,17 @@ const restaurantSchema = new mongoose.Schema({
         required: [true, 'Restaurant requires a description!'] 
     
     },
+    restaurantImage: { 
 
+        type: String, 
+        required: [true, 'Image of a restaurant'] 
+
+    },
     location: { 
 
         type: String, 
         required: [true, 'Restaurant requires a location!'] 
     },
-
     phoneNumber: { 
 
         type: Number, 
@@ -51,14 +53,13 @@ const restaurantSchema = new mongoose.Schema({
         maxlength: 9 
 
     }, // needs validation with a regular expression
-    
     numTables: { 
 
         type: Number, 
         required: true, 
         min: [1, 'Too few tables'] 
 
-        },
+    }
 });
 
 const restaurantData = mongoose.model('restaurantData', restaurantSchema)

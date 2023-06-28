@@ -3,6 +3,7 @@ import { Dialog } from "@mui/material";
 import styled from "@emotion/styled";
 
 import FormInput from "./FormInput";
+import { fileToDataUrl } from "./fileToDataUrl";
 
 const FormContainer = styled('div')({
     display: 'flex',
@@ -39,12 +40,14 @@ const StyledButton = styled('button')({
 
 const PopUpModal = (props)=>{
     const [values, setValues] = React.useState({
+        managerToken: props.token.toString(),
         restaurantName:"",
         restaurantType:"",
         description: "",
         location:"",
         phoneNumber:"",
         numTables:"",
+        restaurantImage:""
     });
 
     const inputs = [
@@ -77,6 +80,15 @@ const PopUpModal = (props)=>{
         },
         {
             id:4,
+            name:"restaurantImage",
+            type:"file",
+            placeholder:"please upload an image of your restaurant",
+            errorMessage:"Please upload an image",
+            label:"Restaurant Image",
+            required:true
+        },
+        {
+            id:5,
             name:"location",
             type:"text",
             placeholder:"Enter the Location of your restaurant",
@@ -85,7 +97,7 @@ const PopUpModal = (props)=>{
             required:true
         },
         {
-            id:5,
+            id:6,
             name:"phoneNumber",
             type:"number",
             placeholder:"Enter the phone number",
@@ -94,7 +106,7 @@ const PopUpModal = (props)=>{
             required:true
         },
         {
-            id:6,
+            id:7,
             name:"numTables",
             type:"number",
             placeholder:"Enter the number of tables in you restaurant",
@@ -104,13 +116,45 @@ const PopUpModal = (props)=>{
         }
     ];
 
-    const onChange = (e) =>{
-        setValues({ ...values, [e.target.name]: e.target.value});
+    async function addRestaurant() {
+        const response = await fetch('http://localhost:5000/api/newRestaurant', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body : JSON.stringify(values)
+        })
+
+        const data = await response.json();
+        if (response.status === 200){
+            console.log(data);
+            window.location.reload();
+        } else {
+            console.log(data.errorMessage);
+            window.alert(data.errorMessage);
+        }
+    }
+
+    const handleFileUpload = async (e) => {
+        const file = e.target.files[0];
+        const base64 = await fileToDataUrl(file);
+        console.log(base64)
+        setValues({ ...values, [e.target.name]: base64 })
     };
+    
+    const onChange = (e) =>{
+        if(e.target.name === "restaurantImage"){
+            handleFileUpload(e);
+        } else {
+            setValues({ ...values, [e.target.name]: e.target.value});
+        }
+    };
+
 
     const handleSubmit = (e)=>{
         e.preventDefault();
-        console.log(values)
+        console.log(values);
+        addRestaurant();
     }
     return(
         <Dialog open={props.open}>
@@ -118,9 +162,15 @@ const PopUpModal = (props)=>{
                 <Form onSubmit={handleSubmit}>
                     <h2 style={{color:'#006600'}}>Register Here</h2>
                     {inputs.map((input) =>{
-                        return(
-                            <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange}/>
-                        );
+                        if(input.name === "restaurantImage"){
+                            return(
+                                <FormInput key={input.id} {...input} onChange={onChange}/>
+                            );
+                        } else {
+                            return(
+                                <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange}/>
+                            );
+                        }
                     })}
                     <ButtonContainer>
                         <StyledButton style={{backgroundColor: 'red'}} onClick={()=>{props.handleClose()}}>Cancel</StyledButton>

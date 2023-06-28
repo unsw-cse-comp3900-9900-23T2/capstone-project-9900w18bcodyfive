@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { Button } from '@mui/material';
 
 import PopUpModal from '../components/PopUpModal';
+import RestaurantCard from '../components/RestaurantCard';
 
 const Container = styled('div')({
     display: 'flex',
@@ -16,7 +17,14 @@ const ContentEmpty = styled('div')({
     marginTop: '7rem'
 });
 
-const Dashboard = ()=>{
+const RestaurantCardContainer = styled('div')({
+    display: 'flex',
+    border: '2px solid #006600',
+    margin: '4rem 1rem',
+    borderRadius: '4px'
+});
+
+const Dashboard = (props)=>{
     const [restaurants, setRestaurants] = React.useState([]);
     const [open, setOpen] = React.useState(false);
     const handleOpen = ()=>{
@@ -26,13 +34,31 @@ const Dashboard = ()=>{
         setOpen(false);
     };
 
+    async function getAllRestaurants(){
+        const response = await fetch('http://localhost:5000/api/getRestaurant', {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `${props.token}`,
+            },
+        })
+        const data = await response.json();
+        if(response.status === 200){
+            console.log(data.restaurant)
+            setRestaurants(data.restaurant)
+        }
+    }
+    React.useEffect(()=>{
+        getAllRestaurants()
+    },[]);
+
     if (restaurants.length === 0){
         return(
             <Container>
-                <Header/>
+                <Header logout={props.logout}/>
                 <ContentEmpty>You have not added any restaurants</ContentEmpty>
                 <Button variant="contained" color="primary" style={{margin:" 1rem auto", width: "10%"}} onClick={handleOpen}>Add Restaurant</Button>
-                <PopUpModal open={open} handleClose={handleClose}/>
+                <PopUpModal open={open} token={props.token} handleClose={handleClose}/>
             </Container>
         );
     } else {
@@ -40,6 +66,15 @@ const Dashboard = ()=>{
             <div>
                 <Container>
                     <Header/>
+                    <RestaurantCardContainer>
+                        {restaurants.map((r)=>{
+                            return(
+                                <RestaurantCard res={r}/>
+                            );
+                        })}
+                    </RestaurantCardContainer>
+                    <Button variant="contained" color="primary" style={{margin:" 1rem auto", width: "10%"}} onClick={handleOpen}>Add Restaurant</Button>
+                    <PopUpModal open={open} token={props.token} handleClose={handleClose}/>
                 </Container>
                 
             </div>

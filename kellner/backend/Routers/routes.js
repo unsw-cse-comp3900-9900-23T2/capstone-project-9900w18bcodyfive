@@ -35,10 +35,7 @@ router.post('/api/login', async(req,res) => {
     //console.log(req.body)
     try{
         const user = await Manager.findOne({email: req.body.email})
-        console.log(user)
-        console.log("User ID:", user._id.valueOf())
         if(user.password===req.body.password){
-            console.log("User body:", user.body)
             res.status(200).send({
                 manager: user.userName,
                 managerToken: user._id.valueOf()
@@ -60,7 +57,7 @@ router.post('/api/login', async(req,res) => {
 //Adding New Restaurant
 router.post('/api/newRestaurant', async(req, res) => {
     const newRestaurant = new Restaurant(req.body)
-
+    console.log(newRestaurant)
     try {
         await newRestaurant.save()
         if (!newRestaurant){
@@ -68,7 +65,9 @@ router.post('/api/newRestaurant', async(req, res) => {
         }
         res.status(200).send(newRestaurant)
     } catch (e) {
-        res.status(400).send(e)
+        res.status(400).send({
+            errorMessage: e.message
+        })
     }
 
 })
@@ -76,7 +75,7 @@ router.post('/api/newRestaurant', async(req, res) => {
 
 // Routes to get the List of Restaurants
 router.get('/api/getRestaurant', async(req,res)=>{
-    const restaurant = await Restaurant.find({ managerToken: req.body.managerToken})
+    const restaurant = await Restaurant.find({ managerToken: req.header('Authorization')})
     if (!restaurant){
         return res.status(404).json({error : 'No such restaurant exists!'})
     }res.status(200).send({
