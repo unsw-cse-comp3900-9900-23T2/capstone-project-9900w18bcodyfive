@@ -14,18 +14,17 @@ async function connect(){
 connect(); 
 
 const categorySchema = new mongoose.Schema({
-
-    categoryName:   { 
-
-        type: String, 
-        required: true 
-    
+    categoryID: {
+        type: Number,
+        required: [true, 'Category requires a custom ID!']
     },
-
+    categoryName:   { 
+        type: String, 
+        required: [true, 'Category requires a name!'] 
+    },
     restaurantID : {
-
         type : Number,
-        required: true
+        required: [true, 'Category requires a restaurant ID!']
     }
 })
 

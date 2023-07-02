@@ -1,15 +1,43 @@
 const express = require('express');
-const router = new express.Router()
 const mongoose = require('mongoose');
 const moment = require('moment')
 
-const Manager = require('../Schemas/managerSchema')
+/* const Manager = require('../Schemas/managerSchema')
 const Restaurant = require('../Schemas/restaurantSchema')
 const Category = require('../Schemas/categorySchema')
-const Item = require('../Schemas/itemModel')
+const Item = require('../Schemas/itemModel') */
+
+const router = new express.Router()
+
+const {
+    createManager,
+    readManager,
+    createRestaurant,
+    readRestaurant,
+    readAllRestaurants 
+    } = require('../Controllers/mainController.js')
 
 
-//New Registration Route
+// GET ROUTES :
+
+// List of all restaurants
+router.get('/api/getRestaurant', readAllRestaurants)
+
+// POST ROUTES :
+
+// New Registration Route - POST
+router.post('/api/register', createManager)
+
+// Login route
+router.post('/api/login', readManager)
+
+// New Restaurant route
+router.post('/api/newRestaurant', createRestaurant)
+
+// New category, etc. - later
+
+
+/*
 router.post('/api/register', async(req, res) => {
     const newManager = new Manager(req.body) // Request body should follow the schema
     try {
@@ -110,6 +138,6 @@ router.post('/api/newItem', async(req, res) => {
     } catch (e) {
         res.status(400).send(e)
     }
-})
+}) */
 
 module.exports = router;

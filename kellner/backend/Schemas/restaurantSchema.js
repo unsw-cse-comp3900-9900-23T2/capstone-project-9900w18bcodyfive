@@ -18,6 +18,12 @@ const restaurantSchema = new mongoose.Schema({
     managerToken:{
         type: String,
     },
+    restaurantID: {
+        type: String,
+        unique: true
+        // required: [true, 'Restaurant requires an ID!']
+        // will be set in the backend after request received 
+    },
     restaurantName: { 
         type: String, 
         required: [true, 'Restaurant requires a name!'] 
