@@ -4,27 +4,48 @@ const Manager = require('../Schemas/managerSchema')
 const Restaurant = require('../Schemas/restaurantSchema')
 const Category = require('../Schemas/categorySchema')
 const Item = require('../Schemas/itemSchema')
+require('dotenv').config({ path: './config/.env' });
+const jwt = require('jsonwebtoken')
 
-/* Register a new manager */
+/* ROUTES */
 
-const createManager = async(req, res) => {
-    const newManager = new Manager(req.body) // Request body should follow the schema
-    try {
-        await newManager.save()
-        if (!newManager){
-            res.status(400).send(message) // Message from the backend
+/*================================================================================================================================== 
+    REGISTER
+  ================================================================================================================================== */
+
+const registerManager = async(req, res) => {
+    try{
+        const managerCount = await Manager.countDocuments({});
+        const mId = `Mgr${managerCount + 1}`;
+    
+        const newManager = new Manager({
+            mId : mId,
+            mName : req.body.mName,
+            mEmail : req.body.mEmail,
+            mContact : req.body.mContact,
+            mPassword : req.body.mPassword
+        })
+
+        const savedManager = await newManager.save()
+        if (!savedManager){
+            res.status(400).send('Failed to Register Manager') // Message from the backend
         } 
-        res.status(201).send({
-            token: newManager._id.valueOf()
-        }) // Send only the new manager's ID back to the front-end
-    } catch (e) {
-        res.status(400).send(e)
+        const token = jwt.sign({ mEmail:savedManager.mEmail }, process.env.ACCESS_TOKEN_SECRET);
+        res.status(200).send({token})
+
+
+    }catch(error){
+        res.status(400).send({
+            errorMessage: error.message
+        })
     }
-} // 201 - Status code for created
+} 
 
-/* Login an existing manager */
+/*================================================================================================================================== 
+    LOGIN
+  ================================================================================================================================== */
 
-const readManager = async(req, res) => {
+const loginManager = async(req, res) => {
     //console.log(req.body)
     try{
         const user = await Manager.findOne({email: req.body.email})
@@ -45,7 +66,10 @@ const readManager = async(req, res) => {
     }
 }
 
-/* Create a new restaurant. */
+/*================================================================================================================================== 
+    CREATE NEW RESTAURANT
+  ================================================================================================================================== */
+
 const createRestaurant = async(req, res) => {
     const newRestaurant = new Restaurant(req.body)
     tempId = newRestaurant._id.valueOf()
@@ -65,9 +89,11 @@ const createRestaurant = async(req, res) => {
     }
 }
 
-/* Get a list of all restaurants of this manager. */
+/*================================================================================================================================== 
+    FETCH RESTAURANTS
+  ================================================================================================================================== */
 
-const readAllRestaurants = async(req, res) => {
+const getRestaurant = async(req, res) => {
     try {
         const restaurant = await Restaurant.find({ managerToken: req.header('Authorization')})
         if (!restaurant){
@@ -82,47 +108,15 @@ const readAllRestaurants = async(req, res) => {
     }
 }
 
-/* Get one restaurant by ID. */
+const editRestaurant = async(req,res)=>{
 
-const readRestaurant = async(req, res) => {
-    try {
-        const restaurant = await Restaurant.find({ id: req.body.id, managerToken: req.header('Authorization')})
-        if (!restaurant){
-            return res.status(404).json({error : 'No such restaurant exists!'})
-        } res.status(200).send({
-            restaurant
-        })
-    } catch (e) {
-        res.status(400).send({
-            errorMessage: e.message
-        })
-    }
 }
 
-
-/* Create a category under a restaurant. */
-/*
-const createCategory = async(req, res) => {
-    try {
-        const newCategory = 
-    }
-}
-
-Get all categories for the menus of a restaurant.
-
-const readAllCategories = async(req, res) => {
-    try{
-
-    } catch (e) {
-
-    }
-}
-*/
 
 module.exports = {
-    createManager,
-    readManager,
+    registerManager,
+    loginManager,
     createRestaurant,
-    readRestaurant,
-    readAllRestaurants 
+    getRestaurant 
 }
+

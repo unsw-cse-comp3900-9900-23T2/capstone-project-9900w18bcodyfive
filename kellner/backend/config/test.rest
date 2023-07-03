@@ -1,0 +1,9 @@
+POST http://localhost:5000/api/register
+Content-Type: application/json
+
+{
+  "mName": "Johs",
+  "mEmail": "johndoe1@exale.com",
+  "mPassword": "pasword123",
+  "mContact": "427419426"
+}

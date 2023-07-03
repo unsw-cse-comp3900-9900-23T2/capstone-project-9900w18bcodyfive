@@ -5,7 +5,10 @@ const app = express()
 app.use(express.json({limit: "50mb", extended: true}))
 app.use(express.urlencoded({limit: "50mb", extended: true, parameterLimit: 50000}))
 app.use(cors())
+
 //app.use(bodyParser.urlencoded({ extended: false }))
+
+
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Headers", "Origin,X-Requested-With,Content-Type,Accept");
@@ -16,8 +19,5 @@ app.use((req, res, next) => {
 const kelRouter = require('./Routers/routes.js')
 app.use(kelRouter)
 
-app.get('/',(req,res)=>{
-    res.send('Hello World!!')
-})
 
 module.exports = app;

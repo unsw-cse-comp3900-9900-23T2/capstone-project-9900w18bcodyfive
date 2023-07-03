@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-//const validator = require('validator');
-const moment = require('moment');
+const validator = require('validator');
 
 const uri = "mongodb+srv://admin:kellner01@kellner01.cbxnkwq.mongodb.net/"
 async function connect(){
@@ -15,55 +14,54 @@ connect();
 
 const restaurantSchema = new mongoose.Schema({
 
-    managerToken:{
-        type: String,
-    },
-    restaurantID: {
+    resId: {
         type: String,
         unique: true
-        // required: [true, 'Restaurant requires an ID!']
-        // will be set in the backend after request received 
+
     },
-    restaurantName: { 
+
+    rName: { 
         type: String, 
         required: [true, 'Restaurant requires a name!'] 
     },
-    restaurantType: {
+
+    rLocation: { 
 
         type: String, 
-        required: [true, 'Type of restaurant!'] 
+        required: [true, 'Restaurant requires a location!'] 
+    },
 
-    }, // remove it later if we need to
-    description: { 
+    rDescription: { 
 
         type: String, 
         required: [true, 'Restaurant requires a description!'] 
     
     },
+    
     restaurantImage: { 
 
-        type: String, 
-        required: [true, 'Image of a restaurant'] 
+        type: Buffer, 
 
     },
-    location: { 
-
-        type: String, 
-        required: [true, 'Restaurant requires a location!'] 
+    
+    rContact: {
+        type: String,
+        required: true,
+        validate: {
+            validator: function (value) {
+              const pattern = /^(04|\+614)[- \.]?\d{2}[- \.]?\d{2}[- \.]?\d{2}$/;
+              return pattern.test(value);
+            },
+            message: 'Invalid phone number format',
+          },
+        maxlength: [12, 'Phone number can be at most 12 digits long'],
     },
-    phoneNumber: { 
+
+    rTableCount: { 
 
         type: Number, 
         required: true, 
-        minlength: 9, 
-        maxlength: 9 
-
-    }, // needs validation with a regular expression
-    numTables: { 
-
-        type: Number, 
-        required: true, 
-        min: [1, 'Too few tables'] 
+        min: [1, 'Too few tables']
 
     }
 });

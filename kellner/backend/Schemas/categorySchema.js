@@ -14,18 +14,35 @@ async function connect(){
 connect(); 
 
 const categorySchema = new mongoose.Schema({
-    categoryID: {
+    cId: {
         type: Number,
-        required: [true, 'Category requires a custom ID!']
+        unique: true,
     },
-    categoryName:   { 
+
+    rId : {
+        type : Number,
+    },
+
+    cName:   { 
         type: String, 
         required: [true, 'Category requires a name!'] 
     },
-    restaurantID : {
-        type : Number,
-        required: [true, 'Category requires a restaurant ID!']
+
+    cDescription:{
+        type: String,
+        required: true,
+
+    },
+
+    cType:{
+        type: String,
+        required: true,
+    },
+
+    cImage:{
+        type: Buffer,
     }
+    
 })
 
 const Category = mongoose.model('Category', categorySchema)

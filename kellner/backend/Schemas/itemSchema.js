@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 //const validator = require('validator');
-const moment = require('moment');
 
 const uri = "mongodb+srv://admin:kellner01@kellner01.cbxnkwq.mongodb.net/"
 async function connect(){
@@ -15,30 +14,56 @@ connect();
 
 const itemModel = new mongoose.Schema({
 
-    itemName: { 
-
-        type: String, 
-        required: true
-
-    },
-    price: { 
-
-        type: Number, 
-        required: true 
-
-        },
-    description: { 
-
-        type: String, 
-        required: true 
-
-    },
-
-    category :{
+    iId :{
 
         type: String,
         required: true
-    }
+    },
+    
+    cId :{
+
+        type: String,
+        required: true
+    },
+
+    rId :{
+
+        type: String,
+        required: true
+    },
+
+    iName: { 
+
+        type: String, 
+        required: true
+
+    },
+
+    iPrice: {
+        type: Number,
+        required: true,
+        min: [0, 'Price must be a non-negative value'],
+        max: [1000, 'Price cannot exceed 1000'],
+    },
+
+    iDescription: { 
+
+        type: String, 
+        required: true 
+
+    },
+
+    iIngredients:{
+        type: String,
+        required : true,
+    },
+
+    
+
+    iImage:{
+        type: Buffer,
+    },
+
 
 })
 

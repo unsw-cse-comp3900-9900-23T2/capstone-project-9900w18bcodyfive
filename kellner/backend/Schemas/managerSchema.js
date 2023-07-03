@@ -1,12 +1,10 @@
 const mongoose = require('mongoose');
-//const validator = require('validator');
-const moment = require('moment');
+const validator = require('validator');
 
 const uri = "mongodb+srv://admin:kellner01@kellner01.cbxnkwq.mongodb.net/"
 async function connect(){
     try{
         await mongoose.connect(uri)
-        //console.log("Connected to DB")
     }catch(error){
         console.error(error)
     }
@@ -15,17 +13,20 @@ connect();
 
 const managerSchema = new mongoose.Schema({
 
-    userName: {
+    mId:{
+        type: String,
+    },
+
+    mName: {
 
         type: String,
         required: true,
-        unique: true,
         trim: true,
         match: /^[a-zA-Z0-9]+$/,
 
     },
 
-    email:  { 
+    mEmail:  { 
 
         type: String, 
         required: true,
@@ -33,7 +34,7 @@ const managerSchema = new mongoose.Schema({
 
     },
 
-    password: {
+    mPassword: {
 
         type: String,
         required: true,
@@ -41,11 +42,13 @@ const managerSchema = new mongoose.Schema({
 
     },
 
-    managerToken:{
-
+    mContact: {
         type: String,
-        trim: true
-    }
+        required: true,
+        maxlength: [12, 'Phone number can be at most 12 digits long'],
+    },
+
+   
 
 })
 
