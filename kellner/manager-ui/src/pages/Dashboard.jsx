@@ -35,7 +35,7 @@ const Dashboard = (props)=>{
     };
 
     async function getAllRestaurants(){
-        const response = await fetch('http://localhost:5000/api/getRestaurant', {
+        const response = await fetch('http://localhost:5000/api/getRestaurants', {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json',

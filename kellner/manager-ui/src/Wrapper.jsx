@@ -7,6 +7,7 @@ import Register from './pages/Register';
 import LogIn from './pages/LogIn';
 import Dashboard from './pages/Dashboard';
 import Loading from './components/Loading';
+import Categories from './pages/Categories';
 
 const Wrapper = ()=>{
     const [token, setToken] = React.useState(null);
@@ -52,6 +53,7 @@ const Wrapper = ()=>{
               <Route path="/register" element={<Register storeToken = {storeToken} />} />
               <Route path="/login" element={<LogIn storeToken = {storeToken}/>} />
               <Route path="/dashboard" element={<Dashboard token={token} logout={logout} />} />
+              <Route path="/dashboard/categories/:resId" element={<Categories token={token} logout={logout} />} />
             </Routes>
         );
     }

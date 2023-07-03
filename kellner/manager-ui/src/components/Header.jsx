@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import logo from '../assets/logo/Kellner-Logo.png';
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
 const MasterContainer = styled('div')({
     display: 'flex',
@@ -34,7 +35,14 @@ const ButtonContainer = styled('div')({
     justifyContent: 'space-evenly'
 })
 
+
+
 const Header = (props)=>{
+    const navigate = useNavigate();
+    const lo = ()=>{
+        localStorage.removeItem('token');
+        navigate('/');
+    }
     return(
         <MasterContainer>
             <Container>
@@ -42,7 +50,7 @@ const Header = (props)=>{
                 <NameContainer><span style={{color:'#006600'}}>Kell</span>ner</NameContainer>
             </Container>
             <ButtonContainer>
-                <Button variant="contained" color='success' size='large' onClick={props.logout}>Log Out</Button>
+                <Button variant="contained" color='success' size='large' onClick={lo}>Log Out</Button>
             </ButtonContainer>
         </MasterContainer>
     );

@@ -4,6 +4,7 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 
 const Heading = styled('div')({
     fontFamily: 'Nunito',
@@ -18,6 +19,7 @@ const Content = styled('div')({
 });
 
 const RestaurantCard = ({ res })=>{
+    const navigate = useNavigate();
     async function deleteRestaurant(e){
         console.log(typeof(res._id));
         const response = await fetch(`http://localhost:5000/api/deleteRestaurant/:${res._id}`, {
@@ -29,6 +31,10 @@ const RestaurantCard = ({ res })=>{
         if(response.status === 200){
             window.location.reload();
         }
+    }
+
+    function goToCategories(){
+        navigate(`/dashboard/categories/:${res._id}`)
     }
     return(
         <Card sx={{margin: '0.6rem', border: '2px solid #006600', background: '#ffcc99', width: '20%'}}>
@@ -46,7 +52,7 @@ const RestaurantCard = ({ res })=>{
                 <Content><span style={{fontWeight:'bold'}}>Tables : </span>{res.numTables}</Content>
             </CardContent>
             <CardActions>
-                <Button variant='contained'>Show More</Button>
+                <Button variant='contained' onClick={goToCategories}>Show More</Button>
                 <Button variant='contained' color="error" onClick={deleteRestaurant}>Delete</Button>
             </CardActions>
         </Card>

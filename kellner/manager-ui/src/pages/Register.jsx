@@ -114,7 +114,7 @@ const Register = (props)=>{
 
         const data = await response.json();
         if(response.status === 200){
-            props.storeToken(data.managerToken)
+            props.storeToken(data.token)
         }
         
     }
