@@ -5,7 +5,8 @@ const Restaurant = require('../Schemas/restaurantSchema')
 const Category = require('../Schemas/categorySchema')
 const Item = require('../Schemas/itemSchema')
 require('dotenv').config({ path: './config/.env' });
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const bcrypt = require ('bcrypt');
 
 /* ROUTES */
 
@@ -17,19 +18,19 @@ const registerManager = async(req, res) => {
     try{
         const managerCount = await Manager.countDocuments({});
         const mId = `Mgr${managerCount + 1}`;
-    
+        const hashedPassword = await bcrypt.hash(req.body.mPassword, 10);
         const newManager = new Manager({
             mId : mId,
             mName : req.body.mName,
             mEmail : req.body.mEmail,
             mContact : req.body.mContact,
-            mPassword : req.body.mPassword
+            mPassword : hashedPassword
         })
 
         const savedManager = await newManager.save()
         if (!savedManager){
             res.status(400).send('Failed to Register Manager') // Message from the backend
-        } 
+        }
         const token = jwt.sign({ mEmail:savedManager.mEmail }, process.env.ACCESS_TOKEN_SECRET);
         res.status(200).send({token})
 
@@ -44,27 +45,38 @@ const registerManager = async(req, res) => {
 /*================================================================================================================================== 
     LOGIN
   ================================================================================================================================== */
-
-const loginManager = async(req, res) => {
-    //console.log(req.body)
-    try{
-        const user = await Manager.findOne({email: req.body.email})
-        if(user.password===req.body.password){
-            res.status(200).send({
-                manager: user.userName,
-                managerToken: user._id.valueOf()
-            })
+ 
+  // ...
+  
+  const loginManager = async (req, res) => {
+    try {
+      const manager = await Manager.findOne({ mEmail: req.body.mEmail });
+      if (manager) {
+        // Compare the provided password with the stored hash
+        const passwordMatch = await bcrypt.compare(req.body.mPassword, manager.mPassword);
+  
+        if (passwordMatch) {
+          // Generate a JWT token with the manager's email as the payload
+          const token = jwt.sign({ mEmail: manager.mEmail }, process.env.ACCESS_TOKEN_SECRET);
+  
+          res.status(200).send({token});
         } else {
-        res.status(401).send({
-            errorMessage: "Incorrect username or password, please try again."
-        })
+          res.status(401).send({
+            errorMessage: "Incorrect username or password, please try again.",
+          });
         }
-    }catch(e){
-        res.status(400).send({
-            errorMessage: e.message
-        })
+      } else {
+        res.status(401).send({
+          errorMessage: "Incorrect username or password, please try again.",
+        });
+      }
+    } catch (error) {
+      res.status(400).send({
+        errorMessage: error.message,
+      });
     }
-}
+  };
+  
 
 /*================================================================================================================================== 
     CREATE NEW RESTAURANT
