@@ -52,11 +52,9 @@ const registerManager = async(req, res) => {
     try {
       const manager = await Manager.findOne({ mEmail: req.body.mEmail });
       if (manager) {
-        // Compare the provided password with the stored hash
         const passwordMatch = await bcrypt.compare(req.body.mPassword, manager.mPassword);
   
         if (passwordMatch) {
-          // Generate a JWT token with the manager's email as the payload
           const token = jwt.sign({ mEmail: manager.mEmail }, process.env.ACCESS_TOKEN_SECRET);
   
           res.status(200).send({token});
@@ -81,44 +79,100 @@ const registerManager = async(req, res) => {
 /*================================================================================================================================== 
     CREATE NEW RESTAURANT
   ================================================================================================================================== */
+function authToken(req,res,next) {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1]
+  if (token === null) return res.status(400).send('Token is Null')
 
-const createRestaurant = async(req, res) => {
-    const newRestaurant = new Restaurant(req.body)
-    tempId = newRestaurant._id.valueOf()
-    newRestaurant.restaurantID = tempId.substr(1, 4)
-    //4 digits 
-    console.log(newRestaurant)
-    try {
-        await newRestaurant.save()
-        if (!newRestaurant){
-            res.status(400).send(message)
-        }
-        res.status(200).send(newRestaurant)
-    } catch (e) {
-        res.status(400).send({
-            errorMessage: e.message
-        })
-    }
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err,manager)=>{
+    if (err) return res.status(400).send('error with verify')
+    req.user = manager //this req.user means the token has a field called user
+    console.log(manager)
+    next();
+  })
 }
+
+const createRestaurant = async (req, res) => {
+  try {
+    const restCount = await Restaurant.countDocuments({});
+    const rId = `Store: ${restCount + 1}`;
+
+    const tableIds = [];
+    const tableCount = req.body.rTableCount;
+    for (let i = 0; i < tableCount; i++) {
+      const rTableId = `Table ${i + 1}`;
+      tableIds.push(rTableId);
+    }
+
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    const decodedToken = jwt.decode(token);
+
+    const manager = await Manager.findOne({ mEmail: decodedToken.mEmail }).exec();
+    if (!manager) {
+      return res.status(404).send('Manager Not Found');
+    }
+    //console.log(manager.mId)
+    const newRestaurant = new Restaurant({
+      resId: rId,
+      rName: req.body.rName,
+      rLocation: req.body.rLocation,
+      rDescription: req.body.rDescription,
+      rContact: req.body.rContact,
+      rTableCount: req.body.rTableCount,
+      rTableIds: tableIds,
+      managerId: manager.mId,
+    });
+
+    const savedRestaurant = await newRestaurant.save();
+    if (!savedRestaurant) {
+      return res.status(400).send('Failed to Add Restaurant');
+    }
+
+    res.status(200).send(savedRestaurant);
+  } catch (e) {
+    res.status(400).send({
+      errorMessage: e.message,
+    });
+  }
+};
+
+
 
 /*================================================================================================================================== 
     FETCH RESTAURANTS
   ================================================================================================================================== */
 
-const getRestaurant = async(req, res) => {
+  const getRestaurant = async (req, res) => {
     try {
-        const restaurant = await Restaurant.find({ managerToken: req.header('Authorization')})
-        if (!restaurant){
-            return res.status(404).json({error : 'No such restaurant exists!'})
-        } res.status(200).send({
-            restaurant
-        })
+      const authHeader = req.headers['authorization'];
+      const token = authHeader && authHeader.split(' ')[1];
+      
+      jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, decodedToken) => {
+        if (err) {
+          return res.status(400).send('Invalid token');
+        }
+        
+        const managerEmail = decodedToken.mEmail;
+        const manager = await Manager.findOne({ mEmail: managerEmail }).exec();
+        
+        if (!manager) {
+          return res.status(404).send('Manager not found');
+        }
+        
+        const restaurants = await Restaurant.find({ managerId: manager.mId }).exec();
+        
+        res.status(200).send({
+          restaurants
+        });
+      });
     } catch (e) {
-        res.status(400).send({
-            errorMessage: e.message
-        })
+      res.status(400).send({
+        errorMessage: e.message
+      });
     }
-}
+  };
+  
 
 const editRestaurant = async(req,res)=>{
 

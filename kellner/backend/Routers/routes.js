@@ -17,7 +17,6 @@ const {
     } = require('../Controllers/mainController.js')
 
 
-
 // Register New Manager
 router.post('/api/register', registerManager)  //POST 
 

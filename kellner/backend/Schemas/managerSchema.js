@@ -1,15 +1,17 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+require('dotenv').config({ path: './config/.env' });
 
-const uri = "mongodb+srv://admin:kellner01@kellner01.cbxnkwq.mongodb.net/"
+const uri = process.env.MONGODB_URL
 async function connect(){
     try{
         await mongoose.connect(uri)
+        //console.log("Connected to DB")
     }catch(error){
         console.error(error)
     }
 }
-connect(); 
+connect();
 
 const managerSchema = new mongoose.Schema({
 

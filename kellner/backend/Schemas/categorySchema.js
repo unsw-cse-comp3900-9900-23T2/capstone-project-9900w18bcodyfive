@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 //const validator = require('validator');
 const moment = require('moment');
+require('dotenv').config({ path: './config/.env' });
 
-const uri = "mongodb+srv://admin:kellner01@kellner01.cbxnkwq.mongodb.net/"
+const uri = process.env.MONGODB_URL
 async function connect(){
     try{
         await mongoose.connect(uri)
@@ -11,7 +12,7 @@ async function connect(){
         console.error(error)
     }
 }
-connect(); 
+connect();
 
 const categorySchema = new mongoose.Schema({
     cId: {

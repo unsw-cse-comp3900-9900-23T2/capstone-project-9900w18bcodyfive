@@ -5,3 +5,21 @@ Content-Type: application/json
   "mEmail": "johndoe1@exale.com",
   "mPassword": "pasword123"
 }
+###
+
+POST http://localhost:5000/api/createRestaurant
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtRW1haWwiOiJqb2huZG9lMUBleGFsZS5jb20iLCJpYXQiOjE2ODg0MTkzMTB9.unLoZofxKeqKvJvYMSbMnGq7gjLgkfqVXXC4ZA4O_Yk
+Content-Type: application/json
+
+{
+  "rName": "Restaurant Name",
+  "rLocation": "Restaurant Location",
+  "rDescription": "Restaurant Description",
+  "rContact": "426429232",
+  "rTableCount": 10
+}
+
+###
+GET http://localhost:5000/api/getRestaurant
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtRW1haWwiOiJqb2huZG9lMUBleGFsZS5jb20iLCJpYXQiOjE2ODg0MTkzMTB9.unLoZofxKeqKvJvYMSbMnGq7gjLgkfqVXXC4ZA4O_Yk
+

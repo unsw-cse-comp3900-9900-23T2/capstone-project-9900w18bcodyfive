@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+require('dotenv').config({ path: './config/.env' });
 
-const uri = "mongodb+srv://admin:kellner01@kellner01.cbxnkwq.mongodb.net/"
+const uri = process.env.MONGODB_URL
 async function connect(){
     try{
         await mongoose.connect(uri)
@@ -10,7 +11,7 @@ async function connect(){
         console.error(error)
     }
 }
-connect(); 
+connect();
 
 const restaurantSchema = new mongoose.Schema({
 
@@ -18,6 +19,10 @@ const restaurantSchema = new mongoose.Schema({
         type: String,
         unique: true
 
+    },
+
+    managerId : {
+        type:String
     },
 
     rName: { 
@@ -47,13 +52,6 @@ const restaurantSchema = new mongoose.Schema({
     rContact: {
         type: String,
         required: true,
-        validate: {
-            validator: function (value) {
-              const pattern = /^(04|\+614)[- \.]?\d{2}[- \.]?\d{2}[- \.]?\d{2}$/;
-              return pattern.test(value);
-            },
-            message: 'Invalid phone number format',
-          },
         maxlength: [12, 'Phone number can be at most 12 digits long'],
     },
 
@@ -63,6 +61,10 @@ const restaurantSchema = new mongoose.Schema({
         required: true, 
         min: [1, 'Too few tables']
 
+    },
+
+    rTableIds : {
+        type : [String],
     }
 });
 
