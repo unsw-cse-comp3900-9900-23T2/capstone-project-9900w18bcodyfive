@@ -12,14 +12,27 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtRW1haWwiOiJqb2huZ
 Content-Type: application/json
 
 {
-  "rName": "Restaurant Name",
-  "rLocation": "Restaurant Location",
-  "rDescription": "Restaurant Description",
+  "rName": "Dumabsdddsfsdfsdfsfdddd",
+  "rLocation": "RANDWsdfsdfUCKL",
+  "rDescription": "Description",
   "rContact": "426429232",
-  "rTableCount": 10
+  "rTableCount": 3
 }
 
 ###
 GET http://localhost:5000/api/getRestaurant
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtRW1haWwiOiJqb2huZG9lMUBleGFsZS5jb20iLCJpYXQiOjE2ODg0MTkzMTB9.unLoZofxKeqKvJvYMSbMnGq7gjLgkfqVXXC4ZA4O_Yk
  
+###
+PUT http://localhost:5000/api/editRestaurant
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtRW1haWwiOiJqb2huZG9lMUBleGFsZS5jb20iLCJpYXQiOjE2ODg0MTkzMTB9.unLoZofxKeqKvJvYMSbMnGq7gjLgkfqVXXC4ZA4O_Yk
+Content-Type: application/json
+
+{
+  "resId" : "Store: 8",
+  "rName": "Restaurant Namw",
+  "rLocation": "Restaurant sdfdsfLocation",
+  "rDescription": "Restaurant sdfsdfsdfDescription",
+  "rContact": "426429232",
+  "rTableCount": 6
+}

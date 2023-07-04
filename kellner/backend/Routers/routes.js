@@ -14,6 +14,7 @@ const {
     loginManager,
     createRestaurant,
     getRestaurant,
+    editRestaurant
     } = require('../Controllers/mainController.js')
 
 /*================================================================================================================================== 

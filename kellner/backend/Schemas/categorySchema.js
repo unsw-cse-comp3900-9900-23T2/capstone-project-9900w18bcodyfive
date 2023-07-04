@@ -32,7 +32,7 @@ const categorySchema = new mongoose.Schema({
     cDescription:{
         type: String,
         required: true,
-
+        
     },
 
     cType:{

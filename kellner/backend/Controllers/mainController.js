@@ -93,7 +93,7 @@ function authToken(req,res,next) {
 const createRestaurant = async (req, res) => {
   try {
     const restCount = await Restaurant.countDocuments({});
-    const rId = `Store: ${restCount + 1}`;
+    const rId = `Res${restCount + 1}`;
 
     const tableIds = {};
     const tableCount = req.body.rTableCount;
@@ -174,9 +174,28 @@ const createRestaurant = async (req, res) => {
   ================================================================================================================================== */
   
 const editRestaurant = async(req,res) => {
-  try{
-    
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
 
+  try{
+    const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    const manager = await Manager.findOne({ mEmail: decodedToken.mEmail });
+    if (!manager) {
+      return res.status(404).send('Manager not found');
+    }
+
+    const updatedRestaurant = await Restaurant.findOneAndUpdate(
+      { resId: req.body.resId },
+      req.body,
+      { new: true }
+    );
+
+    if (!updatedRestaurant) {
+      return res.status(404).send('Restaurant not found');
+    }
+
+    res.status(200).send('Restaurant Updated');
+    //console.log(updatedRestaurant)
 
   }catch(e){
     res.status(400).send({
