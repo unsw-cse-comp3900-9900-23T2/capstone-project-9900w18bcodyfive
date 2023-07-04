@@ -72,7 +72,6 @@ const registerManager = async(req, res) => {
       });
     }
   };
-  
 
 /*================================================================================================================================== 
     CREATE NEW RESTAURANT
@@ -186,6 +185,7 @@ const editRestaurant = async(req,res) => {
 
     const updatedRestaurant = await Restaurant.findOneAndUpdate(
       { resId: req.body.resId },
+      { rTableCount: req.body.rTableCount },
       req.body,
       { new: true }
     );
@@ -194,8 +194,20 @@ const editRestaurant = async(req,res) => {
       return res.status(404).send('Restaurant not found');
     }
 
+    if (req.body.rTableCount !== updatedRestaurant.rTableCount) {
+    const tableIds = {};
+    const tableCount = req.body.rTableCount;
+    for (let i = 0; i < tableCount; i++) {
+      const rTableId = `Table ${i + 1}`;
+      tableIds[i]= (rTableId);
+    }
+
+      updatedRestaurant.rTableIds = tableIds;
+      await updatedRestaurant.save();
+    }
+
     res.status(200).send('Restaurant Updated');
-    //console.log(updatedRestaurant)
+    console.log(updatedRestaurant)
 
   }catch(e){
     res.status(400).send({

@@ -34,5 +34,5 @@ Content-Type: application/json
   "rLocation": "Restaurant sdfdsfLocation",
   "rDescription": "Restaurant sdfsdfsdfDescription",
   "rContact": "426429232",
-  "rTableCount": 6
+  "rTableCount": 2
 }
