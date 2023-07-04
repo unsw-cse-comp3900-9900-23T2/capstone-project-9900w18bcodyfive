@@ -16,8 +16,11 @@ const {
     getRestaurant,
     } = require('../Controllers/mainController.js')
 
+/*================================================================================================================================== 
+    MANAGER AND RESTAURANT CONFIG
+  ================================================================================================================================== */   
 
-// Register New Manager
+  // Register New Manager
 router.post('/api/register', registerManager)  //POST 
 
 // Login for Manager
@@ -30,7 +33,7 @@ router.post('/api/createRestaurant', createRestaurant) //POST
 router.get('/api/getRestaurant', getRestaurant) //GET
 
 //Edit the Restaurant Details
-router.put('/api/editRestaurant' ) //PUT
+router.put('/api/editRestaurant',editRestaurant ) //PUT
 
 //Add Category
 router.post('/api/addCatergory') //POST

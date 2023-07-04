@@ -64,7 +64,8 @@ const restaurantSchema = new mongoose.Schema({
     },
 
     rTableIds : {
-        type : [String],
+        type : Object,
+        default : {}
     }
 });
 

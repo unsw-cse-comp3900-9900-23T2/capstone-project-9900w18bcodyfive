@@ -22,4 +22,4 @@ Content-Type: application/json
 ###
 GET http://localhost:5000/api/getRestaurant
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtRW1haWwiOiJqb2huZG9lMUBleGFsZS5jb20iLCJpYXQiOjE2ODg0MTkzMTB9.unLoZofxKeqKvJvYMSbMnGq7gjLgkfqVXXC4ZA4O_Yk
-
+ 

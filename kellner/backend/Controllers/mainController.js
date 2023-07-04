@@ -45,9 +45,7 @@ const registerManager = async(req, res) => {
 /*================================================================================================================================== 
     LOGIN
   ================================================================================================================================== */
- 
-  // ...
-  
+   
   const loginManager = async (req, res) => {
     try {
       const manager = await Manager.findOne({ mEmail: req.body.mEmail });
@@ -97,11 +95,11 @@ const createRestaurant = async (req, res) => {
     const restCount = await Restaurant.countDocuments({});
     const rId = `Store: ${restCount + 1}`;
 
-    const tableIds = [];
+    const tableIds = {};
     const tableCount = req.body.rTableCount;
     for (let i = 0; i < tableCount; i++) {
       const rTableId = `Table ${i + 1}`;
-      tableIds.push(rTableId);
+      tableIds[i]= (rTableId);
     }
 
     const authHeader = req.headers['authorization'];
@@ -137,8 +135,6 @@ const createRestaurant = async (req, res) => {
   }
 };
 
-
-
 /*================================================================================================================================== 
     FETCH RESTAURANTS
   ================================================================================================================================== */
@@ -172,9 +168,23 @@ const createRestaurant = async (req, res) => {
       });
     }
   };
-  
 
-const editRestaurant = async(req,res)=>{
+/*================================================================================================================================== 
+    EDIT RESTAURANTS
+  ================================================================================================================================== */
+  
+const editRestaurant = async(req,res) => {
+  try{
+    
+
+
+  }catch(e){
+    res.status(400).send({
+      errorMessage:e.message
+    });
+  }
+
+
 
 }
 
@@ -183,6 +193,7 @@ module.exports = {
     registerManager,
     loginManager,
     createRestaurant,
-    getRestaurant 
+    getRestaurant,
+    editRestaurant
 }
 
