@@ -10,6 +10,7 @@ import Header from "../components/Header";
 import CirclePattern from "../components/CirclePatterns";
 import welcomeAnimation from "../assets/images/welcomeAnimation.gif"
 
+
 const Container1 = styled('div')({
     fontFamily: 'Nunito',
     fontSize: '2rem',
@@ -37,6 +38,30 @@ const Container2 = styled('div')({
 
 const Dashboard = () => {
     const mName = useSelector(state => state.manager.mName)
+    const token = useSelector(state => state.manager.token)
+    const [restaurantList, setRestaurant] = React.useState([])
+
+    async function getRestaurant() {
+        const response = await fetch('http://localhost:5000/api/getRestaurant', {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+                'authorization': `bearer ${token}`
+            },
+        })
+    
+        const data = await response.json();
+        if (response.status === 200){
+            console.log(data.restaurant)
+            setRestaurant(data.restaurant)
+            console.log(restaurantList)
+        }
+    
+    }
+
+    React.useEffect(()=>{
+        getRestaurant()
+    },[]);
 
     return(
         <>
@@ -51,6 +76,11 @@ const Dashboard = () => {
                 </WelcomeGifContainer>
             </Container1>
             <Container2 id="restaurantDetails">
+                {(restaurantList.length === 0) ? (
+                    <div>Hello</div>
+                ) : (
+                    <div>worlds</div>
+                )}
             </Container2>
             
         </>
