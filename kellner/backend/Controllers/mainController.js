@@ -162,7 +162,7 @@ const createRestaurant = async (req, res) => {
         const restaurants = await Restaurant.find({ managerId: manager.mId }).exec();
         
         res.status(200).send({
-          restaurants
+          restaurant: restaurants
         });
       });
     } catch (e) {
