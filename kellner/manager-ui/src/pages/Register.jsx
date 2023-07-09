@@ -1,9 +1,15 @@
 import React from "react";
 import { styled } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 import FormInput from "../components/FormInput";
 import LoginBg from '../assets/images/Login-Bg.jpg';
+
+//Redux Imports
+import {loggingIn, loggedIn, loggingError} from "../redux/slices/managerSlice"
+import { useDispatch } from "react-redux";
 
 const BackgroundContainer = styled('div')({
     backgroundImage: `url(${LoginBg})`,
@@ -40,18 +46,20 @@ const Submit = styled('button')({
 });
 
 const Register = (props)=>{
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [values, setValues] = React.useState({
-        userName:"",
-        email:"",
-        birthday:"",
-        password:"",
-        confirmPassword:""
+        mName:"",
+        mEmail:"",
+        mContact:"",
+        mPassword:"",
+        mConfirmPassword:""
     });
 
     const inputs = [
         {
             id:1,
-            name:"userName",
+            name:"mName",
             type:"text",
             placeholder:"Username",
             errorMessage:"Username should be 3 to 6 characters and shoudn't include any special character",
@@ -61,7 +69,7 @@ const Register = (props)=>{
         },
         {
             id:2,
-            name:"email",
+            name:"mEmail",
             type:"email", // performs the work of the regex in the email field
             placeholder:"Email",
             errorMessage:"Please enter a valid email address",
@@ -70,16 +78,16 @@ const Register = (props)=>{
         },
         {
             id:3,
-            name:"birthday",
-            type:"date",
-            placeholder:"Birthday",
+            name:"mContact",
+            type:"text",
+            placeholder:"Contact Number",
             errorMessage:"",
-            label:"Birthday",
+            label:"Contact Number",
             required:true
         },
         {
             id:4,
-            name:"password",
+            name:"mPassword",
             type:"password",
             placeholder:"Password",
             errorMessage:"Passwords should be 8 - 20 characters and it should include atleast one letter, one number and one special character",
@@ -89,7 +97,7 @@ const Register = (props)=>{
         },
         {
             id:5,
-            name:"confirmPassword",
+            name:"mConfirmPassword",
             type:"password",
             placeholder:"Confirm Password",
             errorMessage:"Passwords don't match",
@@ -104,6 +112,7 @@ const Register = (props)=>{
     };
 
     async function registerUser() {
+        dispatch(loggingIn());
         const response = await fetch('http://localhost:5000/api/register', {
             method: 'POST',
             headers: {
@@ -114,7 +123,10 @@ const Register = (props)=>{
 
         const data = await response.json();
         if(response.status === 200){
-            props.storeToken(data.token)
+            dispatch(loggedIn({...data}));
+            navigate('/dashboard');
+        } else {
+            dispatch(loggingError(data.errorMessage))
         }
         
     }

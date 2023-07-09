@@ -1,6 +1,11 @@
 import React from "react";
 import { styled } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+//Redux Imports
+import {loggingIn, loggedIn, loggingError} from "../redux/slices/managerSlice"
+import { useDispatch } from "react-redux";
 
 import FormInput from "../components/FormInput";
 import LoginBg from '../assets/images/Login-Bg.jpg';
@@ -40,7 +45,9 @@ const Submit = styled('button')({
 
 });
 
-const LogIn = (props) => {
+const LogIn = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [values, setValues] = React.useState({
         email:"",
         password:""
@@ -49,7 +56,7 @@ const LogIn = (props) => {
     const inputs = [
         {
             id:1,
-            name:"email",
+            name:"mEmail",
             type:"email", // performs the work of the regex in the email field
             placeholder:"Email",
             errorMessage:"Please enter a valid email",
@@ -58,7 +65,7 @@ const LogIn = (props) => {
         },
         {
             id:2,
-            name:"password",
+            name:"mPassword",
             type:"password",
             placeholder:"Password",
             errorMessage:"",
@@ -71,6 +78,7 @@ const LogIn = (props) => {
     };
 
     async function logInUser() {
+        dispatch(loggingIn())
         const response = await fetch('http://localhost:5000/api/login', {
             method: 'POST',
             headers: {
@@ -81,9 +89,10 @@ const LogIn = (props) => {
 
         const data = await response.json();
         if (response.status === 200){
-            props.storeToken(data.managerToken)
+            dispatch(loggedIn({...data}));
+            navigate('/dashboard');
         } else {
-            console.log(data.errorMessage);
+            dispatch(loggingError(data.errorMessage));
             window.alert(data.errorMessage);
         }
     }

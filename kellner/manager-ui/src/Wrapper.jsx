@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route, useLocation, useNavigate  } from 'react-router-dom';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
 
 // Pages import
 import Home from './pages/Home';
@@ -7,33 +8,20 @@ import Register from './pages/Register';
 import LogIn from './pages/LogIn';
 import Dashboard from './pages/Dashboard';
 import Loading from './components/Loading';
-import Categories from './pages/Categories';
 
 const Wrapper = ()=>{
-    const [token, setToken] = React.useState(null);
+    const token = useSelector(state => state.manager.token);
     const [globalLoading, setGlobalLoading] = React.useState(true);
     const location = useLocation();
     const navigate = useNavigate();
     
-    // store the token on successful login/register
-    function storeToken(token) {
-        setToken(token);
-        localStorage.setItem('token',token);
-        navigate('/dashboard');
-    }
 
-    // removing token on logout
-    function logout(token) {
-        localStorage.removeItem('token');
-        navigate('/');
-    }
     
     // Checking whether the user is already logged in
     React.useEffect(function () {
-        if (localStorage.getItem('token')) {// If the user is logged in take him to the dashboard
-            setToken(localStorage.getItem('token'));
+        if (token !== null) {// If the user is logged in take him to the dashboard
             if (['/'].includes(location.pathname)) {
-            navigate('/');
+            navigate('/dashboard');
             }
         } else { // If the user is not logged in take him to the home page
             navigate('/');
@@ -50,10 +38,9 @@ const Wrapper = ()=>{
         return(
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/register" element={<Register storeToken = {storeToken} />} />
-              <Route path="/login" element={<LogIn storeToken = {storeToken}/>} />
-              <Route path="/dashboard" element={<Dashboard token={token} logout={logout} />} />
-              <Route path="/dashboard/categories/:resId" element={<Categories token={token} logout={logout} />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<LogIn />} />
+              <Route path="/dashboard" element={<Dashboard />} />
             </Routes>
         );
     }
