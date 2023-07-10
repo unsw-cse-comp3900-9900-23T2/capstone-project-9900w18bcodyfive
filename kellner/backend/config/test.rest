@@ -13,21 +13,22 @@ POST http://localhost:5000/api/login
 Content-Type: application/json
 
 {
-  "mEmail": "johndoe1@exale.com",
-  "mPassword": "pasword123"
+  "mEmail": "shloka@gmail.com",
+  "mPassword": "Shlokaaaa12!"
 }
 ###
 
 POST http://localhost:5000/api/createRestaurant
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtRW1haWwiOiJqb2huZG9lMUBleGFsZS5jb20iLCJpYXQiOjE2ODg0MTkzMTB9.unLoZofxKeqKvJvYMSbMnGq7gjLgkfqVXXC4ZA4O_Yk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtRW1haWwiOiJzaGxva2FAZ21haWwuY29tIiwiaWF0IjoxNjg4OTk2NDg1fQ.v8K5g-JrF1fxWj4NuuFEGqPqbS1ttZu843ZvFaKtvQk
 Content-Type: application/json
 
 {
-  "rName": "Dumabsdddsfsdfsdfsfdddd",
-  "rLocation": "RANDWsdfsdfUCKL",
-  "rDescription": "Description",
+  "rName": "Restaurant Intro",
+  "rLocation": "Pendle Hill",
+  "rDescription": "Eat for free if you're jobless",
   "rContact": "426429232",
-  "rTableCount": 3
+  "rTableCount": 6,
+  "rImage" : "https://img.rawpixel.com/private/static/images/website/2022-05/upwk61661577-wikimedia-image-kowapeej.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=14769aec7c86811c0c7e4eb29fa4a76e"
 }
 
 ###

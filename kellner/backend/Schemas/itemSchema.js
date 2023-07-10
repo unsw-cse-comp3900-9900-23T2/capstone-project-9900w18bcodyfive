@@ -62,7 +62,7 @@ const itemModel = new mongoose.Schema({
     
 
     iImage:{
-        type: Buffer,
+        type: String,
     },
 
 

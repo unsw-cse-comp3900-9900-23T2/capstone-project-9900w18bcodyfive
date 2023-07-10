@@ -41,7 +41,7 @@ const categorySchema = new mongoose.Schema({
     },
 
     cImage:{
-        type: Buffer,
+        type: String,
     }
     
 })

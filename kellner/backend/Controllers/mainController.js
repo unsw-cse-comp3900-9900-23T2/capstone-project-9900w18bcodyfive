@@ -7,6 +7,7 @@ const Item = require('../Schemas/itemSchema')
 require('dotenv').config({ path: './config/.env' });
 const jwt = require('jsonwebtoken');
 const bcrypt = require ('bcrypt');
+const { uploadImageToCloudinary, deleteImageFromCloudinary } = require('../services/cloudinary')
 
 /* ROUTES */
 
@@ -15,7 +16,13 @@ const bcrypt = require ('bcrypt');
   ================================================================================================================================== */
 
 const registerManager = async(req, res) => {
+
     try{
+
+        const existingManager = await Manager.findOne({ mEmail: req.body.mEmail }).exec();
+        if (existingManager) {
+          return res.status(400).send('Email already exists');
+        }
         const managerCount = await Manager.countDocuments({});
         const mId = `Mgr${managerCount + 1}`;
         const hashedPassword = await bcrypt.hash(req.body.mPassword, 10);
@@ -52,7 +59,7 @@ const registerManager = async(req, res) => {
     try {
       const manager = await Manager.findOne({ mEmail: req.body.mEmail });
       if (manager) {
-        console.log(manager)
+        //console.log(manager)
         const passwordMatch = await bcrypt.compare(req.body.mPassword, manager.mPassword);
   
         if (passwordMatch) {
@@ -80,29 +87,16 @@ const registerManager = async(req, res) => {
 /*================================================================================================================================== 
     CREATE NEW RESTAURANT
   ================================================================================================================================== */
-function authToken(req,res,next) {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1]
-  if (token === null) return res.status(400).send('Token is Null')
-
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err,manager)=>{
-    if (err) return res.status(400).send('error with verify')
-    req.user = manager //this req.user means the token has a field called user
-    console.log(manager)
-    next();
-  })
-}
 
 const createRestaurant = async (req, res) => {
   try {
     const restCount = await Restaurant.countDocuments({});
     const rId = `Res${restCount + 1}`;
-
     const tableIds = {};
     const tableCount = req.body.rTableCount;
     for (let i = 0; i < tableCount; i++) {
       const rTableId = `Table ${i + 1}`;
-      tableIds[i]= (rTableId);
+      tableIds[i] = rTableId;
     }
 
     const authHeader = req.headers['authorization'];
@@ -113,7 +107,10 @@ const createRestaurant = async (req, res) => {
     if (!manager) {
       return res.status(404).send('Manager Not Found');
     }
-    //console.log(manager.mId)
+
+    const imageUrl = req.body.rImage;
+    const rImage = await uploadImageToCloudinary(imageUrl);
+
     const newRestaurant = new Restaurant({
       resId: rId,
       rName: req.body.rName,
@@ -122,6 +119,7 @@ const createRestaurant = async (req, res) => {
       rContact: req.body.rContact,
       rTableCount: req.body.rTableCount,
       rTableIds: tableIds,
+      rImage : rImage,
       managerId: manager.mId,
     });
 

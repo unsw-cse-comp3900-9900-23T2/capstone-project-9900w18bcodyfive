@@ -1,11 +1,5 @@
 const express = require('express');
-const mongoose = require('mongoose');
-const moment = require('moment')
-
-/* const Manager = require('../Schemas/managerSchema')
-const Restaurant = require('../Schemas/restaurantSchema')
-const Category = require('../Schemas/categorySchema')
-const Item = require('../Schemas/itemModel') */
+const limiter = require('../services/ratelimiting');
 
 const router = new express.Router()
 
@@ -22,10 +16,11 @@ const {
   ================================================================================================================================== */   
 
   // Register New Manager
-router.post('/api/register', registerManager)  //POST 
+router.post('/api/register',limiter, registerManager)  //POST 
 
 // Login for Manager
-router.post('/api/login', loginManager) //POST
+
+router.post('/api/login',limiter, loginManager) //POST
 
 // Create Restuarant
 router.post('/api/createRestaurant', createRestaurant) //POST

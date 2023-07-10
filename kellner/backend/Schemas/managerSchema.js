@@ -3,10 +3,10 @@ const validator = require('validator');
 require('dotenv').config({ path: './config/.env' });
 
 const uri = process.env.MONGODB_URL
+
 async function connect(){
     try{
         await mongoose.connect(uri)
-        //console.log("Connected to DB")
     }catch(error){
         console.error(error)
     }
@@ -52,7 +52,7 @@ const managerSchema = new mongoose.Schema({
 
    
 
-})
+},{timestamps: true});
 
 const Manager = mongoose.model('Manager', managerSchema)
 module.exports = Manager

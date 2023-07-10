@@ -43,9 +43,9 @@ const restaurantSchema = new mongoose.Schema({
     
     },
     
-    restaurantImage: { 
+    rImage: { 
 
-        type: Buffer, 
+        type: String, 
 
     },
     
@@ -67,7 +67,7 @@ const restaurantSchema = new mongoose.Schema({
         type : Object,
         default : {}
     }
-});
+}, {timestamps: true});
 
 const restaurantData = mongoose.model('restaurantData', restaurantSchema)
 module.exports = restaurantData
