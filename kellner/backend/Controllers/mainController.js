@@ -215,8 +215,6 @@ const editRestaurant = async(req,res) => {
     });
   }
 
-
-
 }
 
 
