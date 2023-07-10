@@ -10,6 +10,7 @@ import Header from "../components/Header";
 import CirclePattern from "../components/CirclePatterns";
 import welcomeAnimation from "../assets/images/welcomeAnimation.gif"
 import NoRestaurantAdded from "../components/noRestaurantAdded";
+import RestaurantAdded from "../components/RestaurantAdded";
 
 
 const Container1 = styled('div')({
@@ -56,10 +57,10 @@ const Dashboard = () => {
         if (response.status === 200){
             console.log(data.restaurant)
             setRestaurantList(data.restaurant)
-            console.log(restaurantList)
         }
     
     }
+
 
     React.useEffect(()=>{
         getRestaurant()
@@ -79,9 +80,9 @@ const Dashboard = () => {
             </Container1>
             <Container2 id="restaurantDetails">
                 {(restaurantList.length === 0) ? (
-                   <NoRestaurantAdded/>
+                   <NoRestaurantAdded />
                 ) : (
-                    <div>worlds</div>
+                    <RestaurantAdded rImage={restaurantList[0].rImage}/>
                 )}
             </Container2>
             

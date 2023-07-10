@@ -46,7 +46,7 @@ const Button = styled('button')({
     }
 })
 
-const NoRestaurantAdded  = ()=>{
+const NoRestaurantAdded  = (props)=>{
     const [open, setOpen] = React.useState(false);
     const openModal = ()=>{
         setOpen(true);
@@ -61,7 +61,6 @@ const NoRestaurantAdded  = ()=>{
                 <div><Button onClick={openModal}>Add Restaurant</Button></div>
                 <PopUpModal open={open} handleClose={closeModal}/>
             </Child>
-            {/* <Child><img src={noContentAdded} alt={'No content added'} style={{objectFit: 'fill'}}/></Child> */}
             <Image />
         </Container>
     );

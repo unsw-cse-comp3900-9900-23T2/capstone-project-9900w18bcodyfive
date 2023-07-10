@@ -5,6 +5,9 @@ import styled from "@emotion/styled";
 import FormInput from "./FormInput";
 import { fileToDataUrl } from "./fileToDataUrl";
 
+//Redux Imports
+import { useSelector } from "react-redux/es/hooks/useSelector";
+
 const FormContainer = styled('div')({
     display: 'flex',
     alignItems: 'center',
@@ -39,20 +42,21 @@ const StyledButton = styled('button')({
 });
 
 const PopUpModal = (props)=>{
+    const token = useSelector(state => state.manager.token)
+    const closeModal = ()=>{props.handleClose()}
     const [values, setValues] = React.useState({
-        restaurantName:"",
-        restaurantType:"",
-        description: "",
-        location:"",
-        phoneNumber:"",
-        numTables:"",
-        restaurantImage:""
+        rName:"",
+        rDescription: "",
+        rLocation:"",
+        rContact:"",
+        rTableCount:"",
+        rImage:""
     });
 
     const inputs = [
         {
             id:1,
-            name:"restaurantName",
+            name:"rName",
             type:"text",
             placeholder:"Restaurant Name",
             errorMessage:"please enter a restaurant name",
@@ -61,16 +65,7 @@ const PopUpModal = (props)=>{
         },
         {
             id:2,
-            name:"restaurantType",
-            type:"text",
-            placeholder:"Restaurant Type eg: Cafe, Diner etc.",
-            errorMessage:"please enter the type",
-            label:"Restaurant Type",
-            required:true
-        },
-        {
-            id:3,
-            name:"description",
+            name:"rDescription",
             type:"text",
             placeholder:"Add a short description about your restaurant",
             errorMessage:"Please enter the description",
@@ -78,8 +73,8 @@ const PopUpModal = (props)=>{
             required:true
         },
         {
-            id:4,
-            name:"restaurantImage",
+            id:3,
+            name:"rImage",
             type:"file",
             placeholder:"please upload an image of your restaurant",
             errorMessage:"Please upload an image",
@@ -87,8 +82,8 @@ const PopUpModal = (props)=>{
             required:true
         },
         {
-            id:5,
-            name:"location",
+            id:4,
+            name:"rLocation",
             type:"text",
             placeholder:"Enter the Location of your restaurant",
             errorMessage:"Please enter a location",
@@ -96,17 +91,17 @@ const PopUpModal = (props)=>{
             required:true
         },
         {
-            id:6,
-            name:"phoneNumber",
-            type:"number",
+            id:5,
+            name:"rContact",
+            type:"text",
             placeholder:"Enter the phone number",
             errorMessage:"Please enter a phone number",
             label:"Phone Number",
             required:true
         },
         {
-            id:7,
-            name:"numTables",
+            id:6,
+            name:"rTableCount",
             type:"number",
             placeholder:"Enter the number of tables in you restaurant",
             errorMessage:"Please enter number of tables",
@@ -116,10 +111,11 @@ const PopUpModal = (props)=>{
     ];
 
     async function addRestaurant() {
-        const response = await fetch('http://localhost:5000/api/newRestaurant', {
+        const response = await fetch('http://localhost:5000/api/createRestaurant', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
+                'authorization': `bearer ${token}`
             },
             body : JSON.stringify(values)
         })
@@ -142,7 +138,7 @@ const PopUpModal = (props)=>{
     };
     
     const onChange = (e) =>{
-        if(e.target.name === "restaurantImage"){
+        if(e.target.name === "rImage"){
             handleFileUpload(e);
         } else {
             setValues({ ...values, [e.target.name]: e.target.value});
@@ -161,7 +157,7 @@ const PopUpModal = (props)=>{
                 <Form onSubmit={handleSubmit}>
                     <h2 style={{color:'#006600'}}>Register Here</h2>
                     {inputs.map((input) =>{
-                        if(input.name === "restaurantImage"){
+                        if(input.name === "rImage"){
                             return(
                                 <FormInput key={input.id} {...input} onChange={onChange}/>
                             );
@@ -172,7 +168,7 @@ const PopUpModal = (props)=>{
                         }
                     })}
                     <ButtonContainer>
-                        <StyledButton style={{backgroundColor: 'red'}} onClick={()=>{props.handleClose()}}>Cancel</StyledButton>
+                        <StyledButton style={{backgroundColor: 'red'}} onClick={closeModal}>Cancel</StyledButton>
                         <StyledButton style={{backgroundColor: '#006600'}}>Submit</StyledButton>
                     </ButtonContainer>
                 </Form>

@@ -121,6 +121,7 @@ const createRestaurant = async (req, res) => {
       rTableIds: tableIds,
       rImage : rImage,
       managerId: manager.mId,
+      rImage: req.body.rImage
     });
 
     const savedRestaurant = await newRestaurant.save();
