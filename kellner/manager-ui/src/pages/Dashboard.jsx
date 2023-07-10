@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import Header from "../components/Header";
 import CirclePattern from "../components/CirclePatterns";
 import welcomeAnimation from "../assets/images/welcomeAnimation.gif"
+import NoRestaurantAdded from "../components/noRestaurantAdded";
 
 
 const Container1 = styled('div')({
@@ -16,7 +17,8 @@ const Container1 = styled('div')({
     fontSize: '2rem',
     fontWeight: 'bold',
     display: 'flex',
-    margin: '1rem 3rem',
+    margin: '5rem 3rem',
+    padding: '2rem 1rem',
     flexDirection: 'column',
     alignItems: 'start'
 });
@@ -31,7 +33,6 @@ const Container2 = styled('div')({
     fontFamily: 'Nunito',
     fontSize: '2rem',
     backgroundColor:'#b3ffb3',
-    flexDirection: 'column'
 });
 
 
@@ -39,8 +40,9 @@ const Container2 = styled('div')({
 const Dashboard = () => {
     const mName = useSelector(state => state.manager.mName)
     const token = useSelector(state => state.manager.token)
-    const [restaurantList, setRestaurant] = React.useState([])
+    const [restaurantList, setRestaurantList] = React.useState([])
 
+    // function which fetch the restaurant data from backend
     async function getRestaurant() {
         const response = await fetch('http://localhost:5000/api/getRestaurant', {
             method: 'GET',
@@ -53,7 +55,7 @@ const Dashboard = () => {
         const data = await response.json();
         if (response.status === 200){
             console.log(data.restaurant)
-            setRestaurant(data.restaurant)
+            setRestaurantList(data.restaurant)
             console.log(restaurantList)
         }
     
@@ -77,7 +79,7 @@ const Dashboard = () => {
             </Container1>
             <Container2 id="restaurantDetails">
                 {(restaurantList.length === 0) ? (
-                    <div>Hello</div>
+                   <NoRestaurantAdded/>
                 ) : (
                     <div>worlds</div>
                 )}
