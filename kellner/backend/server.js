@@ -5,6 +5,28 @@ const app = require('./app.js');
 const cloudinary = require('cloudinary').v2;
 require('dotenv').config({ path: './config/.env' });
 
+
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Kellner API',
+      version: '1.1.1',
+      description: 'API documentation using Swagger',
+    },
+  },
+  apis: ['Routers/routes.js'],
+};
+
+const swaggerSpec = swaggerJsDoc(swaggerOptions);
+
+// Serve the Swagger documentation using Swagger UI
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+
 const port = process.env.port || 5000
 
 

@@ -16,6 +16,81 @@ const {
   ================================================================================================================================== */   
 
   // Register New Manager
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Manager:
+ *       type: object
+ *       properties:
+ *         mId:
+ *           type: string
+ *         mName:
+ *           type: string
+ *         mEmail:
+ *           type: string
+ *         mPassword:
+ *           type: string
+ *         mContact:
+ *           type: string
+ *     RegisterRequest:
+ *       type: object
+ *       properties:
+ *         mName:
+ *           type: string
+ *         mEmail:
+ *           type: string
+ *         mPassword:
+ *           type: string
+ *         mContact:
+ *           type: string
+ *     RegisterResponse:
+ *       type: object
+ *       properties:
+ *         mId:
+ *           type: string
+ *         mName:
+ *           type: string
+ *         mEmail:
+ *           type: string
+ *         token:
+ *           type: string
+ *     Error:
+ *       type: object
+ *       properties:
+ *         errorMessage:
+ *           type: string
+ */
+
+/**
+ * @swagger
+ * /api/register:
+ *   post:
+ *     summary: Register a manager
+ *     tags:
+ *       - Manager
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/RegisterRequest'
+ *     responses:
+ *       200:
+ *         description: Successful registration
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/RegisterResponse'
+ *       400:
+ *         description: Failed to register manager
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+*/
+
 router.post('/api/register',limiter, registerManager)  //POST 
 
 // Login for Manager
