@@ -40,7 +40,6 @@ const StyledButton = styled('button')({
 
 const PopUpModal = (props)=>{
     const [values, setValues] = React.useState({
-        managerToken: props.token.toString(),
         restaurantName:"",
         restaurantType:"",
         description: "",
