@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import Header from "../components/Header";
 import CirclePattern from "../components/CirclePatterns";
 import welcomeAnimation from "../assets/images/welcomeAnimation.gif"
-import NoRestaurantAdded from "../components/noRestaurantAdded";
+import NoRestaurantAdded from "../components/NoRestaurant";
 import RestaurantAdded from "../components/RestaurantAdded";
 
 
