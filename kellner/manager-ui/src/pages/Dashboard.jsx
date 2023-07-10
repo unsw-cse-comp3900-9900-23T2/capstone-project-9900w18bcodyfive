@@ -1,85 +1,90 @@
-import React from 'react';
-import Header from '../components/Header';
-import styled from '@emotion/styled';
-import { Button } from '@mui/material';
+import React from "react";
+import styled from "@emotion/styled";
+import { Button } from "@mui/material";
 
-import PopUpModal from '../components/PopUpModal';
-import RestaurantCard from '../components/RestaurantCard';
+// Redux Imports
+import { useSelector } from "react-redux";
 
-const Container = styled('div')({
+// Component Imports
+import Header from "../components/Header";
+import CirclePattern from "../components/CirclePatterns";
+import welcomeAnimation from "../assets/images/welcomeAnimation.gif"
+
+
+const Container1 = styled('div')({
+    fontFamily: 'Nunito',
+    fontSize: '2rem',
+    fontWeight: 'bold',
     display: 'flex',
+    margin: '1rem 3rem',
+    flexDirection: 'column',
+    alignItems: 'start'
+});
+
+const WelcomeGifContainer = styled('div')({
+    display: 'flex',
+    marginTop: '1rem'
+});
+
+const Container2 = styled('div')({
+    display: 'flex',
+    fontFamily: 'Nunito',
+    fontSize: '2rem',
+    backgroundColor:'#b3ffb3',
     flexDirection: 'column'
 });
 
-const ContentEmpty = styled('div')({
-    textAlign: 'center',
-    fontSize: '2rem',
-    marginTop: '7rem'
-});
 
-const RestaurantCardContainer = styled('div')({
-    display: 'flex',
-    border: '2px solid #006600',
-    margin: '4rem 1rem',
-    borderRadius: '4px'
-});
 
-const Dashboard = (props)=>{
-    const [restaurants, setRestaurants] = React.useState([]);
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = ()=>{
-        setOpen(true);
-    };
-    const handleClose = ()=>{
-        setOpen(false);
-    };
+const Dashboard = () => {
+    const mName = useSelector(state => state.manager.mName)
+    const token = useSelector(state => state.manager.token)
+    const [restaurantList, setRestaurant] = React.useState([])
 
-    async function getAllRestaurants(){
-        const response = await fetch('http://localhost:5000/api/getRestaurants', {
+    async function getRestaurant() {
+        const response = await fetch('http://localhost:5000/api/getRestaurant', {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json',
-                Authorization: `${props.token}`,
+                'authorization': `bearer ${token}`
             },
         })
+    
         const data = await response.json();
-        if(response.status === 200){
+        if (response.status === 200){
             console.log(data.restaurant)
-            setRestaurants(data.restaurant)
+            setRestaurant(data.restaurant)
+            console.log(restaurantList)
         }
+    
     }
+
     React.useEffect(()=>{
-        getAllRestaurants()
+        getRestaurant()
     },[]);
 
-    if (restaurants.length === 0){
-        return(
-            <Container>
-                <Header logout={props.logout}/>
-                <ContentEmpty>You have not added any restaurants</ContentEmpty>
-                <Button variant="contained" color="primary" style={{margin:" 1rem auto", width: "10%"}} onClick={handleOpen}>Add Restaurant</Button>
-                <PopUpModal open={open} token={props.token} handleClose={handleClose}/>
-            </Container>
-        );
-    } else {
-        return(
-            <div>
-                <Container>
-                    <Header/>
-                    <RestaurantCardContainer>
-                        {restaurants.map((r, idx)=>{
-                            return(
-                                <RestaurantCard key={idx} res={r}/>
-                            );
-                        })}
-                    </RestaurantCardContainer>
-                    <Button variant="contained" color="primary" style={{margin:" 1rem auto", width: "10%"}} onClick={handleOpen}>Add Restaurant</Button>
-                    <PopUpModal open={open} token={props.token} handleClose={handleClose}/>
-                </Container>
-                
-            </div>
-        );
-    }
+    return(
+        <>
+            <CirclePattern />
+            <Header />
+            <Container1>
+                <span style={{ fontSize:"3rem"}}>Welcome <span style={{color:'#006600'}}>{mName}</span></span><br/>
+                <div>You can get started by configuring your restaurant</div>
+                <a href='#restaurantDetails'><Button size="large" variant="contained" color="success">Get Started</Button></a>
+                <WelcomeGifContainer>
+                    <img alt="welcome animation" src={welcomeAnimation}/>
+                </WelcomeGifContainer>
+            </Container1>
+            <Container2 id="restaurantDetails">
+                {(restaurantList.length === 0) ? (
+                    <div>Hello</div>
+                ) : (
+                    <div>worlds</div>
+                )}
+            </Container2>
+            
+        </>
+    );
 }
 
 export default Dashboard;

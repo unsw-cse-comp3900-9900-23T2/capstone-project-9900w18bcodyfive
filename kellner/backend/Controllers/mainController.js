@@ -26,19 +26,21 @@ const registerManager = async(req, res) => {
             mContact : req.body.mContact,
             mPassword : hashedPassword
         })
-
         const savedManager = await newManager.save()
         if (!savedManager){
-            res.status(400).send('Failed to Register Manager') // Message from the backend
+          res.status(400).send('Failed to Register Manager') // Message from the backend
         }
         const token = jwt.sign({ mEmail:savedManager.mEmail }, process.env.ACCESS_TOKEN_SECRET);
-        res.status(200).send({token})
+        const registerResponse = (({mId, mName, mEmail}) => ({mId, mName, mEmail}))(savedManager);
+        registerResponse.token = token;
+        res.status(200).send(registerResponse)
 
 
     }catch(error){
-        res.status(400).send({
-            errorMessage: error.message
-        })
+      console.log(error)
+      res.status(400).send({
+        errorMessage: error.message
+      })
     }
 } 
 
@@ -50,12 +52,14 @@ const registerManager = async(req, res) => {
     try {
       const manager = await Manager.findOne({ mEmail: req.body.mEmail });
       if (manager) {
+        console.log(manager)
         const passwordMatch = await bcrypt.compare(req.body.mPassword, manager.mPassword);
   
         if (passwordMatch) {
           const token = jwt.sign({ mEmail: manager.mEmail }, process.env.ACCESS_TOKEN_SECRET);
-  
-          res.status(200).send({token});
+          const loginResponse = (({mId, mName, mEmail}) => ({mId, mName, mEmail}))(manager);
+          loginResponse.token = token;
+          res.status(200).send(loginResponse)
         } else {
           res.status(401).send({
             errorMessage: "Incorrect username or password, please try again.",
@@ -158,7 +162,7 @@ const createRestaurant = async (req, res) => {
         const restaurants = await Restaurant.find({ managerId: manager.mId }).exec();
         
         res.status(200).send({
-          restaurants
+          restaurant: restaurants
         });
       });
     } catch (e) {
