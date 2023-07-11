@@ -12,7 +12,11 @@ const {
     addCategory,
     getCategory,
     editCategory,
-    deleteCategory
+    deleteCategory,
+    addItem,
+    getItem,
+    editItem,
+    deleteItem
     } = require('../Controllers/mainController.js')
 
 /*================================================================================================================================== 
@@ -123,15 +127,15 @@ router.put('/api/editCategory/:rId/:cId', editCategory) //PUT
 router.delete('/api/deleteCategory/:rId/:cId', deleteCategory) //DELETE
 
 // Add Food Items under a category
-router.post('/api/addItems/:rId/:cId') //POST
+router.post('/api/addItems/:rId/:cId', addItem) //POST
 
 // Return Food Items under a category
-router.get('/api/getItems/:rId/:cId') //GET
+router.get('/api/getItems/:rId/:cId', getItem) //GET
 
 // Edit Food Items under a category
-router.put('/api/editItems/:rId/:cId/:iId') //PUT
+router.put('/api/editItems/:rId/:cId/:iId', editItem) //PUT
 
 // Delete Food Items under a category
-router.delete('/api/deleteItems/:rId/:cId/:iId') //DELETE
+router.delete('/api/deleteItems/:rId/:cId/:iId', deleteItem) //DELETE
 
 module.exports = router;
