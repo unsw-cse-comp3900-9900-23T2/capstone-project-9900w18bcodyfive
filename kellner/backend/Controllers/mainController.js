@@ -224,12 +224,98 @@ const editRestaurant = async(req,res) => {
 
 }
 
+/*================================================================================================================================== 
+    CREATE CATEGORIES
+  ================================================================================================================================== */
+  const addCategory = async(req,res) => {
+
+    try{
+
+      const authHeader = req.headers['authorization'];
+      const token = authHeader && authHeader.split(' ')[1];
+      const decodedToken = jwt.decode(token);
+
+      const manager = await Manager.findOne({ mEmail: decodedToken.mEmail }).exec();
+      if (!manager) {
+        return res.status(404).send('Manager Not Found');
+      }
+
+      const resId = req.params.rId;
+      const imageUrl = req.body.cImage;
+      const cImage = await uploadImageToCloudinary(imageUrl);
+
+      const categoryCount = await Category.countDocuments({ rId: resId });
+      const cId = `Cat${categoryCount + 1}`;
+
+      const newCategory = new Category({
+        rId: resId,
+        cId: cId,
+        cName: req.body.cName,
+        cDescription: req.body.cDescription,
+        cType: req.body.cType,
+        cImage: cImage
+
+      });
+
+      const savedCategory = await newCategory.save();
+      if (!savedCategory) {
+        return res.status(400).send('Failed to Add Category');
+      }
+
+      res.status(200).send('Added Cat');
+    }catch(e){
+      res.status(400).send({
+        errorMessage:e.message
+      });
+    }
+  }
+
+/*================================================================================================================================== 
+    FETCH CATEGORIES
+  ================================================================================================================================== */
+  const getCategory = async (req, res) => {
+
+    try{
+
+      const authHeader = req.headers['authorization'];
+      const token = authHeader && authHeader.split(' ')[1];
+      
+      jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, decodedToken) => {
+        if (err) {
+          return res.status(400).send('Invalid token');
+        }
+        
+        const managerEmail = decodedToken.mEmail;
+        const manager = await Manager.findOne({ mEmail: managerEmail }).exec();
+        
+        if (!manager) {
+          return res.status(404).send('Manager not found');
+        }
+        
+        const restaurants = await Restaurant.find({ managerId: manager.mId }).exec();
+        const categories = await Category.find({resId: restaurants.rId}).exec();
+        
+        res.status(200).send({
+          category: categories
+        });
+      });
+
+    }catch(e){
+      res.status(400).send({
+        errorMessage:e.message
+      });
+    }
+  }
+
+
 
 module.exports = {
     registerManager,
     loginManager,
     createRestaurant,
     getRestaurant,
-    editRestaurant
+    editRestaurant,
+    addCategory,
+    getCategory
 }
 

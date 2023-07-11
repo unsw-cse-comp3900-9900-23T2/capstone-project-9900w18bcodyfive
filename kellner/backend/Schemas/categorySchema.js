@@ -16,12 +16,12 @@ connect();
 
 const categorySchema = new mongoose.Schema({
     cId: {
-        type: Number,
+        type: String,
         unique: true,
     },
 
     rId : {
-        type : Number,
+        type : String,
     },
 
     cName:   { 
@@ -44,7 +44,7 @@ const categorySchema = new mongoose.Schema({
         type: String,
     }
     
-})
+}, {timestamp:true});
 
 const Category = mongoose.model('Category', categorySchema)
 module.exports = Category

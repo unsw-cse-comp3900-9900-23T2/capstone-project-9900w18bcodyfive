@@ -48,3 +48,16 @@ Content-Type: application/json
   "rContact": "426429232",
   "rTableCount": 2
 }
+
+###
+
+POST http://localhost:5000/api/addCategory/Res1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtRW1haWwiOiJzaGxva2FAZ21haWwuY29tIiwiaWF0IjoxNjg4OTk2NDg1fQ.v8K5g-JrF1fxWj4NuuFEGqPqbS1ttZu843ZvFaKtvQk
+Content-Type: application/json
+
+{
+  "cName": "Evening Chats",
+  "cDescription": "Beers and Pongs",
+  "cType": "Snacks and Drinks",
+  "cImage": "https://img.rawpixel.com/private/static/images/website/2022-05/upwk61661577-wikimedia-image-kowapeej.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=14769aec7c86811c0c7e4eb29fa4a76e"
+}

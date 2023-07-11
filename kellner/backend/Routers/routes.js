@@ -8,7 +8,9 @@ const {
     loginManager,
     createRestaurant,
     getRestaurant,
-    editRestaurant
+    editRestaurant,
+    addCategory,
+    getCategory
     } = require('../Controllers/mainController.js')
 
 /*================================================================================================================================== 
@@ -107,16 +109,16 @@ router.get('/api/getRestaurant', getRestaurant) //GET
 router.put('/api/editRestaurant',editRestaurant ) //PUT
 
 //Add Category
-router.post('/api/addCatergory') //POST
+router.post('/api/addCategory/:rId', addCategory) //POST
 
 //Return Categories
-router.get('/api/getCategories/:rId')  //GET
+router.get('/api/getCategories/:rId', getCategory)  //GET
 
 // Edit Categories
-router.put('/api/editCategories/:rId/:cId') //PUT
+router.put('/api/editCategories/:rId/:cId', editCategory) //PUT
 
 //Delete Categories 
-router.delete('/api/deleteCategories/:rId/:cId') //DELETE
+router.delete('/api/deleteCategories/:rId/:cId', deleteCategory) //DELETE
 
 // Add Food Items under a category
 router.post('/api/addItems/:rId/:cId') //POST
