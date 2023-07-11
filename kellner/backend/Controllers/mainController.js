@@ -186,6 +186,10 @@ const editRestaurant = async(req,res) => {
       return res.status(404).send('Manager not found');
     }
 
+    const imageUrl = req.body.rImage;
+    const rImage = await uploadImageToCloudinary(imageUrl);
+    req.body.rImage = rImage;
+
     const updatedRestaurant = await Restaurant.findOneAndUpdate(
       { resId: req.body.resId },
       req.body,
