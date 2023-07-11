@@ -240,6 +240,15 @@ const editRestaurant = async(req,res) => {
         return res.status(404).send('Manager Not Found');
       }
 
+      const restaurant = await Restaurant.findOne ({resId: req.params.rId}).exec();
+      if (!restaurant){
+        return res.status(404).send('Restaurant not Found')
+      }
+
+      if (restaurant.managerId !== manager.mId) {
+        return res.status(403).send('Not authorized to add a category for this restaurant');
+      }
+
       const resId = req.params.rId;
       const imageUrl = req.body.cImage;
       const cImage = await uploadImageToCloudinary(imageUrl);
@@ -262,7 +271,7 @@ const editRestaurant = async(req,res) => {
         return res.status(400).send('Failed to Add Category');
       }
 
-      res.status(200).send('Added Cat');
+      res.status(200).send({successMessage: 'Category Added'});
     }catch(e){
       res.status(400).send({
         errorMessage:e.message
@@ -310,16 +319,95 @@ const editRestaurant = async(req,res) => {
 /*================================================================================================================================== 
     EDIT CATEGORIES
   ================================================================================================================================== */
-const editCategory = async(req, res)=>{
+  const editCategory = async(req,res) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    const {rId, cId} = req.params;
 
-}
+    try{
+      const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+      const manager = await Manager.findOne({ mEmail: decodedToken.mEmail });
+      if (!manager) {
+        return res.status(404).send('Manager not found');
+      }
+
+      const restaurant = await Restaurant.findOne({ resId: rId }).exec();
+      console.log(rId)
+      if (!restaurant) {
+        return res.status(404).send('Restaurant not found');
+      }
+      
+      if (manager.mId !== restaurant.managerId) {
+        console.log(manager.mId, restaurant.managerId)
+        return res.status(403).send('Not authorized to edit this category');
+      }
+
+      const category = await Category.findOne({ cId: cId }).exec();
+      if (!category) {
+        return res.status(404).send('Category not found');
+      }
+    
+      const imageUrl = req.body.cImage;
+      const edit_cImage = await uploadImageToCloudinary(imageUrl);
+      req.body.cImage = edit_cImage;
+  
+      const updatedCategory = await Category.findOneAndUpdate(
+        { cId: cId },
+        req.body,
+        { new: true }
+      ).exec();
+  
+      if (!updatedCategory) {
+        return res.status(404).send('Category not found');
+      }
+  
+      res.status(200).send({successMessage: 'Category Updated'});
+      console.log(updatedCategory)
+  
+    }catch(e){
+      res.status(400).send({
+        errorMessage:e.message
+      });
+    }
+  }
 
 /*================================================================================================================================== 
     DELETE CATEGORIES
   ================================================================================================================================== */
-  const deleteCategory = async(req, res)=>{
+  const deleteCategory = async (req, res) => {
+    try {
+      const authHeader = req.headers['authorization'];
+      const token = authHeader && authHeader.split(' ')[1];
+      const { rId, cId } = req.params;
 
-  }
+      const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+      const manager = await Manager.findOne({ mEmail: decodedToken.mEmail }).exec();
+        if (!manager) {
+          return res.status(404).send('Manager not found');
+        }
+  
+        const restaurant = await Restaurant.findOne({ resId: rId, managerId: manager.mId }).exec();
+        if (!restaurant) {
+          return res.status(404).send('Restaurant not found');
+        }
+
+        if (manager.mId !== restaurant.managerId) {
+          return res.status(403).send('Not authorized to delete this category');
+        }
+  
+        const deletedCategory = await Category.findOneAndDelete({ rId: rId, cId: cId }).exec();
+        if (!deletedCategory) {
+          return res.status(404).send('Category not found');
+        }
+  
+        res.status(200).send('Category deleted');
+    } catch (e) {
+      res.status(400).send({
+        errorMessage: e.message,
+      });
+    }
+  };
+
 
 module.exports = {
     registerManager,

@@ -17,7 +17,6 @@ const restaurantSchema = new mongoose.Schema({
 
     resId: {
         type: String,
-        unique: true
 
     },
 
