@@ -108,13 +108,16 @@ const Header = ()=>{
                     <NameContainer><span style={{color:'#006600'}}>Kell</span>ner</NameContainer>
                 </Container>
                 <ButtonContainer>
-                    <HeaderTags scrollProp={scrollChange}>
-                        Home
-                    </HeaderTags>
-                    <HeaderTags scrollProp={scrollChange}>
-                        My Restaurant
-                    </HeaderTags>
-                    {/* <Button variant="contained" color='success' size='large' onClick={lo}>Log Out</Button> */}
+                    <a href="#welcomeSection" style={{textDecoration: 'none'}}>
+                        <HeaderTags scrollProp={scrollChange}>
+                            Home
+                        </HeaderTags>
+                    </a>
+                    <a href="#restaurantDetails" style={{textDecoration: 'none'}}>
+                        <HeaderTags scrollProp={scrollChange}>
+                            My Restaurant
+                        </HeaderTags>
+                    </a>
                     <IconButton
                         onClick={handleClick}
                         size="small"

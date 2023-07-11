@@ -43,7 +43,7 @@ const Button = styled('button')({
     marginTop: '1.5rem',
     "&:hover": {
         cursor: 'pointer',
-        transform: 'scale(1.2)'
+        transform: 'scale(0.95)'
     }
 })
 

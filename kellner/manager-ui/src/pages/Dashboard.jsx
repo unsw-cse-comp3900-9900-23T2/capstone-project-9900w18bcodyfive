@@ -38,10 +38,12 @@ const Container2 = styled('div')({
 
 
 
+
 const Dashboard = () => {
     const mName = useSelector(state => state.manager.mName)
     const token = useSelector(state => state.manager.token)
     const [restaurantList, setRestaurantList] = React.useState([])
+    const [loading, setLoading] = React.useState(true);
 
     // function which fetch the restaurant data from backend
     async function getRestaurant() {
@@ -55,8 +57,9 @@ const Dashboard = () => {
     
         const data = await response.json();
         if (response.status === 200){
-            console.log(data.restaurant)
-            setRestaurantList(data.restaurant)
+            console.log(data.restaurant);
+            setRestaurantList(data.restaurant);
+            setLoading(false);
         }
     
     }
@@ -70,7 +73,7 @@ const Dashboard = () => {
         <>
             <CirclePattern />
             <Header />
-            <Container1>
+            <Container1 id="welcomeSection">
                 <span style={{ fontSize:"3rem"}}>Welcome <span style={{color:'#006600'}}>{mName}</span></span><br/>
                 <div>You can get started by configuring your restaurant</div>
                 <a href='#restaurantDetails'><Button size="large" variant="contained" color="success">Get Started</Button></a>
@@ -85,6 +88,19 @@ const Dashboard = () => {
                     <RestaurantAdded res={restaurantList[0]}/>
                 )}
             </Container2>
+            <Container1 id="tableIdDetails" style={{backgroundColor: 'none', alignItems: 'flex-start'}}>
+                {loading ? (
+                    <div>Table ID details Loading</div>
+                ): (restaurantList.length === 0 ? (
+                    <div>No Restaurant</div>
+                ): (
+                    <>
+                        You Restaurant has {restaurantList[0].rTableCount} tables.
+                        They were assigned an ID by the system automatically which you can see by clicking the below button.
+                        <Button variant="contained" color="success" sx={{height:'4rem', fontSize:'2rem'}}>View Table ID Details</Button>
+                    </>
+                ))}
+            </Container1>
             
         </>
     );
