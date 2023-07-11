@@ -1,7 +1,9 @@
+// Library Imports
 import React from "react";
 import { Dialog } from "@mui/material";
 import styled from "@emotion/styled";
 
+// Component Imports
 import FormInput from "./FormInput";
 
 //Redux Imports
@@ -130,18 +132,13 @@ const EditRestaurant = (props)=>{
     const handleSubmit = (e)=>{
         e.preventDefault();
         console.log(values);
-        if(props.edit === true){
-            console.log('edit values')
-            console.log(values)
-        } else {
-            editRestaurant();
-        }
+        editRestaurant();
     }
     return(
         <Dialog open={props.open}>
             <FormContainer>
                 <Form onSubmit={handleSubmit}>
-                    <h2 style={{color:'#006600'}}>Register Here</h2>
+                    <h2 style={{color:'#006600'}}>Edit Restaurant Details</h2>
                     {inputs.map((input) =>{
                         return(
                             <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange}/>

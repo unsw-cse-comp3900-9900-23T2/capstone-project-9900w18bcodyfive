@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 
 //Components Import
 import EditRestaurant from "./EditRestaurant";
+import EditRestaurantImage from "./EditRestaurantImage";
 
 const RestaurantAdded = (props) => {
     const [open, setOpen] = React.useState(false);
@@ -108,6 +109,7 @@ const RestaurantAdded = (props) => {
                     <Button onClick={openEditImage}>Edit Restaurant Picture</Button>
                 </ButtonContainer>
                 <EditRestaurant open={open} res={props.res} handleClose={closeModal}/>
+                <EditRestaurantImage open={editImage} res={props.res} handleClose={closeEditImage}/>
             </Child>
             <Image />
         </Container>

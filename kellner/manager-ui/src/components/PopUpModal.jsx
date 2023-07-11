@@ -149,18 +149,13 @@ const PopUpModal = (props)=>{
     const handleSubmit = (e)=>{
         e.preventDefault();
         console.log(values);
-        if(props.edit === true){
-            console.log('edit values')
-            console.log(values)
-        } else {
-            addRestaurant();
-        }
+        addRestaurant();
     }
     return(
         <Dialog open={props.open}>
             <FormContainer>
                 <Form onSubmit={handleSubmit}>
-                    <h2 style={{color:'#006600'}}>Register Here</h2>
+                    <h2 style={{color:'#006600'}}>Add Your Restaurant Details</h2>
                     {inputs.map((input) =>{
                         if(input.name === "rImage"){
                             return(
