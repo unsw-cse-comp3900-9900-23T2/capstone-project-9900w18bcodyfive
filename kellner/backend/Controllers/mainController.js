@@ -188,7 +188,6 @@ const editRestaurant = async(req,res) => {
 
     const updatedRestaurant = await Restaurant.findOneAndUpdate(
       { resId: req.body.resId },
-      { rTableCount: req.body.rTableCount },
       req.body,
       { new: true }
     );
@@ -196,6 +195,7 @@ const editRestaurant = async(req,res) => {
     if (!updatedRestaurant) {
       return res.status(404).send('Restaurant not found');
     }
+
 
     if (req.body.rTableCount !== updatedRestaurant.rTableCount) {
     const tableIds = {};
@@ -209,7 +209,7 @@ const editRestaurant = async(req,res) => {
       await updatedRestaurant.save();
     }
 
-    res.status(200).send('Restaurant Updated');
+    res.status(200).send({successMessage: 'Restaurant Updated'});
     console.log(updatedRestaurant)
 
   }catch(e){

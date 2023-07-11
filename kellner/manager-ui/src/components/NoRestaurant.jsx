@@ -5,8 +5,6 @@ import styled from "@emotion/styled";
 import noContentAdded from "../assets/images/noContentAdded.jpg";
 import PopUpModal from "./PopUpModal";
 
-// import 
-import { UseSelector } from "react-redux/es/hooks/useSelector";
 
 const Container = styled('div')({
     display: 'flex',

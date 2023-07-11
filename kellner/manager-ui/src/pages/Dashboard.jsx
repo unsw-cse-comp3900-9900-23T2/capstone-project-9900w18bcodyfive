@@ -33,7 +33,7 @@ const Container2 = styled('div')({
     display: 'flex',
     fontFamily: 'Nunito',
     fontSize: '2rem',
-    backgroundColor:'#b3ffb3',
+    backgroundColor: '#f2f2f2',
 });
 
 
@@ -82,7 +82,7 @@ const Dashboard = () => {
                 {(restaurantList.length === 0) ? (
                    <NoRestaurantAdded />
                 ) : (
-                    <RestaurantAdded rImage={restaurantList[0].rImage}/>
+                    <RestaurantAdded res={restaurantList[0]}/>
                 )}
             </Container2>
             

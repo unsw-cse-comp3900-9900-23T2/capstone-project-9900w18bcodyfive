@@ -2,10 +2,17 @@ import React from "react";
 import styled from "@emotion/styled";
 
 //Components Import
-import PopUpModal from "./PopUpModal";
+import EditRestaurant from "./EditRestaurant";
 
 const RestaurantAdded = (props) => {
     const [open, setOpen] = React.useState(false);
+    const [editImage, setEditImage] = React.useState(false);
+    const openEditImage = ()=>{
+        setEditImage(true);
+    }
+    const closeEditImage = ()=>{
+        setEditImage(false);
+    }
     const openModal = ()=>{
         setOpen(true);
     };
@@ -27,13 +34,13 @@ const RestaurantAdded = (props) => {
         flex: '1',
         display: 'flex',
         justifyContent: 'center',
-        height: '100%',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        padding: '1rem'
     });
     
     const Image = styled('div')({
         border: '5px solid #006600',
-        backgroundImage: `url(${props.rImage})`,
+        backgroundImage: `url(${props.res.rImage})`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         flex: '1',
@@ -42,7 +49,7 @@ const RestaurantAdded = (props) => {
         color: 'white',
         borderRadius: '5rem',
         backgroundColor: 'green',
-        width: '15rem',
+        width: '20rem',
         height: '3rem',
         fontSize: '1.5rem',
         marginTop: '1.5rem',
@@ -51,12 +58,56 @@ const RestaurantAdded = (props) => {
             transform: 'scale(1.2)'
         }
     })
+    const SubHeading = styled('div')({
+        fontFamily: 'Nunito',
+        fontSize: '2rem',
+        color: 'green',
+        textAlign: 'left',
+        fontWeight: 'bold',
+        margin: '1rem'
+    })
+
+    const Content = styled('div')({
+        fontFamily: 'Nunito',
+        fontSize: '2rem',
+        textAlign: 'left',
+        border: '2px solid black',
+        borderRadius: '1rem',
+        padding: '0.75rem'
+    })
+
+    const Heading = styled('div')({
+        fontFamily: 'Nunito',
+        fontSize: '3rem',
+        color: 'green',
+        textAlign: 'left',
+        fontWeight: 'bold',
+        margin: '1rem'
+    })
+
+    const ButtonContainer = styled('div')({
+        display: 'flex',
+        justifyContent: 'space-evenly'
+    })
     return(
         <Container>
             <Child>
-                <div>You have not added any restaurants !</div>
-                <div><Button onClick={openModal}>Add Restaurant</Button></div>
-                <PopUpModal open={open} handleClose={closeModal}/>
+                <Heading>Your Restaurant...</Heading>
+                <SubHeading>Name</SubHeading>
+                <Content>{props.res.rName}</Content>
+                <SubHeading>Description</SubHeading>
+                <Content>{props.res.rDescription}</Content>
+                <SubHeading>Location</SubHeading>
+                <Content>{props.res.rLocation}</Content>
+                <SubHeading>Contact</SubHeading>
+                <Content>{props.res.rContact}</Content>
+                <SubHeading>Table Count</SubHeading>
+                <Content>{props.res.rTableCount}</Content>
+                <ButtonContainer>
+                    <Button onClick={openModal}>Edit Restaurant Details</Button>
+                    <Button onClick={openEditImage}>Edit Restaurant Picture</Button>
+                </ButtonContainer>
+                <EditRestaurant open={open} res={props.res} handleClose={closeModal}/>
             </Child>
             <Image />
         </Container>
