@@ -10,7 +10,9 @@ const {
     getRestaurant,
     editRestaurant,
     addCategory,
-    getCategory
+    getCategory,
+    editCategory,
+    deleteCategory
     } = require('../Controllers/mainController.js')
 
 /*================================================================================================================================== 
@@ -112,13 +114,13 @@ router.put('/api/editRestaurant',editRestaurant ) //PUT
 router.post('/api/addCategory/:rId', addCategory) //POST
 
 //Return Categories
-router.get('/api/getCategories/:rId', getCategory)  //GET
+router.get('/api/getCategory/:rId', getCategory)  //GET
 
 // Edit Categories
-router.put('/api/editCategories/:rId/:cId', editCategory) //PUT
+router.put('/api/editCategory/:rId/:cId', editCategory) //PUT
 
 //Delete Categories 
-router.delete('/api/deleteCategories/:rId/:cId', deleteCategory) //DELETE
+router.delete('/api/deleteCategory/:rId/:cId', deleteCategory) //DELETE
 
 // Add Food Items under a category
 router.post('/api/addItems/:rId/:cId') //POST
