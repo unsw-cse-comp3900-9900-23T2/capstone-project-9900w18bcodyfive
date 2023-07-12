@@ -66,7 +66,7 @@ const itemModel = new mongoose.Schema({
     },
 
 
-}, {timestamp:true});
+}, {timestamps:true});
 
 const Items = mongoose.model('Items', itemModel)
 module.exports = Items

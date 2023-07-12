@@ -467,25 +467,92 @@ const getItem = async(req,res) =>{
       errorMessage:e.message
     });
   }
-
 }
-
 
   /*================================================================================================================================== 
     EDIT ITEMS
   ================================================================================================================================== */
-const editItem = async(req,res) =>{
+  const editItem = async (req, res) => {
+    try {
+      const { iId, cId, rId } = req.params;
+      const authHeader = req.headers['authorization'];
+      const token = authHeader && authHeader.split(' ')[1];
+  
+      const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+      const manager = await Manager.findOne({ mEmail: decodedToken.mEmail }).exec();
+      if (!manager) {
+        return res.status(404).send('Manager not found');
+      }
+  
+      const restaurant = await Restaurant.findOne({ resId: rId }).exec();
+      if (!restaurant || restaurant.managerId !== manager.mId) {
+        return res.status(403).send('Not authorized to edit this item');
+      }
+      
+      const category = await Category.findOne({ rId: rId }).exec();
+      if (!category || category.rId !== rId) {
+        return res.status(404).send('Category not found');
+      }
 
-
-}
-
+      const imageUrl = req.body.iImage;
+      const edit_iImage = await uploadImageToCloudinary(imageUrl);
+      req.body.iImage = edit_iImage;
+  
+      const updatedItem = await Items.findOneAndUpdate(
+        { iId: iId },
+        req.body,
+        { new: true }
+      ).exec();
+  
+      if (!updatedItem) {
+        return res.status(404).send('Item not found');
+      }
+  
+      res.status(200).send({ successMessage: 'Item updated' });
+    } catch (e) {
+      res.status(400).send({
+        errorMessage: e.message,
+      });
+    }
+  };
+  
 /*================================================================================================================================== 
     DELETE ITEMS
   ================================================================================================================================== */
-  const deleteItem = async(req,res) =>{
-
-
-  }
+  const deleteItem = async (req, res) => {
+    try {
+      const authHeader = req.headers['authorization'];
+      const token = authHeader && authHeader.split(' ')[1];
+      const { rId, cId, iId } = req.params;
+  
+      const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+      const manager = await Manager.findOne({ mEmail: decodedToken.mEmail }).exec();
+      if (!manager) {
+        return res.status(404).send('Manager not found');
+      }
+  
+      const restaurant = await Restaurant.findOne({ resId: rId, managerId: manager.mId }).exec();
+      if (!restaurant) {
+        return res.status(404).send('Restaurant not found');
+      }
+  
+      if (manager.mId !== restaurant.managerId) {
+        return res.status(403).send('Not authorized to delete this item');
+      }
+  
+      const deletedItem = await Items.findOneAndDelete({ rId:rId, cId:cId, iId:iId }).exec();
+      if (!deletedItem) {
+        return res.status(404).send('Item not found');
+      }
+  
+      res.status(200).send({successMessage: 'Item deleted'});
+    } catch (e) {
+      res.status(400).send({
+        errorMessage: e.message,
+      });
+    }
+  };
+  
 
 
 
