@@ -286,28 +286,12 @@ const editRestaurant = async(req,res) => {
 
     try{
 
-      const authHeader = req.headers['authorization'];
-      const token = authHeader && authHeader.split(' ')[1];
+      const resId = req.params.rId    
       
-      jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, decodedToken) => {
-        if (err) {
-          return res.status(400).send('Invalid token');
-        }
-        
-        const managerEmail = decodedToken.mEmail;
-        const manager = await Manager.findOne({ mEmail: managerEmail }).exec();
-        
-        if (!manager) {
-          return res.status(404).send('Manager not found');
-        }
-        
-        const restaurants = await Restaurant.find({ managerId: manager.mId }).exec();
-        const categories = await Category.find({resId: restaurants.rId}).exec();
-        
+      const categories = await Category.find({rId: resId}).exec();
         res.status(200).send({
           category: categories
         });
-      });
 
     }catch(e){
       res.status(400).send({

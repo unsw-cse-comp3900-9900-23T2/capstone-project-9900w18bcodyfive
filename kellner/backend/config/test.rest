@@ -51,7 +51,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:5000/api/addCategory/Res1
+POST http://localhost:5000/api/addCategory/Res2
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtRW1haWwiOiJzaGxva2FAZ21haWwuY29tIiwiaWF0IjoxNjg4OTk2NDg1fQ.v8K5g-JrF1fxWj4NuuFEGqPqbS1ttZu843ZvFaKtvQk
 Content-Type: application/json
 
@@ -63,7 +63,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:5000/api/getCategory/Res1
+GET http://localhost:5000/api/getCategory/Res2
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtRW1haWwiOiJzaGxva2FAZ21haWwuY29tIiwiaWF0IjoxNjg4OTk2NDg1fQ.v8K5g-JrF1fxWj4NuuFEGqPqbS1ttZu843ZvFaKtvQk
 
 

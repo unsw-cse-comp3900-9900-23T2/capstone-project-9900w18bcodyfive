@@ -15,12 +15,12 @@ connect();
 
 const restaurantSchema = new mongoose.Schema({
 
-    resId: {
+    rId: {
         type: String,
 
     },
 
-    managerId : {
+    mId : {
         type:String
     },
 
