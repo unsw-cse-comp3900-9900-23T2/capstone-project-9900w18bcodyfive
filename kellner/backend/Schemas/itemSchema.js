@@ -68,5 +68,5 @@ const itemModel = new mongoose.Schema({
 
 }, {timestamp:true});
 
-const FoodItem = mongoose.model('Food Item', itemModel)
-module.exports = FoodItem
+const Items = mongoose.model('Items', itemModel)
+module.exports = Items

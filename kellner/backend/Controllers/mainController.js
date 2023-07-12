@@ -3,7 +3,7 @@
 const Manager = require('../Schemas/managerSchema')
 const Restaurant = require('../Schemas/restaurantSchema')
 const Category = require('../Schemas/categorySchema')
-const Item = require('../Schemas/itemSchema')
+const Items = require('../Schemas/itemSchema')
 require('dotenv').config({ path: './config/.env' });
 const jwt = require('jsonwebtoken');
 const bcrypt = require ('bcrypt');
@@ -396,17 +396,80 @@ const editRestaurant = async(req,res) => {
     ADD ITEMS
   ================================================================================================================================== */
 const addItem = async(req,res) =>{
+  try{
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    const decodedToken = jwt.decode(token);
 
+    const manager = await Manager.findOne({ mEmail: decodedToken.mEmail }).exec();
+    if (!manager) {
+      return res.status(404).send('Manager Not Found');
+    }
 
+    const restaurant = await Restaurant.findOne ({resId: req.params.rId}).exec();
+    if (!restaurant){
+      return res.status(404).send('Restaurant not Found')
+    }
+
+    if (restaurant.managerId !== manager.mId) {
+      return res.status(403).send('Not authorized to add a category for this restaurant');
+    }
+
+    const resId = req.params.rId;
+    const imageUrl = req.body.iImage;
+    const iImage = await uploadImageToCloudinary(imageUrl);
+
+    const cId = req.params.cId
+    const itemCount = await Items.countDocuments({});
+    const iId = `Item${itemCount + 1}`;
+
+    const newItem = new Items({
+      rId: resId,
+      cId: cId,
+      iId: iId,
+      iName: req.body.iName,
+      iDescription: req.body.iDescription,
+      iPrice: req.body.iPrice,
+      iIngredients: req.body.iIngredients,
+      iImage: iImage
+    });
+
+    const savedItem = await newItem.save();
+    if (!savedItem) {
+      return res.status(400).send({failMessage:'Failed to Add Item'});
+    }
+
+    res.status(200).send({successMessage: 'Item Added'});
+  }catch(e){
+    res.status(400).send({
+      errorMessage:e.message
+    });
+  }
 }
 
 /*================================================================================================================================== 
     FETCH ITEMS
   ================================================================================================================================== */
-  const getItem = async(req,res) =>{
+const getItem = async(req,res) =>{
+  try{
+
+    const {rId, cId} = req.params
+       
+      
+    const items = await Items.find({cId: cId}).exec();
+      res.status(200).send({
+      item: items
+        });
 
 
+  }catch(e){
+    res.status(400).send({
+      errorMessage:e.message
+    });
   }
+
+}
+
 
   /*================================================================================================================================== 
     EDIT ITEMS

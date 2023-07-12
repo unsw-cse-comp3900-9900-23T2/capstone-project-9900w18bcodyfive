@@ -82,3 +82,20 @@ Content-Type: application/json
 ###
 DELETE http://localhost:5000/api/deleteCategory/Res2/Cat1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtRW1haWwiOiJzaGxva2FAZ21haWwuY29tIiwiaWF0IjoxNjg5MDkzMzQ1fQ.E9TT2hjrlRjdNTF198jLmWqGdai8IMKTecmjNtzytWY
+
+###
+POST http://localhost:5000/api/addItems/Res2/Cat2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtRW1haWwiOiJzaGxva2FAZ21haWwuY29tIiwiaWF0IjoxNjg5MDkzMzQ1fQ.E9TT2hjrlRjdNTF198jLmWqGdai8IMKTecmjNtzytWY
+Content-Type: application/json
+
+{
+  "iName" : "CHicken BIryani",
+  "iPrice" : "240",
+  "iDescription" : "Succulent Chicken with beautifully aromatic dum rice",
+  "iIngredients" : "Chicken, Rice, Salt, Love",
+  "iImage" : "https://img.rawpixel.com/private/static/images/website/2022-05/upwk61661577-wikimedia-image-kowapeej.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=14769aec7c86811c0c7e4eb29fa4a76e"
+  
+}
+
+###
+GET http://localhost:5000/api/getItems/Res2/Cat2
