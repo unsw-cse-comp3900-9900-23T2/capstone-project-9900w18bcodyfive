@@ -88,16 +88,19 @@ const Dashboard = () => {
                     <RestaurantAdded res={restaurantList[0]}/>
                 )}
             </Container2>
-            <Container1 id="tableIdDetails" style={{backgroundColor: 'none', alignItems: 'flex-start'}}>
+            <Container1 id="tableIdDetails" style={{backgroundColor: 'none', textAlign:'left', fontWeight:'normal'}}>
                 {loading ? (
                     <div>Table ID details Loading</div>
                 ): (restaurantList.length === 0 ? (
                     <div>No Restaurant</div>
                 ): (
                     <>
-                        You Restaurant has {restaurantList[0].rTableCount} tables.
-                        They were assigned an ID by the system automatically which you can see by clicking the below button.
-                        <Button variant="contained" color="success" sx={{height:'4rem', fontSize:'2rem'}}>View Table ID Details</Button>
+                        <div style={{fontWeight: 'bold', color:'green'}}>Table ID Details</div> <br/>
+                        <div>
+                            You Restaurant has {restaurantList[0].rTableCount} tables.
+                            They were assigned an ID by the system automatically which you can see by clicking the below button. <br/> <br/>
+                            <Button variant="contained" color="success" sx={{height:'4rem', fontSize:'1.2rem'}}>View Table ID Details</Button>
+                        </div>
                     </>
                 ))}
             </Container1>
