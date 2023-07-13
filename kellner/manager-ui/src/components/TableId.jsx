@@ -6,7 +6,7 @@ const MasterContainer = styled('div')({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-evenly',
-    padding: '2rem',
+    padding: '1.5rem',
     fontFamily: 'Nunito',
 })
 
@@ -14,19 +14,21 @@ const ElementContainer = styled('div')({
     display: 'flex',
     justifyContent: 'space-between',
     fontSize: '2rem',
-    margin: '1rem',
+    margin: '2rem',
     gap: '1rem 1rem'
 })
 
 const HeadingContainer = styled('div')({
     display: 'flex',
-    justifyContent: 'space-between',
     fontSize: '2.5rem',
     fontWeight: 'bold',
-    color: 'green'
+    backgroundColor: 'green',
+    position: 'fixed' ,
 })
 
 const CloseEffect = styled('div')({
+    marginLeft: '5rem',
+    color: 'white',
     '&:hover': {
         cursor: 'pointer',
         transform: 'scale(0.75)'
@@ -41,7 +43,7 @@ const TableId = (props)=>{
     return(
         <Dialog open={props.open}>
             <HeadingContainer>
-                <div>Table ID Mapping</div>
+                <div style={{marginLeft:'3rem', color:'white'}}>Table ID Mapping</div>
                 <CloseEffect>
                     <CloseIcon onClick={props.handleClose} sx={{fontSize: '2.5rem'}}/>
                 </CloseEffect>
