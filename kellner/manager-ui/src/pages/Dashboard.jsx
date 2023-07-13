@@ -11,7 +11,7 @@ import CirclePattern from "../components/CirclePatterns";
 import welcomeAnimation from "../assets/images/welcomeAnimation.gif"
 import NoRestaurantAdded from "../components/NoRestaurant";
 import RestaurantAdded from "../components/RestaurantAdded";
-
+import TableId from "../components/TableId";
 
 const Container1 = styled('div')({
     fontFamily: 'Nunito',
@@ -110,7 +110,8 @@ const Dashboard = () => {
                         <div>
                             You Restaurant has {restaurantList[0].rTableCount} tables.
                             They were assigned an ID by the system automatically which you can see by clicking the below button. <br/> <br/>
-                            <Button variant="contained" color="success" sx={{height:'4rem', fontSize:'1.2rem'}}>View Table ID Details</Button>
+                            <Button variant="contained" color="success" sx={{height:'4rem', fontSize:'1.2rem'}} onClick={openTableID}>View Table ID Details</Button>
+                            <TableId open={tableId} tableId={restaurantList[0].rTableIds} handleClose={closeTableId}/>
                         </div>
                     </>
                 ))}
