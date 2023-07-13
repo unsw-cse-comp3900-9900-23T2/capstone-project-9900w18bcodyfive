@@ -44,6 +44,17 @@ const Dashboard = () => {
     const token = useSelector(state => state.manager.token)
     const [restaurantList, setRestaurantList] = React.useState([])
     const [loading, setLoading] = React.useState(true);
+    const [tableId, setTableId] = React.useState(false);
+
+    //function to set the modal for tableID open
+    const openTableID = ()=>{
+        setTableId(true);
+    };
+
+    // function to close the tableID
+    const closeTableId = ()=>{
+        setTableId(false);
+    };
 
     // function which fetch the restaurant data from backend
     async function getRestaurant() {

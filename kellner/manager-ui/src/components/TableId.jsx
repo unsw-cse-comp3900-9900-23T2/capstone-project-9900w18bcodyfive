@@ -13,7 +13,7 @@ const ElementContainer = styled('div')({
 })
 
 const TableID = (props)=>{
-    let tId = []
+    let tId = [];
     for (const t in props.tableID){
         tId.push(props.tableID.t)
     }
