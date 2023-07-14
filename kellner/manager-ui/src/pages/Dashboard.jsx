@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
+import {Grid, Paper} from "@mui/material";
 
 // Redux Imports
 import { useSelector } from "react-redux";
@@ -12,6 +13,7 @@ import welcomeAnimation from "../assets/images/welcomeAnimation.gif"
 import NoRestaurantAdded from "../components/NoRestaurant";
 import RestaurantAdded from "../components/RestaurantAdded";
 import TableId from "../components/TableId";
+import Categories from "../components/Categories";
 
 const Container1 = styled('div')({
     fontFamily: 'Nunito',
@@ -101,7 +103,7 @@ const Dashboard = () => {
             </Container2>
             <Container1 id="tableIdDetails" style={{backgroundColor: 'none', textAlign:'left', fontWeight:'normal'}}>
                 {loading ? (
-                    <div>Table ID details Loading</div>
+                    <div>Table ID details Loading...</div>
                 ): (restaurantList.length === 0 ? (
                     <div>No Restaurant</div>
                 ): (
@@ -116,7 +118,15 @@ const Dashboard = () => {
                     </>
                 ))}
             </Container1>
-            
+            <Grid container>
+                {loading ? (
+                    <div> Categories Data Loading...</div>
+                ) : ( restaurantList.length === 0 ? (
+                    <div>No Restaurant Added</div>
+                ) : (
+                    <Categories/>
+                ))}
+            </Grid>
         </>
     );
 }
