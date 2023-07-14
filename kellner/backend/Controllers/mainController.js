@@ -287,7 +287,6 @@ const editRestaurant = async(req,res) => {
     try{
 
       const resId = req.params.rId    
-      
       const categories = await Category.find({rId: resId}).exec();
         res.status(200).send({
           category: categories
@@ -569,6 +568,6 @@ module.exports = {
     addItem,
     getItem,
     editItem,
-    deleteItem
+    deleteItem,
 }
 

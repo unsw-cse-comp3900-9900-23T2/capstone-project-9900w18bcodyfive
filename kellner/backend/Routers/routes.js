@@ -16,8 +16,15 @@ const {
     addItem,
     getItem,
     editItem,
-    deleteItem
+    deleteItem,
     } = require('../Controllers/mainController.js')
+
+const {
+    getAllCategories,
+    getTenItems,
+    getRandomItems,
+    getUserDashboard
+    } = require('../Controllers/userController.js')
 
 /*================================================================================================================================== 
     MANAGER AND RESTAURANT CONFIG
@@ -99,6 +106,82 @@ const {
  *               $ref: '#/components/schemas/Error'
 */
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Category:
+ *       type: object
+ *       properties:
+ *         cId:
+ *           type: string
+ *         rId:
+ *           type: string
+ *         cName:
+ *           type: string
+ *         cDescription:
+ *           type: string
+ *         cType:
+ *           type: string
+ *         cImage:
+ *           type: string
+ *     GetCategoryRequest:
+ *       type: object
+ *       properties:
+ *         resId:
+ *           type: string
+ *     GetCategoryResponse:
+ *       type: object
+ *       properties:
+ *         cId:
+ *           type: string
+ *         rId:
+ *           type: string
+ *         cName:
+ *           type: string
+ *         cDescription:
+ *           type: string
+ *         cType:
+ *           type: string
+ *         cImage:
+ *           type: string
+ *     Error:
+ *       type: object
+ *       properties:
+ *         errorMessage:
+ *           type: string
+ */  
+
+
+/**
+ * @swagger
+ * /api/getAllCategories/{rId}:
+ *    get:
+ *     summary: Get all categories
+ *     parameters:
+ *       - name: rId
+ *         in: path
+ *         required: true
+ *         schema: 
+ *           type: string
+ *         description: Restaurant ID
+ *     tags:
+ *       - Category
+ *     responses:
+ *       200:
+ *         description: Successfully fetched category details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/GetCategoryResponse'
+ *       400:
+ *         description: Failed to fetch category details. Did you pass in a valid rId?
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+*/
+
 router.post('/api/register',limiter, registerManager)  //POST 
 
 // Login for Manager
@@ -137,5 +220,21 @@ router.put('/api/editItems/:rId/:cId/:iId', editItem) //PUT
 
 // Delete Food Items under a category
 router.delete('/api/deleteItems/:rId/:cId/:iId', deleteItem) //DELETE
+
+/*================================================================================================================================== 
+    USER SETUP
+  ================================================================================================================================== */  
+
+// Get all categories
+router.get('/api/getAllCategories/:rId', getAllCategories)
+
+// Get first 10 items, not using category
+router.get('/api/getTenItems/:rId', getTenItems)
+
+// Get 10 RANDOM items - needs to be tested
+router.get('/api/getRandomItems/:rId', getRandomItems)
+
+// Get all categories and 10 items
+router.get('/api/getUserDashboard/:rId', getUserDashboard)
 
 module.exports = router;
