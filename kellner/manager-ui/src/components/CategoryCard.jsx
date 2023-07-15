@@ -1,3 +1,4 @@
+import React from 'react';
 import { Grid } from "@mui/material";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -7,6 +8,7 @@ import {Paper} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import styled from "@emotion/styled";
+import EditCategory from './EditCategory';
 
 const CardEffect = styled('div')({
     '&:hover': {
@@ -30,7 +32,16 @@ const EditEffect = styled('div')({
 });
 
 const CategoryCard = (props)=>{
-    const cat= props.cat
+    const cat= props.cat;
+    const [open, setOpen] = React.useState(false);
+    //function to open edit category popup
+    const handleOpen = ()=>{
+        setOpen(true);
+    }
+    //function to closw edit category
+    const handleClose = ()=>{
+        setOpen(false);
+    }
     return(
         <Grid item xs={12} sm={12} md={4} lg={3}>
             <CardEffect>
@@ -55,7 +66,8 @@ const CategoryCard = (props)=>{
                             <DeleteIcon/>
                         </DeleteEffect>
                         <EditEffect>
-                            <EditTwoToneIcon/>
+                            <EditTwoToneIcon onClick={handleOpen}/>
+                            <EditCategory open={open} cat={cat} handleClose={handleClose}/>
                         </EditEffect>
                     </div>
                 </Card>

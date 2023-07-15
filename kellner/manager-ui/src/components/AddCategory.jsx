@@ -144,7 +144,7 @@ const AddCategories = (props)=>{
         {loading===false ?(
             <FormContainer>
             <Form onSubmit={handleSubmit}>
-                <h2 style={{color:'#006600'}}>Add Your Restaurant Details</h2>
+                <h2 style={{color:'#006600'}}>Add Your Category</h2>
                 {inputs.map((input) =>{
                     if(input.name === "cImage"){
                         return(
