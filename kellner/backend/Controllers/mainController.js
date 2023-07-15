@@ -239,7 +239,7 @@ const editRestaurant = async(req,res) => {
       if (!manager) {
         return res.status(404).send('Manager Not Found');
       }
-
+      
       const restaurant = await Restaurant.findOne ({resId: req.params.rId}).exec();
       if (!restaurant){
         return res.status(404).send('Restaurant not Found')
@@ -253,8 +253,8 @@ const editRestaurant = async(req,res) => {
       const imageUrl = req.body.cImage;
       const cImage = await uploadImageToCloudinary(imageUrl);
 
-      const categoryCount = await Category.countDocuments({ rId: resId });
-      const cId = `Cat${categoryCount + 1}`;
+      // using the cName concatenated with the string Cat as category Id
+      const cId = `Cat-${req.body.cName}`;
 
       const newCategory = new Category({
         rId: resId,

@@ -1,25 +1,25 @@
 import React from "react";
 
-//Redux Imports
-import { useSelector } from "react-redux/es/hooks/useSelector";
+//Components Import
+import NoCategories from "./NoCategories";
 
-const Categories = ()=>{
-    const token = useSelector(state => state.manager.token)
+const Categories = (props)=>{
+    const rId = props.rId;
+    const [categories, setCategories] = React.useState([]);
+
     // function to fetch categories from backend
-    async function getRestaurant() {
-        const response = await fetch('http://localhost:5000/api/getRestaurant', {
+    async function getCategories() {
+        const response = await fetch(`http://localhost:5000/api/getCategory/${rId}`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json',
-                'authorization': `bearer ${token}`
             },
         })
     
         const data = await response.json();
         if (response.status === 200){
-            console.log(data.restaurant);
-            setRestaurantList(data.restaurant);
-            setLoading(false);
+            console.log(data.category);
+            setCategories(data.category);
         }
     
     }
@@ -28,7 +28,13 @@ const Categories = ()=>{
         getCategories();
     },[]);
     return(
-        <div></div>
+        <>
+            {categories.length === 0 ?(
+                <NoCategories res={props.res}/>
+            ):(
+                <div>Categories</div>
+            )}
+        </>
     );
 }
 

@@ -35,7 +35,18 @@ const Container2 = styled('div')({
     display: 'flex',
     fontFamily: 'Nunito',
     fontSize: '2rem',
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#d9d9d9',
+});
+
+const Container3 = styled('div')({
+    display: 'flex',
+    fontFamily: 'Nunito',
+    fontSize: '2rem',
+    flexDirection: 'column',
+    backgroundColor: '#d9d9d9',
+    alignItems: 'flex-start',
+    padding: '2rem',
+    fontWeight: 'bold'
 });
 
 
@@ -118,15 +129,20 @@ const Dashboard = () => {
                     </>
                 ))}
             </Container1>
-            <Grid container>
+            <Container3>
+                <div style={{color:'green', fontWeight: 'bold'}}>Menu Categories</div>
                 {loading ? (
                     <div> Categories Data Loading...</div>
                 ) : ( restaurantList.length === 0 ? (
-                    <div>No Restaurant Added</div>
+                    <>
+                        <div>No Restaurant Added</div>
+                        <div>No Restaurant Added</div>
+                    </>
+
                 ) : (
-                    <Categories/>
+                    <Categories res={restaurantList[0]}/>
                 ))}
-            </Grid>
+            </Container3>
         </>
     );
 }

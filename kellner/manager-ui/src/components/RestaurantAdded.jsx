@@ -36,7 +36,10 @@ const RestaurantAdded = (props) => {
         display: 'flex',
         justifyContent: 'center',
         flexDirection: 'column',
-        padding: '1rem'
+        padding: '1rem',
+        borderRadius: '2rem',
+        margin: '2rem',
+        backgroundColor: 'white'
     });
     
     const Image = styled('div')({
@@ -45,6 +48,8 @@ const RestaurantAdded = (props) => {
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         flex: '1',
+        borderRadius: '2rem',
+        margin: '2rem'
     })
     const Button = styled('button')({
         color: 'white',

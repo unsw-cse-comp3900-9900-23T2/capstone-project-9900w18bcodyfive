@@ -7,7 +7,7 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import LogIn from './pages/LogIn';
 import Dashboard from './pages/Dashboard';
-import Loading from './components/Loading';
+import Loading from "./assets/images/Loading.gif"
 
 const Wrapper = ()=>{
     const token = useSelector(state => state.manager.token);
@@ -32,7 +32,7 @@ const Wrapper = ()=>{
     // If the page is loading return this
     if (globalLoading === true) {
         return(
-            <Loading/>
+            <img src={Loading} alt={'Loading'}/>
         );
     } else {
         return(
