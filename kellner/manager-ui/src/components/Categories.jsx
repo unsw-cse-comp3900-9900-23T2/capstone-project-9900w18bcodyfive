@@ -1,10 +1,12 @@
 import React from "react";
+import { Grid } from "@mui/material";
+import CategoryCard from "./CategoryCard";
 
 //Components Import
 import NoCategories from "./NoCategories";
 
 const Categories = (props)=>{
-    const rId = props.rId;
+    const rId = props.res.resId;
     const [categories, setCategories] = React.useState([]);
 
     // function to fetch categories from backend
@@ -32,7 +34,14 @@ const Categories = (props)=>{
             {categories.length === 0 ?(
                 <NoCategories res={props.res}/>
             ):(
-                <div>Categories</div>
+                <Grid container sx={{margin:'2rem'}}>
+                    
+                        {categories.map((cat)=>{
+                            return(
+                                <CategoryCard key={cat.cId} cat={cat}/>
+                            );
+                        })}
+                </Grid>
             )}
         </>
     );
