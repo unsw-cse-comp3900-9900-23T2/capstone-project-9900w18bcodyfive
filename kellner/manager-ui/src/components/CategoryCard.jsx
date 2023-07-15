@@ -10,6 +10,9 @@ import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import styled from "@emotion/styled";
 import EditCategory from './EditCategory';
 
+//Redux imports
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+
 const CardEffect = styled('div')({
     '&:hover': {
         cursor:'pointer',
@@ -32,6 +35,7 @@ const EditEffect = styled('div')({
 });
 
 const CategoryCard = (props)=>{
+    const token = useSelector(state=>state.manager.token);
     const cat= props.cat;
     const [open, setOpen] = React.useState(false);
     //function to open edit category popup
@@ -41,6 +45,23 @@ const CategoryCard = (props)=>{
     //function to closw edit category
     const handleClose = ()=>{
         setOpen(false);
+    }
+    //function to delete a category
+    async function deleteCategory() {
+        const response = await fetch(`http://localhost:5000/api/deleteCategory/${cat.rId}/${cat.cId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json',
+                'authorization': `bearer ${token}`
+            }
+        })
+        const data = await response.json();
+        if (response.status === 200){
+            window.location.reload();
+        } else {
+            console.log(data.errorMessage);
+            window.alert(data.errorMessage);
+        }
     }
     return(
         <Grid item xs={12} sm={12} md={4} lg={3}>
@@ -63,7 +84,7 @@ const CategoryCard = (props)=>{
                     </CardContent>
                     <div style={{display:'flex', justifyContent:'space-evenly', margin:'1rem'}}>
                         <DeleteEffect>
-                            <DeleteIcon/>
+                            <DeleteIcon onClick={deleteCategory}/>
                         </DeleteEffect>
                         <EditEffect>
                             <EditTwoToneIcon onClick={handleOpen}/>

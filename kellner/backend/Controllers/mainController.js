@@ -383,7 +383,7 @@ const editRestaurant = async(req,res) => {
           return res.status(404).send('Category not found');
         }
   
-        res.status(200).send('Category deleted');
+        res.status(200).send({successMessage: 'Category Deleted'});
     } catch (e) {
       res.status(400).send({
         errorMessage: e.message,
