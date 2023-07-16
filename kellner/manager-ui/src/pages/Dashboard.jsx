@@ -129,7 +129,7 @@ const Dashboard = () => {
                     </>
                 ))}
             </Container1>
-            <Container3>
+            <Container3 id="categories">
                 <div style={{color:'green', fontWeight: 'bold'}}>Menu Categories</div>
                 {loading ? (
                     <div> Categories Data Loading...</div>

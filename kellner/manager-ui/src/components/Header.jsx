@@ -11,6 +11,7 @@ import Divider from '@mui/material/Divider';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
+import SearchIcon from '@mui/icons-material/Search';
 
 //Redux Imports
 import { useSelector ,useDispatch } from 'react-redux';
@@ -76,20 +77,45 @@ const StyledHeader = styled('header')({
     position: 'fixed'
 })
 
-const Header = ()=>{
+const SearchContainer = styled('div')({
+    display: 'flex',
+    backgroundColor: 'white',
+    border: '2px solid black',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderRadius: '2rem',
+    padding: '0.25rem 1rem'
+});
+
+const SearchInput = styled('input')({
+    border: 'none',
+    color: 'black',
+    fontSize: '1.5rem'
+});
+
+const Header = (props)=>{
     const [scrollChange, setScrollChanage] = React.useState(false);
     const mName = useSelector(state => state.manager.mName)
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
-   window.addEventListener('scroll', ()=>{
-    if(window.scrollY >= 1000){
-        setScrollChanage(true);
-    } else {
-        setScrollChanage(false);
-    }
-   });
+    const [isDashboard, setIsDashboard] = React.useState(true);
+    
+    window.addEventListener('scroll', ()=>{
+        if(window.scrollY >= 700){
+            setScrollChanage(true);
+        } else {
+            setScrollChanage(false);
+        }
+    });
+
+    React.useEffect(()=>{
+        if(window.location.pathname.includes('/items')){
+            setIsDashboard(false);
+        }
+    },[]);
+
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
@@ -108,16 +134,42 @@ const Header = ()=>{
                     <NameContainer><span style={{color:'#006600'}}>Kell</span>ner</NameContainer>
                 </Container>
                 <ButtonContainer>
-                    <a href="#welcomeSection" style={{textDecoration: 'none'}}>
-                        <HeaderTags scrollProp={scrollChange}>
-                            Home
-                        </HeaderTags>
-                    </a>
-                    <a href="#restaurantDetails" style={{textDecoration: 'none'}}>
-                        <HeaderTags scrollProp={scrollChange}>
-                            My Restaurant
-                        </HeaderTags>
-                    </a>
+                    {isDashboard ? (
+                        <>
+                            <a href="#welcomeSection" style={{textDecoration: 'none'}}>
+                                <HeaderTags scrollProp={scrollChange}>
+                                    Home
+                                </HeaderTags>
+                            </a>
+                            <a href="#restaurantDetails" style={{textDecoration: 'none'}}>
+                                <HeaderTags scrollProp={scrollChange}>
+                                    My Restaurant
+                                </HeaderTags>
+                            </a>
+                            <a href="#tableIdDetails" style={{textDecoration: 'none'}}>
+                                <HeaderTags scrollProp={scrollChange}>
+                                    Table Id
+                                </HeaderTags>
+                            </a>
+                            <a href="#categories" style={{textDecoration: 'none'}}>
+                                <HeaderTags scrollProp={scrollChange}>
+                                    Categories
+                                </HeaderTags>
+                            </a>
+                        </>
+                    ) : (
+                        <>
+                            <SearchContainer>
+                                <SearchInput placeholder='Search Items' onChange={e=>{props.updateQuery(e.target.value)}}/>
+                                <SearchIcon sx={{margin: '0.5rem', cursor: 'pointer'}}/>
+                            </SearchContainer>
+                            <a href="/dashboard" style={{textDecoration: 'none'}}>
+                                <HeaderTags scrollProp={scrollChange}>
+                                    Dashboard
+                                </HeaderTags>
+                            </a>
+                        </>
+                    )}
                     <IconButton
                         onClick={handleClick}
                         size="small"

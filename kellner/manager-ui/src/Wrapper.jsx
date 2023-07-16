@@ -7,7 +7,8 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import LogIn from './pages/LogIn';
 import Dashboard from './pages/Dashboard';
-import Loading from "./assets/images/Loading.gif"
+import Loading from "./assets/images/Loading.gif";
+import ItemsPage from './pages/ItemsPage';
 
 const Wrapper = ()=>{
     const token = useSelector(state => state.manager.token);
@@ -41,6 +42,7 @@ const Wrapper = ()=>{
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<LogIn />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/dashboard/:cId/items" element={<ItemsPage />} />
             </Routes>
         );
     }

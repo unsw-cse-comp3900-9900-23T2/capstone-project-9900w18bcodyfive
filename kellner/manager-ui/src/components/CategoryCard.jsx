@@ -9,7 +9,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import styled from "@emotion/styled";
 import EditCategory from './EditCategory';
-
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 //Redux imports
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 
@@ -35,9 +36,12 @@ const EditEffect = styled('div')({
 });
 
 const CategoryCard = (props)=>{
+    const navigate = useNavigate();
     const token = useSelector(state=>state.manager.token);
     const cat= props.cat;
     const [open, setOpen] = React.useState(false);
+    const rId = cat.rId;
+    const cId = cat.cId;
     //function to open edit category popup
     const handleOpen = ()=>{
         setOpen(true);
@@ -63,25 +67,32 @@ const CategoryCard = (props)=>{
             window.alert(data.errorMessage);
         }
     }
+
+    // function to navigate to items page
+    const goToItems = ()=>{
+        navigate(`${cat.cId}/items`);
+    }
     return(
         <Grid item xs={12} sm={12} md={4} lg={3}>
             <CardEffect>
             <Paper sx={{maxWidth:345, borderRadius:'2rem'}}>
                 <Card sx={{maxWidth:345, borderRadius:'2rem'}}>
-                    <CardMedia
-                        component="img"
-                        alt="green iguana"
-                        height="140"
-                        image={cat.cImage}
-                    />
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            {cat.cName}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            {cat.cDescription}
-                        </Typography>
-                    </CardContent>
+                    <Link to={`${cat.cId}/items`} state={{rId, cId}} style={{textDecoration:'none', color:'black'}}>
+                        <CardMedia
+                            component="img"
+                            alt="green iguana"
+                            height="140"
+                            image={cat.cImage}
+                        />
+                        <CardContent>
+                            <Typography gutterBottom variant="h5" component="div">
+                                {cat.cName}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                                {cat.cDescription}
+                            </Typography>
+                        </CardContent>
+                    </Link>
                     <div style={{display:'flex', justifyContent:'space-evenly', margin:'1rem'}}>
                         <DeleteEffect>
                             <DeleteIcon onClick={deleteCategory}/>
