@@ -8,6 +8,10 @@ import {Paper} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import styled from "@emotion/styled";
+
+//Component Imports
+import EditItems from './EditItems';
+
 //Redux imports
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 
@@ -79,12 +83,13 @@ const ItemCard = (props)=>{
                             <Typography gutterBottom variant="h5" component="div">
                                 {item.iName}
                             </Typography>
-                            <Typography variant="body2">
+                            <Typography variant="body1">
                                 {item.iDescription}
                             </Typography>
-                            <Typography variant="body2">
-                                {item.iIngredients}
+                            <Typography variant="body1">
+                                <span style={{fontWeight: 'bold'}}>Ingredients: </span>{item.iIngredients}
                             </Typography>
+                            <div style={{fontWeight: 'bold'}}>Price: ${item.iPrice}</div>
                         </CardContent>
                     <div style={{display:'flex', justifyContent:'space-evenly', margin:'1rem'}}>
                         <DeleteEffect>
@@ -92,6 +97,7 @@ const ItemCard = (props)=>{
                         </DeleteEffect>
                         <EditEffect>
                             <EditTwoToneIcon onClick={handleOpen}/>
+                            <EditItems open={open} item={item} handleClose={handleClose}/>
                         </EditEffect>
                     </div>
                 </Card>

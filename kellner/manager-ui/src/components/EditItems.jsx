@@ -42,63 +42,70 @@ const StyledButton = styled('button')({
 
 });
 
-const AddCategories = (props)=>{
+const EditItems = (props)=>{
     const [loading, setLoading] = React.useState(false);
     const token = useSelector(state => state.manager.token);
-    const rId = props.res.resId;
+    const item = props.item;
+    const rId = item.rId;
+    const cId = item.cId;
+    const iId = item.iId;
     const [values, setValues] = React.useState({
-        cName:"",
-        cDescription: "",
-        cType:"",
-        cImage:""
+        iName: item.iName,
+        iPrice: item.iPrice,
+        iDescription: item.iDescription,
+        iIngrediens: item.iIngredients,
+        iImage:""
     });
-    const [isRequired, setIsRequired] = React.useState(false);
+
     const handleClose = ()=>{
-        setIsRequired(false);
         props.handleClose();
     };
     const inputs = [
         {
             id:1,
-            name:"cName",
+            name:"iName",
             type:"text",
-            placeholder:"Category Name",
-            errorMessage:"please enter a category name",
-            label:"Category Name",
-            required:true
+            placeholder:"Item Name",
+            errorMessage:"please enter a Item name",
+            label:"Item Name"
         },
         {
             id:2,
-            name:"cDescription",
+            name:"iDescription",
             type:"text",
-            placeholder:"Add a short description about your category",
+            placeholder:"Add a short description about your item",
             errorMessage:"Please enter the description",
-            label:"Category Description",
-            required:true
+            label:"Item Description"
         },
         {
             id:3,
-            name:"cType",
+            name:"iIngredients",
             type:"text",
-            placeholder:"Please enter the the type of your category",
-            errorMessage:"Please enter the type of category",
-            label:"Type",
-            required:true
+            placeholder:"Please enter ingredients",
+            errorMessage:"Please enter the ingredients",
+            label:"Ingredients"
         },
         {
             id:4,
-            name:"cImage",
+            name:"iImage",
             type:"file",
-            placeholder:"please upload an image of your Category",
+            placeholder:"please upload an image of your restaurant",
             errorMessage:"Please upload an image",
-            label:"Category Image",
-            required:true
+            label:"Upload a new file if you want to change the previous image"
+        },
+        {
+            id:5,
+            name:"iPrice",
+            type:"Number",
+            placeholder:"Please enter Price",
+            errorMessage:"Please enter the Price",
+            label:"Price"
         },
     ];
 
-    async function addCategory() {
-        const response = await fetch(`http://localhost:5000/api/addCategory/${rId}`, {
-            method: 'POST',
+    async function editItems() {
+        const response = await fetch(`http://localhost:5000/api/editItems/${rId}/${cId}/${iId}`, {
+            method: 'PUT',
             headers: {
                 'Content-type': 'application/json',
                 'authorization': `bearer ${token}`
@@ -124,7 +131,7 @@ const AddCategories = (props)=>{
     };
     
     const onChange = (e) =>{
-        if(e.target.name === "cImage"){
+        if(e.target.name === "iImage"){
             handleFileUpload(e);
         } else {
             setValues({ ...values, [e.target.name]: e.target.value});
@@ -135,9 +142,11 @@ const AddCategories = (props)=>{
     const handleSubmit = (e)=>{
         e.preventDefault();
         setLoading(true);
-        console.log(rId)
+        if(values.iImage === ''){
+            values.iImage = item.iImage
+        }
         console.log(values);
-        addCategory();
+        editItems();
     }
     return(
         <Dialog open={props.open}>
@@ -146,24 +155,9 @@ const AddCategories = (props)=>{
             <Form onSubmit={handleSubmit}>
                 <h2 style={{color:'#006600'}}>Add Your Category</h2>
                 {inputs.map((input) =>{
-                    if(input.name === "cImage"){
+                    if(input.name === "iImage"){
                         return(
                             <FormInput key={input.id} {...input} onChange={onChange}/>
-                        );
-                    } else if(input.name === "cType") {
-                        return(
-                            <div key={input.id} >
-                                <label style={{ fontSize: '1.2rem', textAlign: 'left'}}>{input.label}</label>
-                                <select onChange={onChange}  name="cType" className='formInput' onBlur = {(e)=>{setIsRequired(true)}} focused  = {isRequired.toString()} required={isRequired}>
-                                    <option value=''>Select one Type</option>
-                                    <option value='BreakFast'>BreakFast</option>
-                                    <option value='Lunch'>Lunch</option>
-                                    <option value='Dinner'>Dinner</option>
-                                    <option value='Snacks'>Snacks</option>
-                                    <option value='Beverages'>Beverages</option>
-                                </select>
-                                <span className='errorMessage '>{input.errorMessage}</span>
-                            </div>
                         );
                     }else {
                         return(
@@ -187,4 +181,4 @@ const AddCategories = (props)=>{
     );
 }
 
-export default AddCategories;
+export default EditItems;

@@ -90,9 +90,9 @@ const AddItems = (props)=>{
             id:4,
             name:"iImage",
             type:"file",
-            placeholder:"please upload an image of your restaurant",
+            placeholder:"please upload an image of your Item",
             errorMessage:"Please upload an image",
-            label:"Restaurant Image",
+            label:"Item Image",
             required:true
         },
         {
@@ -106,7 +106,7 @@ const AddItems = (props)=>{
         },
     ];
 
-    async function addCategory() {
+    async function addItems() {
         const response = await fetch(`http://localhost:5000/api/addItems/${rId}/${cId}`, {
             method: 'POST',
             headers: {
@@ -147,7 +147,7 @@ const AddItems = (props)=>{
         setLoading(true);
         console.log(rId)
         console.log(values);
-        addCategory();
+        addItems();
     }
     return(
         <Dialog open={props.open}>
