@@ -8,9 +8,6 @@ import {Paper} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import styled from "@emotion/styled";
-import EditCategory from './EditCategory';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 //Redux imports
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 
@@ -35,25 +32,23 @@ const EditEffect = styled('div')({
     }
 });
 
-const CategoryCard = (props)=>{
-    const navigate = useNavigate();
+const ItemCard = (props)=>{
     const token = useSelector(state=>state.manager.token);
-    const cat= props.cat;
+    const item= props.item;
     const [open, setOpen] = React.useState(false);
-    const rId = cat.rId;
-    const cId = cat.cId;
-    const cName = cat.cName;
-    //function to open edit category popup
+    const rId = item.rId;
+    const cId = item.cId;
+    //function to open edit item popup
     const handleOpen = ()=>{
         setOpen(true);
     }
-    //function to closw edit category
+    //function to closw edit item
     const handleClose = ()=>{
         setOpen(false);
     }
-    //function to delete a category
+    //function to delete a item
     async function deleteCategory() {
-        const response = await fetch(`http://localhost:5000/api/deleteCategory/${cat.rId}/${cat.cId}`, {
+        const response = await fetch(`http://localhost:5000/api/deleteCategory/${rId}/${cId}`, {
             method: 'DELETE',
             headers: {
                 'Content-type': 'application/json',
@@ -69,38 +64,34 @@ const CategoryCard = (props)=>{
         }
     }
 
-    // function to navigate to items page
-    const goToItems = ()=>{
-        navigate(`${cat.cId}/items`);
-    }
     return(
         <Grid item xs={12} sm={12} md={4} lg={3}>
             <CardEffect>
             <Paper sx={{maxWidth:345, borderRadius:'2rem'}}>
                 <Card sx={{maxWidth:345, borderRadius:'2rem'}}>
-                    <Link to={`${cat.cId}/items`} state={{rId, cId, cName:cat.cName}} style={{textDecoration:'none', color:'black'}}>
                         <CardMedia
                             component="img"
                             alt="green iguana"
                             height="140"
-                            image={cat.cImage}
+                            image={item.iImage}
                         />
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="div">
-                                {cat.cName}
+                                {item.iName}
                             </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                {cat.cDescription}
+                            <Typography variant="body2">
+                                {item.iDescription}
+                            </Typography>
+                            <Typography variant="body2">
+                                {item.iIngredients}
                             </Typography>
                         </CardContent>
-                    </Link>
                     <div style={{display:'flex', justifyContent:'space-evenly', margin:'1rem'}}>
                         <DeleteEffect>
                             <DeleteIcon onClick={deleteCategory}/>
                         </DeleteEffect>
                         <EditEffect>
                             <EditTwoToneIcon onClick={handleOpen}/>
-                            <EditCategory open={open} cat={cat} handleClose={handleClose}/>
                         </EditEffect>
                     </div>
                 </Card>
@@ -110,4 +101,4 @@ const CategoryCard = (props)=>{
     );
 }
 
-export default CategoryCard;
+export default ItemCard;
