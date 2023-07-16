@@ -51,8 +51,8 @@ const ItemCard = (props)=>{
         setOpen(false);
     }
     //function to delete a item
-    async function deleteCategory() {
-        const response = await fetch(`http://localhost:5000/api/deleteCategory/${rId}/${cId}`, {
+    async function deleteItem() {
+        const response = await fetch(`http://localhost:5000/api/deleteItems/${rId}/${cId}/${item.iId}`, {
             method: 'DELETE',
             headers: {
                 'Content-type': 'application/json',
@@ -93,7 +93,7 @@ const ItemCard = (props)=>{
                         </CardContent>
                     <div style={{display:'flex', justifyContent:'space-evenly', margin:'1rem'}}>
                         <DeleteEffect>
-                            <DeleteIcon onClick={deleteCategory}/>
+                            <DeleteIcon onClick={deleteItem}/>
                         </DeleteEffect>
                         <EditEffect>
                             <EditTwoToneIcon onClick={handleOpen}/>
