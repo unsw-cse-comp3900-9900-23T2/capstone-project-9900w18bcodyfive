@@ -16,7 +16,7 @@ const Content = styled('div')({
     fontFamily: 'Nunito',
     fontSize: '2rem',
     textAlign: 'left',
-    margin: '100px 100px',
+    margin: '3rem',
     fontWeight: 'bold'
 });
 
@@ -34,12 +34,12 @@ const NoItemsAdded = (props)=>{
     };
     return(
         <Container>
+            <img src={noContentAdded} alt={'No items added'} style={{width: '800px'}}/>
             <Content>
                 You have not added any items. You can add easily by clicking the button below. <br/><br/>
                 <Button variant="contained" color="success" sx={{fontSize:'1.25rem'}} onClick={handleOpen}>Add Items</Button>
                 <AddItems open={open} rId={props.rId} cId={props.cId} handleClose={handleClose}/>
             </Content>
-            <img src={noContentAdded} alt={'No items added'} style={{width: '800px'}}/>
         </Container>
     );
 };

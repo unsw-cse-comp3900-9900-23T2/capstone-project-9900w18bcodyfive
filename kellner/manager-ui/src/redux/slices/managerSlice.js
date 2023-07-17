@@ -46,6 +46,7 @@ const managerSlice = createSlice({
     }
 });
 
-// Exporting the actions
+// Exporting the reducer
 export default managerSlice.reducer;
+// Exporting the actions
 export const{loggingIn, loggedIn, loggingError, loggedOut} =  managerSlice.actions;
