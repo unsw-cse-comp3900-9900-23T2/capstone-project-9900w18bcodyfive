@@ -4,10 +4,27 @@ require('dotenv').config({ path: './config/.env' });
 
 // this customer can only be at one restaurant, and the restaurant's resID is passed as a parameter
 
+const Restaurant = require('../Schemas/restaurantSchema')
 const Category = require('../Schemas/categorySchema')
 const Items = require('../Schemas/itemSchema')
 
 /* ROUTES */
+/*================================================================================================================================== 
+    FETCH ALL RESTAURANTS
+================================================================================================================================== */
+const getAllRestaurants = async(req, res) => {
+    try{
+        const restaurants = await Restaurant.find().exec();
+        res.status(200).send({
+            restaurants: restaurants
+        });
+    } catch(e){
+        res.status(400).send({
+            errorMessage: e.message
+        });
+    }
+}
+
 /*================================================================================================================================== 
     FETCH CATEGORIES
 ================================================================================================================================== */
@@ -35,7 +52,6 @@ FETCH ITEMS
 const getTenItems = async (req, res) => {
     try {
         const resId = req.params.rId    
-        const categories = await Category.find({ rId: resId }).exec();
         const items = await Items.find({ rId: resId }).limit(10);
         res.status(200).send({
             item: items
@@ -53,7 +69,6 @@ const getTenItems = async (req, res) => {
 const getRandomItems = async (req, res) => {
     try {
         const resId = req.params.rId
-        const categories = await Category.find({ rId: resId }).exec();
         const itemCount = await Items.countDocuments({});
         if (itemCount > 10){
             const resFilter = { rId : { $eq: resId }};
@@ -116,8 +131,9 @@ const getUserDashboard = async (req, res) => {
 }
 
 module.exports = {
+    getAllRestaurants,
     getAllCategories,
     getTenItems,
     getRandomItems,
-    getUserDashboard
+    getUserDashboard,
 }

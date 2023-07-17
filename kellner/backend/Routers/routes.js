@@ -20,6 +20,7 @@ const {
     } = require('../Controllers/mainController.js')
 
 const {
+    getAllRestaurants,
     getAllCategories,
     getTenItems,
     getRandomItems,
@@ -222,8 +223,11 @@ router.put('/api/editItems/:rId/:cId/:iId', editItem) //PUT
 router.delete('/api/deleteItems/:rId/:cId/:iId', deleteItem) //DELETE
 
 /*================================================================================================================================== 
-    USER SETUP
+    USER Routes
   ================================================================================================================================== */  
+
+//Get the list of restaurants
+router.get('/api/getAllRestaurants', getAllRestaurants)
 
 // Get all categories
 router.get('/api/getAllCategories/:rId', getAllCategories)
