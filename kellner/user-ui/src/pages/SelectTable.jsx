@@ -61,8 +61,9 @@ const SelectTable = ()=>{
     };
 
     // function to dispatch the action to the redux table slice and navigate to other page
-    const finaliseRestaurant = ()=>{
+    const finaliseTable = ()=>{
         dispatch(addTable({tId:table}));
+        navigate('/dashboard');
     }
     // Triggers the animation everytime the page loads
     React.useEffect(() => {
@@ -85,8 +86,8 @@ const SelectTable = ()=>{
                         })}
                     </StyledSelect>
                     <div>
-                        <Button variant="contained" color="success" onClick={finaliseRestaurant} sx={{fontSize:'1.15rem'}}>
-                            Confirm Restaurant
+                        <Button variant="contained" color="success" onClick={finaliseTable} sx={{fontSize:'1.15rem'}}>
+                            Confirm Table
                         </Button>
                     </div>
                 </WelcomeMessageContainer>

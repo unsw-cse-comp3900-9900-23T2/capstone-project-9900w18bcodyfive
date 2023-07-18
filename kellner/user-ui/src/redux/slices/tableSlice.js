@@ -13,6 +13,7 @@ const tableSlice = createSlice({
     reducers: {
         //reducer for adding table
         addTable:(state, action) => {
+            console.log(action.payload);
             state.tId = action.payload.tId
         },
         //reducer for removing table and checkout

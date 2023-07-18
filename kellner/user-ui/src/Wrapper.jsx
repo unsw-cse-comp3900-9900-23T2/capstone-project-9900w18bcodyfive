@@ -1,10 +1,10 @@
 import React from "react";
-import { Routes, Route, useLocation, useNavigate  } from 'react-router-dom';
-import { UseSelector } from "react-redux/es/hooks/useSelector";
+import { Routes, Route} from 'react-router-dom';
 
 //pages import
 import Home from "./pages/Home";
 import SelectTable from "./pages/SelectTable";
+import Dashboard from "./pages/Dashboard";
 
 
 const Wrapper = ()=>{
@@ -12,6 +12,7 @@ const Wrapper = ()=>{
         <Routes>
             <Route path="/" element={<Home/>}/>
             <Route path="/select-table" element={<SelectTable/>}/>
+            <Route path="/dashboard" element={<Dashboard/>}/>
         </Routes>
     );
 };

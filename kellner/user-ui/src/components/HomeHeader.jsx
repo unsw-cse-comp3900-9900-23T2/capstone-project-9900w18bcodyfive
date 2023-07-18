@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import logo from '../assets/logo/Kellner-Logo.png';
-import { useNavigate } from 'react-router-dom';
 import { Paper } from '@mui/material';
 
 const MasterContainer = styled('div')({
@@ -29,8 +28,8 @@ const NameContainer = styled('div')({
     fontSize: '4rem',
 });
 
+
 const HomeHeader = () => {
-    const navigate = useNavigate();
     return(
         <Paper>
         <MasterContainer>
