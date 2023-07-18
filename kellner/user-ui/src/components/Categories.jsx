@@ -1,12 +1,20 @@
-import styled from "@emotion/styled";
 import { Grid } from "@mui/material";
 
+//Components Import
+import Category from "./Category";
 
-const Categories = ()=>{
+
+const Categories = (props)=>{
+    const categories = props.categories;
+    console.log(categories);
     return(
         <div>
             <Grid container>
-                Categories
+                {categories.map((cat)=>{
+                    return(
+                        <Category cat={cat}/>
+                    );
+                })}
             </Grid>
         </div>
     );

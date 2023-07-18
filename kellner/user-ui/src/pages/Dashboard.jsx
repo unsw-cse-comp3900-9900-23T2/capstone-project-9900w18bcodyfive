@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { Dialog } from "@mui/material";
 
 // Component Imports
 import Header from "../components/Header";
 import Categories from "../components/Categories";
+import Loading from "../assets/images/Loading.gif"
 
 // Redux Imports
 import { useSelector } from "react-redux";
@@ -14,7 +16,12 @@ const Container1 = styled('div')({
     justifyContent: 'center'
 });
 const Dashboard = ()=>{
-    const rId = useSelector(state=>state.restaurant.rId)
+    const rId = useSelector(state=>state.restaurant.rId);
+    const [loading, setLoading] = React.useState(true);
+    const [data, setData] = React.useState({
+        cat:'',
+        rand:''
+    });
 
     //Function to fetch the dashboard
     async function getUserDashboard(){
@@ -28,6 +35,12 @@ const Dashboard = ()=>{
         const data = await response.json();
         if(response.status === 200){
             console.log(data)
+            let temp ={
+                cat: data.category,
+                rand: data.items
+            };
+            setData(temp);
+            setLoading(false);
         }
     }
 
@@ -36,10 +49,18 @@ const Dashboard = ()=>{
     },[]);
     return(
         <>
-            <Header/>
-            <Container1>
-                <Categories/>
-            </Container1>
+        {loading === false ?(
+            <>
+                <Header/>
+                <Container1>
+                    <Categories categories={data.cat}/>
+                </Container1>
+            </>
+        ) : (
+            <Dialog open={loading} sx={{opacity:'0.65'}}>
+                <img src={Loading} alt={'Loading'}/>
+            </Dialog>
+        )}
         </>
     );
 }
