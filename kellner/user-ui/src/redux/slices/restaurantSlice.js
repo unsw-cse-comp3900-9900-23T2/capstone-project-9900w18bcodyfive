@@ -4,7 +4,8 @@ import { createSlice } from "@reduxjs/toolkit";
 // Initial State
 const initialState = {
     rId: '',
-    rName: ''
+    rName: '',
+    rTableIds:[]
 }
 
 // defining the slice
@@ -13,12 +14,15 @@ const restaurantSlice = createSlice({
     initialState,
     reducers: {
         addRestaurant: (state, action) => {
+            console.log(action.payload)
             state.rId = action.payload.rId
             state.rName = action.payload.rName
+            state.rTableIds = action.payload.rTableIds
         },
         removeRestaurant: (state, action) => {
             state.rId = ''
             state.rName = ''
+            state.rTableIds = []
         }
     }
 });
