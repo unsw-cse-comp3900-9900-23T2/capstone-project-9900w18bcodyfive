@@ -3,6 +3,10 @@ import logo from '../assets/logo/Kellner-Logo.png';
 import { useNavigate } from 'react-router-dom';
 import { Paper } from '@mui/material';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import {Badge} from '@mui/material';
+
+//redux imports
+import { useSelector } from 'react-redux';
 
 const MasterContainer = styled('div')({
     display: 'flex',
@@ -54,6 +58,10 @@ const StyledHeader = styled('header')({
 
 const Header = () => {
     const navigate = useNavigate();
+    const items = useSelector(state => state.cart.products);
+    const goToCart = ()=>{
+        navigate('/cart-page');
+    }
     return(
         <StyledHeader>
             <Paper sx={{margin: '0', width:'100%'}}>
@@ -64,7 +72,9 @@ const Header = () => {
                     </Container>
                     <Utilities>
                         <Utility>
-                            <ShoppingBasketIcon sx={{fontSize: '3rem', color:'green'}}/>
+                            <Badge badgeContent={items.length} color="success">
+                                <ShoppingBasketIcon sx={{fontSize: '3rem', color:'green'}} onClick={goToCart}/>
+                            </Badge>
                         </Utility>
                     </Utilities>
                 </MasterContainer>

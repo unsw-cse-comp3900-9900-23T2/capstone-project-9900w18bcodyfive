@@ -31,7 +31,7 @@ const Effect = styled('div')({
     }
 });
 
-const Input = styled('input')({
+const QuantityDisplay = styled('div')({
     border: '1px solid gray',
     heignt: '2rem',
     width: '4rem',
@@ -45,7 +45,6 @@ const Item = (props)=>{
     const dispatch = useDispatch();
     const items = useSelector(state => state.cart.products);
     const GetQuantity = (items, name)=>{
-        console.log(name);
         let q = 0
         for (const i of items){
             if(i.name === name){
@@ -55,12 +54,12 @@ const Item = (props)=>{
         return q;
     }
     const [quantity, setQuantity] = React.useState(GetQuantity(items, item.iName));
-    console.log(quantity)
 
     const addItemToCart = ()=>{
         const temp = {
             name: item.iName,
-            price: item.iPrice
+            price: item.iPrice,
+            image: item.iImage
         }
         dispatch(addItem(temp));
         setQuantity(quantity + 1);
@@ -106,7 +105,7 @@ const Item = (props)=>{
                                 <Effect>
                                     <AddIcon onClick={addItemToCart}/>
                                 </Effect>
-                                <Input value={quantity}/>
+                                <QuantityDisplay>{quantity}</QuantityDisplay>
                                 <Effect>
                                     <RemoveIcon onClick={removeItemFromCart}/>
                                 </Effect>

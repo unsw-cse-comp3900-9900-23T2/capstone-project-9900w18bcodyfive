@@ -49,7 +49,7 @@ const Category = (props)=>{
         <>
         <Grid item>
             <Paper sx={{margin: '2rem', borderRadius: '2rem'}}>
-                <Link to={`${cat.cId}/items`} state={{rId, cId, cName:cat.cName}} style={{textDecoration:'none', color:'black'}}>
+                <Link to={`${cat.cId}/items`} state={{rId, cId, cName:cat.cName, cImage:cat.cImage}} style={{textDecoration:'none', color:'black'}}>
                     <Tile style={{backgroundImage:`url(${cat.cImage})`, backgroundSize: 'cover'}}>
                         <div style={{background: 'white', padding:'1rem', borderRadius: '2rem'}}>
                             <Name>{cat.cName}</Name>

@@ -29,7 +29,7 @@ const Container1 = styled('div')({
 const CatItems = ()=>{
     const [items, setItems] = React.useState([]);
     const location = useLocation();
-    const {rId, cId, cName} = location.state;
+    const {rId, cId, cName, cImage} = location.state;
 
     // function to fetch categories from backend
     async function getItems() {
@@ -56,8 +56,10 @@ const CatItems = ()=>{
         <>
             <Header/>
             <Heading>
-                    <div style={{backgroundColor: 'green', width:'80%', borderRadius: '0.5rem'}}>
-                        {cName}
+                    <div style={{display:'flex', width:'80%', borderRadius: '0.5rem', backgroundImage:`url(${cImage})`, backgroundSize: 'cover', height:'9rem', color:'black', alignItems: 'center', justifyContent:'center', fontSize:'4rem'}}>
+                        <div style={{backgroundColor: 'white', padding:'0.5rem', borderRadius:'1rem'}}>
+                            {cName}
+                        </div>
                     </div>
             </Heading>
             <Container1>
