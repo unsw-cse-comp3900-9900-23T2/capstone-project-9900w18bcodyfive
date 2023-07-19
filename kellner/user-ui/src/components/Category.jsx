@@ -44,7 +44,7 @@ const Category = (props)=>{
     const cat = props.cat;
     return(
         <>
-        <Grid items>
+        <Grid item>
             <Paper sx={{margin: '2rem', borderRadius: '2rem'}}>
                 <Tile style={{backgroundImage:`url(${cat.cImage})`, backgroundSize: 'cover'}}>
                     <div style={{background: 'white', padding:'1rem', borderRadius: '2rem'}}>

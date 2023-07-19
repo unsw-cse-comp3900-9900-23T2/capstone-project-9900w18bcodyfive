@@ -6,13 +6,12 @@ import Category from "./Category";
 
 const Categories = (props)=>{
     const categories = props.categories;
-    console.log(categories);
     return(
         <div>
             <Grid container>
-                {categories.map((cat)=>{
+                {categories.map((cat, index)=>{
                     return(
-                        <Category cat={cat}/>
+                        <Category key={index} cat={cat}/>
                     );
                 })}
             </Grid>

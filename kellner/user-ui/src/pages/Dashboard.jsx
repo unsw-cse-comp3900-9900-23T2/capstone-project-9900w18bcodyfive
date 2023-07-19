@@ -5,18 +5,42 @@ import { Dialog } from "@mui/material";
 // Component Imports
 import Header from "../components/Header";
 import Categories from "../components/Categories";
-import Loading from "../assets/images/Loading.gif"
+import Loading from "../assets/images/Loading.gif";
+import Items from "../components/Items";
 
 // Redux Imports
 import { useSelector } from "react-redux";
 
+const WelcomeMessage = styled('div')({
+    display:'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    fontFamily: 'Nunito',
+    fontWeight: 'bold',
+    marginTop: '12rem',
+    fontSize: '3rem',
+    alignItems: 'flex-start'
+});
+
+const Heading = styled('div')({
+    display: 'flex',
+    justifyContent: 'center',
+    fontFamily: 'Nunito',
+    fontSize: '2rem',
+    fontWeight: 'bold',
+    margin: '4rem',
+    color:'white'
+
+});
 const Container1 = styled('div')({
     display: 'flex',
-    marginTop: '10rem',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    margin: '2rem',
+    
 });
 const Dashboard = ()=>{
     const rId = useSelector(state=>state.restaurant.rId);
+    const rName = useSelector(state=>state.restaurant.rName);
     const [loading, setLoading] = React.useState(true);
     const [data, setData] = React.useState({
         cat:'',
@@ -34,10 +58,9 @@ const Dashboard = ()=>{
     
         const data = await response.json();
         if(response.status === 200){
-            console.log(data)
             let temp ={
                 cat: data.category,
-                rand: data.items
+                rand: data.item
             };
             setData(temp);
             setLoading(false);
@@ -52,8 +75,24 @@ const Dashboard = ()=>{
         {loading === false ?(
             <>
                 <Header/>
+                <WelcomeMessage>
+                    Welcome to {rName}
+                </WelcomeMessage>
+                <Heading>
+                    <div style={{backgroundColor: 'green', width:'80%', borderRadius: '0.5rem'}}>
+                        Categories
+                    </div>
+                </Heading>
                 <Container1>
                     <Categories categories={data.cat}/>
+                </Container1>
+                <Heading>
+                    <div style={{backgroundColor: 'green', width:'80%', borderRadius: '0.5rem'}}>
+                        Popular Items
+                    </div>
+                </Heading>
+                <Container1>
+                    <Items items={data.rand}/>
                 </Container1>
             </>
         ) : (

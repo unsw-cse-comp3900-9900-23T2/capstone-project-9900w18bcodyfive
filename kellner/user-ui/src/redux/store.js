@@ -17,10 +17,12 @@ import storage from 'redux-persist/lib/storage';
 // importing our slices
 import tableSlice from "./slices/tableSlice";
 import restaurantSlice from "./slices/restaurantSlice";
+import cartSlice from "./slices/cartSlice";
 
 // Assigning our slice imports to a constant
 const tableReducer = tableSlice;
 const restaurantReducer = restaurantSlice;
+const cartReducer = cartSlice;
 
 // Persist configuration
 const persistConfig = {
@@ -29,7 +31,7 @@ const persistConfig = {
     storage,
 }
 
-const rooReducer = combineReducers({table:tableReducer, restaurant:restaurantReducer})
+const rooReducer = combineReducers({table:tableReducer, restaurant:restaurantReducer, cart: cartReducer})
 
 const persistedReducer = persistReducer(persistConfig, rooReducer);
 
