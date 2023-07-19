@@ -8,7 +8,7 @@ const Items = (props)=>{
     const items = props.items;
     return(
         <div>
-            <Grid container rowSpacing={3}>
+            <Grid container rowSpacing={3} columnSpacing={3}>
                 {items.map((item, index)=>{
                     return(
                         <Item key={index} item={item}/>

@@ -103,9 +103,13 @@ const Item = (props)=>{
                             <Button variant="contained" color="success" onClick={addItemToCart}>Add to Plate</Button>
                         ): (
                             <>
-                                <AddIcon onClick={addItemToCart}/>
+                                <Effect>
+                                    <AddIcon onClick={addItemToCart}/>
+                                </Effect>
                                 <Input value={quantity}/>
-                                <RemoveIcon onClick={removeItemFromCart}/>
+                                <Effect>
+                                    <RemoveIcon onClick={removeItemFromCart}/>
+                                </Effect>
                             </>
                         )}
                     </div>

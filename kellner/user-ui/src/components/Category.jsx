@@ -1,6 +1,7 @@
 import { Grid } from "@mui/material";
 import {Paper} from "@mui/material";
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
 const Tile = styled('div')({
     display: 'flex',
@@ -42,16 +43,20 @@ const Description = styled('div')({
 });
 const Category = (props)=>{
     const cat = props.cat;
+    const rId = props.cat.rId;
+    const cId = props.cat.cId;
     return(
         <>
         <Grid item>
             <Paper sx={{margin: '2rem', borderRadius: '2rem'}}>
-                <Tile style={{backgroundImage:`url(${cat.cImage})`, backgroundSize: 'cover'}}>
-                    <div style={{background: 'white', padding:'1rem', borderRadius: '2rem'}}>
-                        <Name>{cat.cName}</Name>
-                    </div>
-                    <Description>{cat.cDescription}</Description>
-                </Tile>
+                <Link to={`${cat.cId}/items`} state={{rId, cId, cName:cat.cName}} style={{textDecoration:'none', color:'black'}}>
+                    <Tile style={{backgroundImage:`url(${cat.cImage})`, backgroundSize: 'cover'}}>
+                        <div style={{background: 'white', padding:'1rem', borderRadius: '2rem'}}>
+                            <Name>{cat.cName}</Name>
+                        </div>
+                        <Description>{cat.cDescription}</Description>
+                    </Tile>
+                </Link>
             </Paper>
         </Grid>
         </>
