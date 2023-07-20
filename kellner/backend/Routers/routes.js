@@ -28,88 +28,18 @@ const {
     getUserDashboard
     } = require('../Controllers/userController.js')
 
+const {
+  placeOrder,
+  getOrderStatus,
+  userAddNote,
+} = require('../Controllers/kitchenStaffController.js')
+
   
 /*================================================================================================================================== 
     MANAGER AND RESTAURANT CONFIG
   ================================================================================================================================== */   
 
-  // Register New Manager
-
-/**
- * @swagger
- * components:
- *   schemas:
- *     Manager:
- *       type: object
- *       properties:
- *         mId:
- *           type: string
- *         mName:
- *           type: string
- *         mEmail:
- *           type: string
- *         mPassword:
- *           type: string
- *         mContact:
- *           type: string
- *     RegisterRequest:
- *       type: object
- *       properties:
- *         mName:
- *           type: string
- *         mEmail:
- *           type: string
- *         mPassword:
- *           type: string
- *         mContact:
- *           type: string
- *     RegisterResponse:
- *       type: object
- *       properties:
- *         mId:
- *           type: string
- *         mName:
- *           type: string
- *         mEmail:
- *           type: string
- *         token:
- *           type: string
- *     Error:
- *       type: object
- *       properties:
- *         errorMessage:
- *           type: string
- */
-
-/**
- * @swagger
- * /api/register:
- *   post:
- *     summary: Register a manager
- *     tags:
- *       - Manager
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/RegisterRequest'
- *     responses:
- *       200:
- *         description: Successful registration
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/RegisterResponse'
- *       400:
- *         description: Failed to register manager
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
-*/
-
-
+// Register New Manager
 router.post('/api/register',limiter, registerManager)  //POST 
 
 // Login for Manager
@@ -128,81 +58,6 @@ router.put('/api/editRestaurant',editRestaurant ) //PUT
 router.post('/api/addCategory/:rId', addCategory) //POST
 
 //Return Categories
-/**
- * @swagger
- * components:
- *   schemas:
- *     Category:
- *       type: object
- *       properties:
- *         cId:
- *           type: string
- *         rId:
- *           type: string
- *         cName:
- *           type: string
- *         cDescription:
- *           type: string
- *         cType:
- *           type: string
- *         cImage:
- *           type: string
- *     GetCategoryRequest:
- *       type: object
- *       properties:
- *         resId:
- *           type: string
- *     GetCategoryResponse:
- *       type: object
- *       properties:
- *         cId:
- *           type: string
- *         rId:
- *           type: string
- *         cName:
- *           type: string
- *         cDescription:
- *           type: string
- *         cType:
- *           type: string
- *         cImage:
- *           type: string
- *     Error:
- *       type: object
- *       properties:
- *         errorMessage:
- *           type: string
- */  
-
-
-/**
- * @swagger
- * /api/getAllCategories/{rId}:
- *    get:
- *     summary: Get all categories
- *     parameters:
- *       - name: rId
- *         in: path
- *         required: true
- *         schema: 
- *           type: string
- *         description: Restaurant ID
- *     tags:
- *       - Category
- *     responses:
- *       200:
- *         description: Successfully fetched category details
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/GetCategoryResponse'
- *       400:
- *         description: Failed to fetch category details. Did you pass in a valid rId?
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
 router.get('/api/getCategory/:rId', getCategory)  //GET
 
 // Edit Categories
@@ -241,5 +96,14 @@ router.get('/api/getRandomItems/:rId', getRandomItems)
 
 // Get all categories and 10 items
 router.get('/api/getUserDashboard/:rId', getUserDashboard)
+
+/*================================================================================================================================== 
+   KITCHEN STAFF Routes
+  ================================================================================================================================== */ 
+router.post('/api/placeOrder', placeOrder) //POST
+
+router.get('/api/getOrderStatus/:orderNo', getOrderStatus) //GET
+
+router.put('/api/userAddNote/:orderNo', userAddNote) //PUT
 
 module.exports = router;

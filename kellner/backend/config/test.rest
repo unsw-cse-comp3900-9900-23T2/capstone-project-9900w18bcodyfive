@@ -117,3 +117,18 @@ Content-Type: application/json
 ###
 DELETE http://localhost:5000/api/deleteItems/Res2/Cat2/Item2
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtRW1haWwiOiJzaGxva2FAZ21haWwuY29tIiwiaWF0IjoxNjg5MDkzMzQ1fQ.E9TT2hjrlRjdNTF198jLmWqGdai8IMKTecmjNtzytWY
+
+
+###
+POST http://localhost:5000/api/placeOrder
+Content-Type: application/json
+
+{
+  "rId": "Res1",
+  "tId": "Table 1",
+  "itemsOrdered": {
+    "Dosa": 2,
+    "Idly": 10
+  },
+  "totalPrice": "405"
+}
