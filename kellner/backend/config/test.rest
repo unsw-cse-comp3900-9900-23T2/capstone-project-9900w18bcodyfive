@@ -132,3 +132,6 @@ Content-Type: application/json
   },
   "totalPrice": "405"
 }
+
+###
+DELETE http://localhost:5000/api/deleteKitchenOrder/Res1/1046

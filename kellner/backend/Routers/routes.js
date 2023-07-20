@@ -32,7 +32,9 @@ const {
     } = require('../Controllers/userController.js')
 
 const {
-  
+  getKitchenOrders,
+  deleteKitchenOrder,
+
   
 } = require('../Controllers/kitchenStaffController.js')
 
@@ -99,13 +101,17 @@ router.get('/api/getRandomItems/:rId', getRandomItems)
 // Get all categories and 10 items
 router.get('/api/getUserDashboard/:rId', getUserDashboard)
 
-/*================================================================================================================================== 
-   KITCHEN STAFF Routes
-  ================================================================================================================================== */ 
 router.post('/api/placeOrder', placeOrder) //POST
 
 router.get('/api/getOrderStatus/:orderNo', getOrderStatus) //GET
 
 router.put('/api/userAddNote/:orderNo', userAddNote) //PUT
+
+/*================================================================================================================================== 
+   KITCHEN STAFF Routes
+  ================================================================================================================================== */ 
+router.get('/api/getKitchenOrders/:rId', getKitchenOrders) //GET
+
+router.delete('/api/deleteKitchenOrder/:rId/:orderNo', deleteKitchenOrder); //DELETE
 
 module.exports = router;

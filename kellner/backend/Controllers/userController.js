@@ -217,7 +217,7 @@ const getUserDashboard = async (req, res) => {
       inProgressOrder.note = note;
       const updatedOrder = await inProgressOrder.save();
   
-      res.status(200).send({ successMessage: 'Note updated successfully', updatedOrder });
+      res.status(200).send({ successMessage: 'Note updated successfully'});
     } catch (e) {
       res.status(400).send({ errorMessage: e.message });
     }
