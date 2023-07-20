@@ -25,13 +25,15 @@ const {
     getAllCategories,
     getTenItems,
     getRandomItems,
-    getUserDashboard
+    getUserDashboard,
+    placeOrder,
+    getOrderStatus,
+    userAddNote,
     } = require('../Controllers/userController.js')
 
 const {
-  placeOrder,
-  getOrderStatus,
-  userAddNote,
+  
+  
 } = require('../Controllers/kitchenStaffController.js')
 
   
