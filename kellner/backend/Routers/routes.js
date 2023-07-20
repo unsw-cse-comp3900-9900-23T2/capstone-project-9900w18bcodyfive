@@ -2,6 +2,7 @@ const express = require('express');
 const limiter = require('../services/ratelimiting');
 
 const router = new express.Router()
+const documentation = require('../services/swagger-documentation')
 
 const {
     registerManager,
@@ -27,6 +28,7 @@ const {
     getUserDashboard
     } = require('../Controllers/userController.js')
 
+  
 /*================================================================================================================================== 
     MANAGER AND RESTAURANT CONFIG
   ================================================================================================================================== */   
@@ -107,6 +109,25 @@ const {
  *               $ref: '#/components/schemas/Error'
 */
 
+
+router.post('/api/register',limiter, registerManager)  //POST 
+
+// Login for Manager
+router.post('/api/login',limiter, loginManager) //POST
+
+// Create Restuarant
+router.post('/api/createRestaurant', createRestaurant) //POST
+
+// Return the Restaurants
+router.get('/api/getRestaurant', getRestaurant) //GET
+
+//Edit the Restaurant Details
+router.put('/api/editRestaurant',editRestaurant ) //PUT
+
+//Add Category
+router.post('/api/addCategory/:rId', addCategory) //POST
+
+//Return Categories
 /**
  * @swagger
  * components:
@@ -181,27 +202,7 @@ const {
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Error'
-*/
-
-router.post('/api/register',limiter, registerManager)  //POST 
-
-// Login for Manager
-
-router.post('/api/login',limiter, loginManager) //POST
-
-// Create Restuarant
-router.post('/api/createRestaurant', createRestaurant) //POST
-
-// Return the Restaurants
-router.get('/api/getRestaurant', getRestaurant) //GET
-
-//Edit the Restaurant Details
-router.put('/api/editRestaurant',editRestaurant ) //PUT
-
-//Add Category
-router.post('/api/addCategory/:rId', addCategory) //POST
-
-//Return Categories
+ */
 router.get('/api/getCategory/:rId', getCategory)  //GET
 
 // Edit Categories
