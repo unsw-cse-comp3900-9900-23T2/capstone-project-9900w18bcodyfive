@@ -125,13 +125,16 @@ Content-Type: application/json
 
 {
   "rId": "Res1",
-  "tId": "Table 1",
+  "tId": "Table 11",
   "itemsOrdered": {
-    "Dosa": 2,
-    "Idly": 10
+    "Masala Dosa": 6,
+    "Utappam": 1
   },
-  "totalPrice": "405"
+  "totalPrice": "45"
 }
+
+###
+GET http://localhost:5000/api/getKitchenOrders/Res1
 
 ###
 DELETE http://localhost:5000/api/deleteKitchenOrder/Res1/1046

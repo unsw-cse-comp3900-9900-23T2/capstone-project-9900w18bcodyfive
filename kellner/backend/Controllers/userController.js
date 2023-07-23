@@ -139,35 +139,38 @@ const getUserDashboard = async (req, res) => {
    USER PLACE ORDER
   ================================================================================================================================== */
 
-  const placeOrder = async(req,res) =>{
+  const placeOrder = async (req, res) => {
+    try {
+      // Get the current timestamp as a string (you can customize the format)
+      const timestamp = new Date().toISOString().substr(4,6).replace(/-/g, '');
 
-    try{
+      const randomNum = Math.floor(100 + Math.random() * 900).toString();
 
-        const orderNo = Math.floor(100 + Math.random() * 1000).toString();
-
-        const newInProgress = new inProgress({
-            rId: req.body.rId,
-            tId: req.body.tId,
-            orderNo: orderNo,
-            itemsOrdered: req.body.itemsOrdered,
-            totalPrice: req.body.totalPrice,
-            note: req.body.note,
-        });
-
-        const savedInProgress = await newInProgress.save();
-        if(!savedInProgress){
-            res.status(400).send({successMessage: "Failed to Add Order"})
-        }
-
-        res.status(200).json({ orderNo: orderNo });
-
-    }catch(error){
-      console.log(error)
+      const orderNo = timestamp + randomNum;
+  
+      const newInProgress = new inProgress({
+        rId: req.body.rId,
+        tId: req.body.tId,
+        orderNo: orderNo,
+        itemsOrdered: req.body.itemsOrdered,
+        totalPrice: req.body.totalPrice,
+        note: req.body.note,
+      });
+  
+      const savedInProgress = await newInProgress.save();
+      if (!savedInProgress) {
+        res.status(400).send({ errorMessage: "Failed to Add Order" });
+      }
+  
+      res.status(200).json({ orderNo: orderNo });
+    } catch (error) {
+      console.log(error);
       res.status(400).send({
-        errorMessage: error.message
-      })
+        errorMessage: error.message,
+      });
     }
-  }
+  };
+  
 
  /*================================================================================================================================== 
    GET ORDER STATUS
