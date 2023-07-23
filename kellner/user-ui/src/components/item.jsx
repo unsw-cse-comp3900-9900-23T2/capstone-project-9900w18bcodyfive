@@ -43,17 +43,20 @@ const QuantityDisplay = styled('div')({
 const Item = (props)=>{
     const item= props.item;
     const dispatch = useDispatch();
+    // Since items in stored in redux as a state there is no need to instantiate quantity using useState hook
+    // because everytime the state of the cart updated by dispatching an action the particular item card component will automatically be updated
     const items = useSelector(state => state.cart.products);
     const GetQuantity = (items, name)=>{
         let q = 0
         for (const i of items){
             if(i.name === name){
+                console.log(name);
                 q += 1;
             }
         }
         return q;
     }
-    const [quantity, setQuantity] = React.useState(GetQuantity(items, item.iName));
+    const quantity = GetQuantity(items, item.iName);
 
     const addItemToCart = ()=>{
         const temp = {
@@ -62,7 +65,6 @@ const Item = (props)=>{
             image: item.iImage
         }
         dispatch(addItem(temp));
-        setQuantity(quantity + 1);
     }
 
     const removeItemFromCart = ()=>{
@@ -71,7 +73,6 @@ const Item = (props)=>{
             price: item.iPrice,
         }
         dispatch(removeItem(temp));
-        setQuantity(quantity - 1);
     }
 
     return(

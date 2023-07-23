@@ -47,7 +47,7 @@ const Category = (props)=>{
     const cId = props.cat.cId;
     return(
         <>
-        <Grid item>
+        <Grid item xs={12} sm={6} md={4} lg={4}>
             <Paper sx={{margin: '2rem', borderRadius: '2rem'}}>
                 <Link to={`${cat.cId}/items`} state={{rId, cId, cName:cat.cName, cImage:cat.cImage}} style={{textDecoration:'none', color:'black'}}>
                     <Tile style={{backgroundImage:`url(${cat.cImage})`, backgroundSize: 'cover'}}>
