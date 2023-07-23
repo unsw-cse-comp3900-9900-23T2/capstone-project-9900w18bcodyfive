@@ -141,7 +141,7 @@ const getUserDashboard = async (req, res) => {
 
   const placeOrder = async (req, res) => {
     try {
-      // Get the current timestamp as a string (you can customize the format)
+    // order number will look like this : "orderNo": "0723130"  Date/month/3-randomnumbers
       const timestamp = new Date().toISOString().substr(4,6).replace(/-/g, '');
 
       const randomNum = Math.floor(100 + Math.random() * 900).toString();
