@@ -49,8 +49,8 @@ const LogIn = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [values, setValues] = React.useState({
-        email:"",
-        password:""
+        mEmail:"",
+        mPassword:""
     });
 
     const inputs = [

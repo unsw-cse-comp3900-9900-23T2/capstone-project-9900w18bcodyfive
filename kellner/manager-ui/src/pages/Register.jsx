@@ -126,7 +126,8 @@ const Register = (props)=>{
             dispatch(loggedIn({...data}));
             navigate('/dashboard');
         } else {
-            dispatch(loggingError(data.errorMessage))
+            dispatch(loggingError(data.errorMessage));
+            window.alert(data.errorMessage);
         }
         
     }

@@ -7,9 +7,6 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import Divider from '@mui/material/Divider';
-import PersonAdd from '@mui/icons-material/PersonAdd';
-import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -122,8 +119,9 @@ const Header = (props)=>{
     const handleClose = () => {
       setAnchorEl(null);
     };
-    const lo = ()=>{
-        dispatch(loggedOut())
+    const logOut = ()=>{
+        console.log('logout')
+        dispatch(loggedOut());
         navigate('/');
     }
     return(
@@ -217,29 +215,12 @@ const Header = (props)=>{
                         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                     >
                         <MenuItem onClick={handleClose}>
-                            <Avatar /> Profile
-                        </MenuItem>
-                        <MenuItem onClick={handleClose}>
-                            <Avatar /> My account
-                        </MenuItem>
-                        <Divider />
-                        <MenuItem onClick={handleClose}>
-                            <ListItemIcon>
-                                <PersonAdd fontSize="small" />
-                            </ListItemIcon>
-                            Add another account
-                        </MenuItem>
-                        <MenuItem onClick={handleClose}>
-                            <ListItemIcon>
-                                <Settings fontSize="small" />
-                            </ListItemIcon>
-                            Settings
-                        </MenuItem>
-                        <MenuItem onClick={handleClose}>
-                            <ListItemIcon>
-                                <Logout fontSize="small" />
-                            </ListItemIcon>
-                            Logout
+                            <div onClick={logOut}>
+                                <ListItemIcon>
+                                    <Logout fontSize="small"/>
+                                </ListItemIcon>
+                                Logout
+                            </div>
                         </MenuItem>
                     </Menu>
                 </ButtonContainer>

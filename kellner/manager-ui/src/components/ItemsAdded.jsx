@@ -48,9 +48,9 @@ const ItemsAdded = (props)=>{
                 <AddItems open={open} rId={props.rId} cId={props.cId} handleClose={handleClose}/>
             </Content>
             <Grid container rowSpacing={2}>
-                {items.filter(item =>item.iName.toLowerCase().includes(query.toLowerCase())).map((item)=>{
+                {items.filter(item =>item.iName.toLowerCase().includes(query.toLowerCase())).map((item, index)=>{
                     return(
-                        <ItemCard item={item}/>
+                        <ItemCard key={index} item={item}/>
                     );
                 })}
             </Grid>

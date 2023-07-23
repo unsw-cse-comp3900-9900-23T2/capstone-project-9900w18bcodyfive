@@ -84,9 +84,10 @@ const Dashboard = () => {
         
             const data = await response.json();
             if (response.status === 200){
-                console.log(data.restaurant);
                 setRestaurantList(data.restaurant);
                 setLoading(false);
+            } else {
+                window.alert(data.errorMessage)
             }
         
         }

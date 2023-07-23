@@ -37,6 +37,7 @@ const managerSlice = createSlice({
             state.error = action.payload.errorMessage
         },
         loggedOut: (state) =>{
+            console.log('logged out ation triggered');
             state.isFetching = false
             state.mId = ''
             state.mName = ''
