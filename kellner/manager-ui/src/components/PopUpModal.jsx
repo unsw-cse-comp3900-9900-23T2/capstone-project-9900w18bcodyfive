@@ -46,7 +46,17 @@ const StyledButton = styled('button')({
 const PopUpModal = (props)=>{
     const [loading, setLoading] = React.useState(false);
     const token = useSelector(state => state.manager.token)
-    const closeModal = ()=>{props.handleClose()}
+    const closeModal = ()=>{
+        setValues({
+            rName:"",
+            rDescription: "",
+            rLocation:"",
+            rContact:"",
+            rTableCount:"",
+            rImage:""
+        });
+        props.handleClose();
+    }
     const [values, setValues] = React.useState({
         rName:"",
         rDescription: "",

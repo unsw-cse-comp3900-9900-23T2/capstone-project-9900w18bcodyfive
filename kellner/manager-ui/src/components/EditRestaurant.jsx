@@ -46,7 +46,18 @@ const StyledButton = styled('button')({
 const EditRestaurant = (props)=>{
     const [loading, setLoading] = React.useState(false);
     const token = useSelector(state => state.manager.token);
-    const closeModal = ()=>{props.handleClose()}
+    const closeModal = ()=>{
+        setValues({
+            resId: props.res.resId,
+            rName:props.res.rName,
+            rDescription: props.res.rDescription,
+            rLocation: props.res.rLocation,
+            rContact: props.res.rContact,
+            rTableCount: props.res.rTableCount,
+            rImage: props.res.rImage,
+        });
+        props.handleClose();
+    }
     const [values, setValues] = React.useState({
         resId: props.res.resId,
         rName:props.res.rName,

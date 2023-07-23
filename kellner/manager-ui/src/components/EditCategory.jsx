@@ -55,6 +55,12 @@ const EditCategory = (props)=>{
     });
     const handleClose = (e)=>{
         e.preventDefault();
+        setValues({
+            cName: cat.cName,
+            cDescription: cat.cDescription,
+            cType:cat.cType,
+            cImage:cat.cImage
+        });
         setLoading(false);
         props.handleClose();
     };
@@ -89,7 +95,7 @@ const EditCategory = (props)=>{
             type:"file",
             placeholder:"please upload an image of your restaurant",
             errorMessage:"Please upload an image",
-            label:"Restaurant Image (upload a new file if you want to change)",
+            label:"Category Image (upload a new file if you want to change)",
         },
     ];
 

@@ -54,6 +54,12 @@ const AddCategories = (props)=>{
     });
     const [isRequired, setIsRequired] = React.useState(false);
     const handleClose = ()=>{
+        setValues({
+            cName:"",
+            cDescription: "",
+            cType:"",
+            cImage:""
+        });
         setIsRequired(false);
         props.handleClose();
     };
