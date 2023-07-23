@@ -57,7 +57,15 @@ const EditItems = (props)=>{
         iImage:""
     });
 
-    const handleClose = ()=>{
+    const handleClose = (e)=>{
+        e.preventDefault();
+        setValues({
+            iName: item.iName,
+            iPrice: item.iPrice,
+            iDescription: item.iDescription,
+            iIngrediens: item.iIngredients,
+            iImage:""
+        });
         props.handleClose();
     };
     const inputs = [

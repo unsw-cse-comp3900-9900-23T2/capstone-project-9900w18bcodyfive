@@ -56,6 +56,13 @@ const AddItems = (props)=>{
     });
 
     const handleClose = ()=>{
+        setValues({
+            iName:"",
+            iPrice:"",
+            iDescription: "",
+            iIngrediens:"",
+            iImage:""
+        });
         props.handleClose();
     };
     const inputs = [
