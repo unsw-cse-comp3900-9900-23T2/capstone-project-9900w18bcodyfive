@@ -91,7 +91,7 @@ const registerManager = async(req, res) => {
 const createRestaurant = async (req, res) => {
   try {
     const restCount = await Restaurant.countDocuments({});
-    const rId = `Res${restCount + 1}`;
+    const rId = `Res${restCount + 1}-${req.body.rName}`;
     const tableIds = {};
     const tableCount = req.body.rTableCount;
     for (let i = 0; i < tableCount; i++) {
