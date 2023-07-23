@@ -455,7 +455,7 @@ const getItem = async(req,res) =>{
     const {rId, cId} = req.params
        
       
-    const items = await Items.find({cId: cId}).exec();
+    const items = await Items.find({rId: rId, cId: cId}).exec();
       res.status(200).send({
       item: items
         });
