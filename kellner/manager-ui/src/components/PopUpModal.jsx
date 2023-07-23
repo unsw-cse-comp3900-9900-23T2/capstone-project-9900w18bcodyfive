@@ -2,8 +2,10 @@ import React from "react";
 import { Dialog } from "@mui/material";
 import styled from "@emotion/styled";
 
+//Component imports
 import FormInput from "./FormInput";
 import { fileToDataUrl } from "./fileToDataUrl";
+import Loading from "../assets/images/Loading.gif";
 
 //Redux Imports
 import { useSelector } from "react-redux/es/hooks/useSelector";
@@ -42,6 +44,7 @@ const StyledButton = styled('button')({
 });
 
 const PopUpModal = (props)=>{
+    const [loading, setLoading] = React.useState(false);
     const token = useSelector(state => state.manager.token)
     const closeModal = ()=>{props.handleClose()}
     const [values, setValues] = React.useState({
@@ -122,7 +125,7 @@ const PopUpModal = (props)=>{
 
         const data = await response.json();
         if (response.status === 200){
-            console.log(data);
+            setLoading(false);
             window.location.reload();
         } else {
             console.log(data.errorMessage);
@@ -133,7 +136,6 @@ const PopUpModal = (props)=>{
     const handleFileUpload = async (e) => {
         const file = e.target.files[0];
         const base64 = await fileToDataUrl(file);
-        console.log(base64)
         setValues({ ...values, [e.target.name]: base64 })
     };
     
@@ -147,32 +149,38 @@ const PopUpModal = (props)=>{
 
 
     const handleSubmit = (e)=>{
+        setLoading(true);
         e.preventDefault();
-        console.log(values);
         addRestaurant();
     }
     return(
         <Dialog open={props.open}>
-            <FormContainer>
-                <Form onSubmit={handleSubmit}>
-                    <h2 style={{color:'#006600'}}>Add Your Restaurant Details</h2>
-                    {inputs.map((input) =>{
-                        if(input.name === "rImage"){
-                            return(
-                                <FormInput key={input.id} {...input} onChange={onChange}/>
-                            );
-                        } else {
-                            return(
-                                <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange}/>
-                            );
-                        }
-                    })}
-                    <ButtonContainer>
-                        <StyledButton style={{backgroundColor: 'red'}} onClick={closeModal}>Cancel</StyledButton>
-                        <StyledButton style={{backgroundColor: '#006600'}}>Submit</StyledButton>
-                    </ButtonContainer>
-                </Form>
-            </FormContainer>
+            {loading===false ? (
+                <FormContainer>
+                    <Form onSubmit={handleSubmit}>
+                        <h2 style={{color:'#006600'}}>Add Your Restaurant Details</h2>
+                        {inputs.map((input) =>{
+                            if(input.name === "rImage"){
+                                return(
+                                    <FormInput key={input.id} {...input} onChange={onChange}/>
+                                );
+                            } else {
+                                return(
+                                    <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange}/>
+                                );
+                            }
+                        })}
+                        <ButtonContainer>
+                            <StyledButton style={{backgroundColor: 'red'}} onClick={closeModal}>Cancel</StyledButton>
+                            <StyledButton style={{backgroundColor: '#006600'}}>Submit</StyledButton>
+                        </ButtonContainer>
+                    </Form>
+                </FormContainer>
+            ):(
+                <Dialog open={loading} sx={{opacity:'0.65'}}>
+                    <img src={Loading} alt={'Loading'}/>
+                </Dialog>
+            )}
         </Dialog>
     );
 }

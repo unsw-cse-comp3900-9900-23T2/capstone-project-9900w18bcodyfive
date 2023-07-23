@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { Button } from "@mui/material";
 
 //Components Import
 import EditRestaurant from "./EditRestaurant";
@@ -51,19 +52,7 @@ const RestaurantAdded = (props) => {
         borderRadius: '2rem',
         margin: '2rem'
     })
-    const Button = styled('button')({
-        color: 'white',
-        borderRadius: '5rem',
-        backgroundColor: 'green',
-        width: '20rem',
-        height: '3rem',
-        fontSize: '1.5rem',
-        marginTop: '1.5rem',
-        "&:hover": {
-            cursor: 'pointer',
-            transform: 'scale(0.95)'
-        }
-    })
+
     const SubHeading = styled('div')({
         fontFamily: 'Nunito',
         fontSize: '2rem',
@@ -93,7 +82,9 @@ const RestaurantAdded = (props) => {
 
     const ButtonContainer = styled('div')({
         display: 'flex',
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        margin: '1rem'
     })
     return(
         <Container>
@@ -110,8 +101,8 @@ const RestaurantAdded = (props) => {
                 <SubHeading>Table Count</SubHeading>
                 <Content>{props.res.rTableCount}</Content>
                 <ButtonContainer>
-                    <Button onClick={openModal}>Edit Restaurant Details</Button>
-                    <Button onClick={openEditImage}>Edit Restaurant Picture</Button>
+                    <Button variant="contained" color="success" sx={{fontSize: '1.2rem'}} onClick={openModal}>Edit Restaurant Details</Button>
+                    <Button variant="contained" color="success" sx={{fontSize: '1.2rem'}} onClick={openEditImage}>Edit Restaurant Picture</Button>
                 </ButtonContainer>
                 <EditRestaurant open={open} res={props.res} handleClose={closeModal}/>
                 <EditRestaurantImage open={editImage} res={props.res} handleClose={closeEditImage}/>

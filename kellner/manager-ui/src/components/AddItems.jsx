@@ -118,7 +118,6 @@ const AddItems = (props)=>{
         const data = await response.json();
         if (response.status === 200){
             setLoading(false);
-            console.log(data);
             window.location.reload();
         } else {
             setLoading(false);
@@ -145,8 +144,6 @@ const AddItems = (props)=>{
     const handleSubmit = (e)=>{
         e.preventDefault();
         setLoading(true);
-        console.log(rId)
-        console.log(values);
         addItems();
     }
     return(

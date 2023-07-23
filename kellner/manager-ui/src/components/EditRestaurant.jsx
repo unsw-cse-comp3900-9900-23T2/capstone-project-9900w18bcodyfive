@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 
 // Component Imports
 import FormInput from "./FormInput";
+import Loading from "../assets/images/Loading.gif";
 
 //Redux Imports
 import { useSelector } from "react-redux/es/hooks/useSelector";
@@ -43,7 +44,8 @@ const StyledButton = styled('button')({
 });
 
 const EditRestaurant = (props)=>{
-    const token = useSelector(state => state.manager.token)
+    const [loading, setLoading] = React.useState(false);
+    const token = useSelector(state => state.manager.token);
     const closeModal = ()=>{props.handleClose()}
     const [values, setValues] = React.useState({
         resId: props.res.resId,
@@ -115,7 +117,7 @@ const EditRestaurant = (props)=>{
 
         const data = await response.json();
         if (response.status === 200){
-            console.log(data);
+            setLoading(false);
             window.location.reload();
         } else {
             console.log(data.errorMessage);
@@ -131,25 +133,31 @@ const EditRestaurant = (props)=>{
 
     const handleSubmit = (e)=>{
         e.preventDefault();
-        console.log(values);
+        setLoading(true);
         editRestaurant();
     }
     return(
         <Dialog open={props.open}>
-            <FormContainer>
-                <Form onSubmit={handleSubmit}>
-                    <h2 style={{color:'#006600'}}>Edit Restaurant Details</h2>
-                    {inputs.map((input) =>{
-                        return(
-                            <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange}/>
-                        );
-                    })}
-                    <ButtonContainer>
-                        <StyledButton style={{backgroundColor: 'red'}} onClick={closeModal}>Cancel</StyledButton>
-                        <StyledButton style={{backgroundColor: '#006600'}}>Submit</StyledButton>
-                    </ButtonContainer>
-                </Form>
-            </FormContainer>
+            {loading === false ? (
+                <FormContainer>
+                    <Form onSubmit={handleSubmit}>
+                        <h2 style={{color:'#006600'}}>Edit Restaurant Details</h2>
+                        {inputs.map((input) =>{
+                            return(
+                                <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange}/>
+                            );
+                        })}
+                        <ButtonContainer>
+                            <StyledButton style={{backgroundColor: 'red'}} onClick={closeModal}>Cancel</StyledButton>
+                            <StyledButton style={{backgroundColor: '#006600'}}>Submit</StyledButton>
+                        </ButtonContainer>
+                    </Form>
+                </FormContainer>
+            ): (
+                <Dialog open={loading} sx={{opacity:'0.65'}}>
+                    <img src={Loading} alt={'Loading'}/>
+                </Dialog>
+            )}
         </Dialog>
     );
 }

@@ -6,6 +6,7 @@ import styled from "@emotion/styled";
 // Component Imports
 import FormInput from "./FormInput";
 import { fileToDataUrl } from "./fileToDataUrl";
+import Loading from "../assets/images/Loading.gif";
 
 //Redux Imports
 import { useSelector } from "react-redux/es/hooks/useSelector";
@@ -45,6 +46,7 @@ const StyledButton = styled('button')({
 
 
 const EditRestaurantImage = (props)=>{
+    const [loading, setLoading] = React.useState(false);
     const token = useSelector(state => state.manager.token)
     const [values, setValues] = React.useState({
         resId: props.res.resId,
@@ -68,7 +70,7 @@ const EditRestaurantImage = (props)=>{
 
         const data = await response.json();
         if (response.status === 200){
-            console.log(data);
+            setLoading(false);
             window.location.reload();
         } else {
             console.log(data.errorMessage);
@@ -79,7 +81,6 @@ const EditRestaurantImage = (props)=>{
     const handleFileUpload = async (e) => {
         const file = e.target.files[0];
         const base64 = await fileToDataUrl(file);
-        console.log(base64)
         setValues({ ...values, [e.target.name]: base64 })
     };
 
@@ -89,7 +90,7 @@ const EditRestaurantImage = (props)=>{
 
     const handleSubmit = (e)=>{
         e.preventDefault();
-        console.log(values);
+        setLoading(true);
         editRestaurant();
     }
 
@@ -105,16 +106,22 @@ const EditRestaurantImage = (props)=>{
 
     return(
         <Dialog open={props.open}>
-            <FormContainer>
-                <Form onSubmit={handleSubmit}>
-                    <h2 style={{color:'#006600'}}>Edit your Restaurant Profile Picture</h2>
-                        <FormInput {...input} onChange={onChange}/>
-                    <ButtonContainer>
-                        <StyledButton style={{backgroundColor: 'red'}} onClick={props.handleClose}>Cancel</StyledButton>
-                        <StyledButton style={{backgroundColor: '#006600'}}>Submit</StyledButton>
-                    </ButtonContainer>
-                </Form>
-            </FormContainer>
+            {loading === false ? (
+                <FormContainer>
+                    <Form onSubmit={handleSubmit}>
+                        <h2 style={{color:'#006600'}}>Edit your Restaurant Profile Picture</h2>
+                            <FormInput {...input} onChange={onChange}/>
+                        <ButtonContainer>
+                            <StyledButton style={{backgroundColor: 'red'}} onClick={props.handleClose}>Cancel</StyledButton>
+                            <StyledButton style={{backgroundColor: '#006600'}}>Submit</StyledButton>
+                        </ButtonContainer>
+                    </Form>
+                </FormContainer>
+            ):(
+                <Dialog open={loading} sx={{opacity:'0.65'}}>
+                    <img src={Loading} alt={'Loading'}/>
+                </Dialog>
+            )}
         </Dialog>
     );
 }

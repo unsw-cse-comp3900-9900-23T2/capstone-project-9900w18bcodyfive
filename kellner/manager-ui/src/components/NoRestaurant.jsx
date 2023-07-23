@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { Button } from "@mui/material";
 
 //Component and image imports
 import noContentAdded from "../assets/images/noContentAdded.jpg";
@@ -33,19 +34,15 @@ const Image = styled('div')({
     flex: '1',
 })
 
-const Button = styled('button')({
-    color: 'white',
-    borderRadius: '5rem',
-    backgroundColor: 'green',
-    width: '15rem',
-    height: '3rem',
-    fontSize: '1.5rem',
-    marginTop: '1.5rem',
-    "&:hover": {
-        cursor: 'pointer',
-        transform: 'scale(0.95)'
-    }
-})
+const Content = styled('div')({
+    display: 'flex',
+    fontFamily: 'Nunito',
+    fontWeight: 'bold',
+    margin: '1rem',
+    justifyContent: 'center'
+});
+
+
 
 const NoRestaurantAdded  = (props)=>{
     const [open, setOpen] = React.useState(false);
@@ -58,8 +55,9 @@ const NoRestaurantAdded  = (props)=>{
     return(
         <Container>
             <Child>
-                <div>You have not added any restaurant !</div>
-                <div><Button onClick={openModal}>Add Restaurant</Button></div>
+                <Content>It seems like you have not added any restaurants. You have not added any restaurant !</Content>
+                <Content>You can easily add restaurant by clicking the button below</Content>
+                <div><Button  variant="contained" color="success" onClick={openModal} sx={{fontSize:'1.2rem'}}>Add Restaurant</Button></div>
                 <PopUpModal open={open} handleClose={closeModal}/>
             </Child>
             <Image />

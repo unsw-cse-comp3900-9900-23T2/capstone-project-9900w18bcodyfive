@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
-import {Grid, Paper} from "@mui/material";
 
 // Redux Imports
 import { useSelector } from "react-redux";
@@ -52,6 +51,7 @@ const Container3 = styled('div')({
 
 
 
+
 const Dashboard = () => {
     const mName = useSelector(state => state.manager.mName)
     const token = useSelector(state => state.manager.token)
@@ -69,29 +69,29 @@ const Dashboard = () => {
         setTableId(false);
     };
 
-    // function which fetch the restaurant data from backend
-    async function getRestaurant() {
-        const response = await fetch('http://localhost:5000/api/getRestaurant', {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json',
-                'authorization': `bearer ${token}`
-            },
-        })
-    
-        const data = await response.json();
-        if (response.status === 200){
-            console.log(data.restaurant);
-            setRestaurantList(data.restaurant);
-            setLoading(false);
-        }
-    
-    }
 
 
     React.useEffect(()=>{
+        // function which fetch the restaurant data from backend
+        async function getRestaurant() {
+            const response = await fetch('http://localhost:5000/api/getRestaurant', {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json',
+                    'authorization': `bearer ${token}`
+                },
+            })
+        
+            const data = await response.json();
+            if (response.status === 200){
+                console.log(data.restaurant);
+                setRestaurantList(data.restaurant);
+                setLoading(false);
+            }
+        
+        }
         getRestaurant()
-    },[]);
+    },[token]);
 
     return(
         <>
@@ -116,7 +116,7 @@ const Dashboard = () => {
                 {loading ? (
                     <div>Table ID details Loading...</div>
                 ): (restaurantList.length === 0 ? (
-                    <div>No Restaurant</div>
+                    <div style={{fontWeight: 'bold'}}>Configure your restaurant to see the table Id details here</div>
                 ): (
                     <>
                         <div style={{fontWeight: 'bold', color:'green'}}>Table ID Details</div> <br/>
@@ -135,7 +135,6 @@ const Dashboard = () => {
                     <div> Categories Data Loading...</div>
                 ) : ( restaurantList.length === 0 ? (
                     <>
-                        <div>No Restaurant Added</div>
                         <div>No Restaurant Added</div>
                     </>
 
