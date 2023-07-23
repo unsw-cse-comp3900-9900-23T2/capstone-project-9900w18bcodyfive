@@ -35,7 +35,7 @@ const registerManager = async(req, res) => {
         })
         const savedManager = await newManager.save()
         if (!savedManager){
-          res.status(400).send('Failed to Register Manager') // Message from the backend
+          res.status(400).send({errorMessage: 'Failed to Register Manager'}) // Message from the backend
         }
         const token = jwt.sign({ mEmail:savedManager.mEmail }, process.env.ACCESS_TOKEN_SECRET);
         const registerResponse = (({mId, mName, mEmail}) => ({mId, mName, mEmail}))(savedManager);
@@ -105,7 +105,7 @@ const createRestaurant = async (req, res) => {
 
     const manager = await Manager.findOne({ mEmail: decodedToken.mEmail }).exec();
     if (!manager) {
-      return res.status(404).send('Manager Not Found');
+      return res.status(404).send({errorMessage:'Manager Not Found'});
     }
 
     const imageUrl = req.body.rImage;
@@ -126,7 +126,7 @@ const createRestaurant = async (req, res) => {
 
     const savedRestaurant = await newRestaurant.save();
     if (!savedRestaurant) {
-      return res.status(400).send('Failed to Add Restaurant');
+      return res.status(400).send({errorMessage:'Failed to Add Restaurant'});
     }
 
     res.status(200).send(savedRestaurant);
@@ -148,14 +148,14 @@ const createRestaurant = async (req, res) => {
       
       jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, decodedToken) => {
         if (err) {
-          return res.status(400).send('Invalid token');
+          return res.status(400).send({errorMessage:'Invalid token'});
         }
         
         const managerEmail = decodedToken.mEmail;
         const manager = await Manager.findOne({ mEmail: managerEmail }).exec();
         
         if (!manager) {
-          return res.status(404).send('Manager not found');
+          return res.status(404).send({errorMessage:'Manager not found'});
         }
         
         const restaurants = await Restaurant.find({ managerId: manager.mId }).exec();
