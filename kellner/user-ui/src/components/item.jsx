@@ -71,6 +71,7 @@ const Item = (props)=>{
         const temp = {
             name: item.iName,
             price: item.iPrice,
+            image: item.iImage
         }
         dispatch(removeItem(temp));
     }

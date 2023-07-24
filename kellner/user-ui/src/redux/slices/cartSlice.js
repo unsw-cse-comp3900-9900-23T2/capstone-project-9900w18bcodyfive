@@ -18,7 +18,9 @@ const cartSlice = createSlice({
         },
         //reducer for removing item from the cart
         removeItem:(state, action) => {
-            state.products.splice(state.products.indexOf(action.payload), 1)
+            console.log(action.payload);
+            let index = state.products.findIndex(p => p.name === action.payload.name);
+            state.products.splice(index, 1)
         }
     }
 });
