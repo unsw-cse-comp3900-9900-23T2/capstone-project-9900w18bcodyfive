@@ -3,16 +3,15 @@ import styled from "@emotion/styled";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import {Grid} from "@mui/material";
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import RemoveIcon from '@mui/icons-material/Remove';
 
 // Component imports
 import nocontentAdded from "../assets/images/noContentAdded.jpg";
 import Header from "../components/Header";
+import CartItems from "../components/CartItems";
 
 //Redux imports
 import { useSelector, useDispatch } from "react-redux";
-import { addItem, removeItem } from '../redux/slices/cartSlice';
+import { clearCart } from '../redux/slices/cartSlice';
 
 
 const Heading = styled('div')({
@@ -21,7 +20,7 @@ const Heading = styled('div')({
     fontSize: '2rem',
     color:'white',
     backgroundColor: 'green'
-})
+});
 
 const Content = styled('div')({
     fontFamily: 'Nunito',
@@ -31,7 +30,7 @@ const Content = styled('div')({
     display: 'flex',
     justifyContent: 'center',
     alignItems:'center'
-})
+});
 
 const Bottom = styled('div')({
     display: 'flex',
@@ -43,22 +42,16 @@ const Bottom = styled('div')({
     padding: '3rem'
 });
 
-const Effect = styled('div')({
-    margin:'0 1rem',
-    backgroundColor: 'green',
-    color:'white',
-    '&:hover': {
-        cursor: 'pointer',
-    }
-});
-
 
 const CartPage = ()=>{
+    const rId = useSelector(state => state.restaurant.rId);
+    const tId = useSelector(state => state.table.tId);
     const items = useSelector(state => state.cart.products);
     const data = [];
     const navigate = useNavigate();
     const dispatch = useDispatch();
     let totalPrice = 0;
+
     for (const i of items){
         let temp = {
             name: i.name,
@@ -85,31 +78,49 @@ const CartPage = ()=>{
             }
         }
     }
+
     for (const i of data){
         totalPrice = totalPrice + i.price;
     }
-    const gotoOrderSuccess = () =>{
-        navigate('/order-placed');
+
+
+    // Function to summarize the order
+    const summarizeOrder = (data)=>{
+        let temp = {};
+        for (const item of data){
+            console.log(item);
+            temp.item.name = item.quantity;
+        }
+        return temp;
+    };
+    
+    //Function to place the order
+    async function placeOrder(orderSummary){
+        const response = await fetch(`http://localhost:5000/api/placeOrder`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body : JSON.stringify(orderSummary)
+        })
+
+        if(response.status === 200){
+            dispatch(clearCart);
+            navigate('/order-placed');
+        }
     }
 
-    const addItemToCart = (item)=>{
-        const temp = {
-            name: item.name,
-            price: item.price,
-            image: item.image
-        }
-        console.log(temp);
-        dispatch(addItem(temp));
+    const gotoOrderSuccess = (data, totalPrice) =>{
+        const orderSummary = {};
+        orderSummary.rId = rId;
+        orderSummary.tId = tId;
+        const itemsOrdered = summarizeOrder(data);
+        orderSummary.itemsOrdered = itemsOrdered;
+        orderSummary.totalPrice = totalPrice;
+        orderSummary.note = '';
+        placeOrder(orderSummary);
     }
 
-    const removeItemFromCart = (item)=>{
-        const temp = {
-            name: item.name,
-            price: item.price,
-            image: item.image
-        }
-        dispatch(removeItem(temp));
-    }
     return(
         <>
         <Header/>
@@ -135,32 +146,15 @@ const CartPage = ()=>{
             <Grid item xs={3} sm={3} md={3} lg={3}>
                 <Heading>Price</Heading>
             </Grid>
-            {data.map((item)=>{
+            {data.map((item, index)=>{
                 return(
-                    <>
-                        <Grid item xs={3} sm={3} md={3} lg={3}>
-                            <img src={item.image} alt={'item'} style={{height:'12rem', width:'12rem', borderRadius:'2rem'}}/>
-                        </Grid>
-                        <Grid item xs={3} sm={3} md={3} lg={3}>
-                            <Content>{item.name}</Content>
-                        </Grid>
-                        <Grid item xs={3} sm={3} md={3} lg={3}>
-                            <Content>
-                                <Effect><AddOutlinedIcon  sx={{margin:'0 1rem'}} onClick={()=>{addItemToCart(item)}}/></Effect>
-                                {item.quantity}
-                                <Effect><RemoveIcon sx={{margin:'0 1rem'}} onClick={()=>{removeItemFromCart(item)}}/></Effect>
-                            </Content>
-                        </Grid>
-                        <Grid item xs={3} sm={3} md={3} lg={3}>
-                            <Content>{item.price}</Content>
-                        </Grid>
-                    </>
+                    <CartItems key={index} item={item}/>
                 );
             })}
             </Grid>
             <Bottom>
                 <div>Total:${totalPrice}</div>
-                <Button variant="contained" color="success" sx={{fontSize:'1.5rem'}} onClick={gotoOrderSuccess}> Place Order</Button>
+                <Button variant="contained" color="success" sx={{fontSize:'1.5rem'}} onClick={()=>{gotoOrderSuccess(data, totalPrice)}}> Place Order</Button>
             </Bottom>
             </>
         )}

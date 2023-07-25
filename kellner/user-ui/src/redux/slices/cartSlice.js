@@ -18,9 +18,12 @@ const cartSlice = createSlice({
         },
         //reducer for removing item from the cart
         removeItem:(state, action) => {
-            console.log(action.payload);
             let index = state.products.findIndex(p => p.name === action.payload.name);
             state.products.splice(index, 1)
+        },
+        //reducer for clearing the cart
+        clearCart:(state) => {
+            state.products = []
         }
     }
 });
@@ -28,4 +31,4 @@ const cartSlice = createSlice({
 // Exporting the reducer
 export default cartSlice.reducer;
 // Exporting the actins as named exports
-export const {addItem, removeItem} = cartSlice.actions;
+export const {addItem, removeItem, clearCart} = cartSlice.actions;
