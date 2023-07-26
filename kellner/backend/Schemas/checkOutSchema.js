@@ -27,6 +27,10 @@ const checkOutSchema = mongoose.Schema({
 
     totalPrice :{
         type: String
+    },
+
+    oId : {
+        type: String
     }
 
 }, {timestamps : true})

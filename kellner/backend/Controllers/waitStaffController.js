@@ -20,7 +20,7 @@ const getReadyToServeOrders = async (req, res) => {
         return res.status(404).send('No orders found for rId');
       }
   
-      res.status(200).json({ readyToServeOrders });
+      res.status(200).send({ readyToServeOrders });
     } catch (error) {
       res.status(400).send({ errorMessage: error.message });
     }
@@ -77,6 +77,7 @@ const getAssistanceRequests = async (req, res) => {
 /*================================================================================================================================== 
 DELETE ASSISTANCE REQUESTS
 ================================================================================================================================== */
+
 const deleteAssistanceRequest = async (req, res) => {
     try {
       const { aId } = req.params;
@@ -94,9 +95,50 @@ const deleteAssistanceRequest = async (req, res) => {
     }
   };
 
+/*================================================================================================================================== 
+GET CHECKOUT REQUESTS
+================================================================================================================================== */
+
+const getCheckOutRequests = async (req, res) => {
+    try {
+      const { tId } = req.params;
+
+      const checkOutRequests = await checkOut.find({ tId }).exec();
+      if (!checkOutRequests || checkOutRequests.length === 0) {
+        return res.status(404).send('No requests found for tId');
+      }
+      res.status(200).send({ checkOutRequests});
+    } catch (error) {
+      res.status(400).send({ errorMessage: error.message });
+    }
+  };
+
+/*================================================================================================================================== 
+DELETE CHECKOUT REQUESTS
+================================================================================================================================== */
+
+const deleteCheckOutRequest = async(req,res) =>{
+    try {
+        const { checkId } = req.params;
+    
+        // Find and delete the assistance request with the specified aId
+        const deletedCheckOut = await checkOut.findOneAndDelete({ checkId }).exec();
+    
+        if (!deletedCheckOut) {
+          return res.status(404).send('Check Out request not found');
+        }
+    
+        res.status(200).send({ successMessage: 'Check Out request deleted' });
+      } catch (error) {
+        res.status(400).send({ errorMessage: error.message });
+      }
+
+}
 module.exports = {
     getReadyToServeOrders,
     deleteWaitStaffOrder,
     getAssistanceRequests,
-    deleteAssistanceRequest
+    deleteAssistanceRequest,
+    getCheckOutRequests,
+    deleteCheckOutRequest,
 }

@@ -43,6 +43,8 @@ const {
   deleteWaitStaffOrder,
   getAssistanceRequests,
   deleteAssistanceRequest,
+  getCheckOutRequests,
+  deleteCheckOutRequest
 } = require ('../Controllers/waitStaffController.js')
 
   
@@ -138,5 +140,8 @@ router.delete('/api/deleteKitchenOrder/:rId/:orderNo', deleteKitchenOrder); //DE
   
   router.delete('/api/deleteAssistanceRequest/:aId', deleteAssistanceRequest) //DELETE
 
+  router.get('/api/getCheckOutRequests/:tId', getCheckOutRequests) //GET
+
+  router.delete('/api/deleteCheckOutRequest/:checkId', deleteCheckOutRequest) //DELETE
 
 module.exports = router;
