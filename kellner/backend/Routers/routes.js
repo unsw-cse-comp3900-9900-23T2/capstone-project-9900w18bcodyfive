@@ -134,7 +134,7 @@ router.delete('/api/deleteKitchenOrder/:rId/:orderNo', deleteKitchenOrder); //DE
 
   router.get('/api/getReadyToServeOrders/:rId', getReadyToServeOrders) //GET
 
-  router.delete('/api/deleteWaitStaffOrder/:rId/:orderNo', deleteWaitStaffOrder) //GET
+  router.delete('/api/deleteWaitStaffOrder/:rId/:orderNo', deleteWaitStaffOrder) //DELETE
   
   router.get('/api/getAssistanceRequests/:rId', getAssistanceRequests) //GET
   

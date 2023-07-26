@@ -29,7 +29,7 @@ const checkOutSchema = mongoose.Schema({
         type: String
     },
 
-    oId : {
+    checkId : {
         type: String
     }
 

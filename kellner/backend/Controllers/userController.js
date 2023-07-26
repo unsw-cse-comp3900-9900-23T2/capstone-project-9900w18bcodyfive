@@ -266,10 +266,10 @@ const getUserDashboard = async (req, res) => {
   const sendCheckOutRequest = async(req,res) =>{
     try{
 
-      const oId = uuidv4()
+      const checkId = uuidv4()
 
       const newCheckOut = new checkOut ({
-        oId : oId,
+        checkId : checkId,
         rId : req.body.rId,
         tId : req.body.tId,
         paymentMethod : req.body.paymentMethod,
