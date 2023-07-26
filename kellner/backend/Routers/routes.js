@@ -29,6 +29,8 @@ const {
     placeOrder,
     getOrderStatus,
     userAddNote,
+    sendAssitanceRequest,
+    sendCheckOutRequest
     } = require('../Controllers/userController.js')
 
 const {
@@ -87,19 +89,19 @@ router.delete('/api/deleteItems/:rId/:cId/:iId', deleteItem) //DELETE
   ================================================================================================================================== */  
 
 //Get the list of restaurants
-router.get('/api/getAllRestaurants', getAllRestaurants)
+router.get('/api/getAllRestaurants', getAllRestaurants) //GET
 
 // Get all categories
-router.get('/api/getAllCategories/:rId', getAllCategories)
+router.get('/api/getAllCategories/:rId', getAllCategories) //GET
 
 // Get first 10 items, not using category
-router.get('/api/getTenItems/:rId', getTenItems)
+router.get('/api/getTenItems/:rId', getTenItems) //GET
 
 // Get 10 RANDOM items - needs to be tested
-router.get('/api/getRandomItems/:rId', getRandomItems)
+router.get('/api/getRandomItems/:rId', getRandomItems) //GET
 
 // Get all categories and 10 items
-router.get('/api/getUserDashboard/:rId', getUserDashboard)
+router.get('/api/getUserDashboard/:rId', getUserDashboard) //GET
 
 router.post('/api/placeOrder', placeOrder) //POST
 
@@ -107,10 +109,15 @@ router.get('/api/getOrderStatus/:orderNo', getOrderStatus) //GET
 
 router.put('/api/userAddNote/:orderNo', userAddNote) //PUT
 
+router.post('/api/sendAssistanceRequest', sendAssitanceRequest) //POST
+
+router.post('/api/sendCheckOutRequest', sendCheckOutRequest) //POST
+
 /*================================================================================================================================== 
    KITCHEN STAFF Routes
   ================================================================================================================================== */ 
-router.get('/api/getKitchenOrders/:rId', getKitchenOrders) //GET
+
+  router.get('/api/getKitchenOrders/:rId', getKitchenOrders) //GET
 
 router.delete('/api/deleteKitchenOrder/:rId/:orderNo', deleteKitchenOrder); //DELETE
 

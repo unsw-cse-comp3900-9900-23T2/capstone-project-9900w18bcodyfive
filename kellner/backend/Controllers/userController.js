@@ -1,7 +1,7 @@
 // This includes the routes for the user.
 // Make the schema as well.
 
-
+const { v4: uuidv4 } = require('uuid');
 // this customer can only be at one restaurant, and the restaurant's resID is passed as a parameter
 
 const Restaurant = require('../Schemas/restaurantSchema')
@@ -9,6 +9,8 @@ const Category = require('../Schemas/categorySchema')
 const Items = require('../Schemas/itemSchema')
 const inProgress = require('../Schemas/inProgressSchema')
 const readyToServe = require('../Schemas/readyToServeSchema')
+const assistance = require('../Schemas/assistanceSchema')
+const checkOut = require ('../Schemas/checkOutSchema')
 const finishedOrders = require('../Schemas/finishedOrdersSchema')
 require('dotenv').config({ path: './config/.env' });
 
@@ -226,6 +228,61 @@ const getUserDashboard = async (req, res) => {
     }
   };
 
+ /*================================================================================================================================== 
+   USER ASSISTANCE REQUEST
+  ================================================================================================================================== */
+
+  const sendAssitanceRequest =  async(req,res) =>{
+    try{
+
+      const predefinedNote = "Assitance Needed!!"
+      const note = req.body.note ? req.body.note : predefinedNote
+
+      const aId = uuidv4();
+      
+      const newAssistance = new assistance({
+          aId : aId,
+          tId : req.body.tId,
+          note : note
+      });
+
+      const savedAssistance = await newAssistance.save();
+      if (!savedAssistance) {
+        return res.status(400).send({errorMessage: "Failed to send Request"})
+      }
+      res.status(200).send({ successMessage: "Assistance request sent"});
+
+    }catch (e) {
+      res.status(400).send({ errorMessage: e.message });
+    }
+
+}
+
+/*================================================================================================================================== 
+   USER CHECKOUT REQUEST
+  ================================================================================================================================== */
+
+  const sendCheckOutRequest = async(req,res) =>{
+    try{
+
+      const newCheckOut = new checkOut ({
+        rId : req.body.rId,
+        tId : req.body.tId,
+        paymentMethod : req.body.paymentMethod,
+        totalPrice : req.body.totalPrice,
+      })
+
+      const savedCheckOut = await newCheckOut.save()
+      if (!savedCheckOut) {
+        res.status(400).send({errorMessage : "Failed to send Check Out Request"})
+
+      }
+      res.status(200).send({successMessage : "Checkout Request Sent"})
+
+    }catch (e) {
+      res.status(400).send({ errorMessage: e.message });
+    }
+  }
 
 module.exports = {
     getAllRestaurants,
@@ -235,5 +292,7 @@ module.exports = {
     getUserDashboard,
     placeOrder,
     getOrderStatus,
-    userAddNote
+    userAddNote,
+    sendAssitanceRequest,
+    sendCheckOutRequest
 }

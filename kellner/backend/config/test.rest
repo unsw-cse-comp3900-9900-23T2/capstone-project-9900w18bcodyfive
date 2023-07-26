@@ -138,3 +138,25 @@ GET http://localhost:5000/api/getKitchenOrders/Res1
 
 ###
 DELETE http://localhost:5000/api/deleteKitchenOrder/Res1/1046
+
+
+###
+POST http://localhost:5000/api/sendAssistanceRequest
+Content-Type: application/json
+
+{
+  "tId" : "Table 2",
+  "note" : "Worst FOOD EVER, I want to speak to Manager !!"
+
+}
+
+###
+POST http://localhost:5000/api/sendCheckOutRequest
+Content-Type: application/json
+
+{
+  "rId" : "Res1",
+  "tId" : "Table 1",
+  "paymentMethod" : "EFTPOS",
+  "totalPrice" : "45"
+}
