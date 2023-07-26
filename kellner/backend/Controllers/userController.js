@@ -243,7 +243,8 @@ const getUserDashboard = async (req, res) => {
       const newAssistance = new assistance({
           aId : aId,
           tId : req.body.tId,
-          note : note
+          note : note,
+          rId : req.body.rId
       });
 
       const savedAssistance = await newAssistance.save();

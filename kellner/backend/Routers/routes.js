@@ -36,9 +36,14 @@ const {
 const {
   getKitchenOrders,
   deleteKitchenOrder,
-
-  
 } = require('../Controllers/kitchenStaffController.js')
+
+const {
+  getReadyToServeOrders,
+  deleteWaitStaffOrder,
+  getAssistanceRequests,
+  deleteAssistanceRequest,
+} = require ('../Controllers/waitStaffController.js')
 
   
 /*================================================================================================================================== 
@@ -117,8 +122,21 @@ router.post('/api/sendCheckOutRequest', sendCheckOutRequest) //POST
    KITCHEN STAFF Routes
   ================================================================================================================================== */ 
 
-  router.get('/api/getKitchenOrders/:rId', getKitchenOrders) //GET
+router.get('/api/getKitchenOrders/:rId', getKitchenOrders) //GET
 
 router.delete('/api/deleteKitchenOrder/:rId/:orderNo', deleteKitchenOrder); //DELETE
+
+/*================================================================================================================================== 
+   WAIT STAFF Routes
+  ================================================================================================================================== */ 
+
+  router.get('/api/getReadyToServeOrders/:rId', getReadyToServeOrders) //GET
+
+  router.delete('/api/deleteWaitStaffOrder/:rId/:orderNo', deleteWaitStaffOrder) //GET
+  
+  router.get('/api/getAssistanceRequests/:rId', getAssistanceRequests) //GET
+  
+  router.delete('/api/deleteAssistanceRequest/:aId', deleteAssistanceRequest) //DELETE
+
 
 module.exports = router;

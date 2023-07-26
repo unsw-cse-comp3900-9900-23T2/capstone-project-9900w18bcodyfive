@@ -145,9 +145,9 @@ POST http://localhost:5000/api/sendAssistanceRequest
 Content-Type: application/json
 
 {
-  "tId" : "Table 2",
-  "note" : "Worst FOOD EVER, I want to speak to Manager !!"
-
+  "tId" : "Table 13",
+  "note" : "Worst FOOD EVER, I want to speak to Manager !!",
+  "rId" : "Res1"
 }
 
 ###
@@ -160,3 +160,15 @@ Content-Type: application/json
   "paymentMethod" : "EFTPOS",
   "totalPrice" : "45"
 }
+
+###
+GET http://localhost:5000/api/getReadyToServeOrders/Res1
+
+###
+DELETE http://localhost:5000/api/deleteWaitStaffOrder/Res1/482
+
+###
+GET http://localhost:5000/api/getAssistanceRequests/Res1
+
+###
+DELETE http://localhost:5000/api/deleteAssistanceRequest/27ea2e26-729b-4542-8bff-69d22118b2e7

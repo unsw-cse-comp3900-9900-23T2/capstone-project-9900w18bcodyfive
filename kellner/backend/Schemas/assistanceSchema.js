@@ -23,6 +23,10 @@ const assistanceSchema = new mongoose.Schema({
         type: String,
     },
 
+    rId : {
+        type: String,
+    },
+
     note :{
         type: String
     },
