@@ -145,7 +145,7 @@ const getAllRequests = async(req, res) =>{
 
     const assistanceRequests = await assistance.find({rId},{tId:1, note:1, aId:1}).exec() 
     const checkOutRequests = await checkOut.find({rId},{tId:1, paymentMethod:1, totalPrice:1, checkId:1}). exec()
-    const readyToServeOrders = await readyToServe.find({rId}, {tId:1, itemsOrdered:1}).exec()
+    const readyToServeOrders = await readyToServe.find({rId}, {tId:1, itemsOrdered:1, orderNo:1}).exec()
     if (!assistanceRequests || !checkOutRequests|| !readyToServeOrders || 
       assistanceRequests===0 || checkOutRequests===0 || readyToServeOrders === 0){
       return res.status(404).send('No Requests Found')
