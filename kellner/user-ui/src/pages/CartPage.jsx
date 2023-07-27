@@ -10,7 +10,8 @@ import Header from "../components/Header";
 import CartItems from "../components/CartItems";
 
 //Redux imports
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addOrderNo } from "../redux/slices/orderSlice";
 
 
 const Heading = styled('div')({
@@ -47,6 +48,7 @@ const CartPage = ()=>{
     const tId = useSelector(state => state.table.tId);
     const items = useSelector(state => state.cart.products);
     const data = [];
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     let totalPrice = 0;
 
@@ -105,7 +107,9 @@ const CartPage = ()=>{
             body : JSON.stringify(orderSummary)
         })
 
+        const data = await response.json();
         if(response.status === 200){
+            dispatch(addOrderNo(data));
             navigate('/order-placed');
         }
     }
@@ -119,7 +123,6 @@ const CartPage = ()=>{
         orderSummary.totalPrice = totalPrice;
         orderSummary.note = '';
         placeOrder(orderSummary);
-        console.log(orderSummary);
     }
 
     return(
