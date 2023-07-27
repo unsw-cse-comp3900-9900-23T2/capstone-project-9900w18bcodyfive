@@ -101,9 +101,8 @@ GET CHECKOUT REQUESTS
 
 const getCheckOutRequests = async (req, res) => {
     try {
-      const { tId } = req.params;
 
-      const checkOutRequests = await checkOut.find({ tId }).exec();
+      const checkOutRequests = await checkOut.find({ }).exec();
       if (!checkOutRequests || checkOutRequests.length === 0) {
         return res.status(404).send('No requests found for tId');
       }
@@ -134,6 +133,34 @@ const deleteCheckOutRequest = async(req,res) =>{
       }
 
 }
+
+const getAllRequests = async(req, res) =>{
+  try{
+
+    const rId = req.params.rId
+
+    const assistanceRequests = await assistance.find({rId}).exec() 
+    const checkOutRequests = await checkOut.find({rId}). exec()
+    const readyToServeOrders = await readyToServe.find({rId}).exec()
+    if (!assistanceRequests || !checkOutRequests|| !readyToServeOrders || 
+      assistanceRequests===0 || checkOutRequests===0 || readyToServeOrders === 0){
+      return res.status(404).send('No Requests Found')
+    }
+    res.status(200).send(
+      {
+        assistanceRequests :assistanceRequests,
+        checkOutRequests:checkOutRequests,
+        readyToServeOrders : readyToServeOrders
+      }
+        )
+
+  }catch (error) {
+        res.status(400).send({ errorMessage: error.message });
+      }
+
+}
+
+
 module.exports = {
     getReadyToServeOrders,
     deleteWaitStaffOrder,
@@ -141,4 +168,5 @@ module.exports = {
     deleteAssistanceRequest,
     getCheckOutRequests,
     deleteCheckOutRequest,
+    getAllRequests
 }

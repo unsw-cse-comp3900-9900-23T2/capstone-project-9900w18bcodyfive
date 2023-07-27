@@ -137,7 +137,7 @@ Content-Type: application/json
 GET http://localhost:5000/api/getKitchenOrders/Res1
 
 ###
-DELETE http://localhost:5000/api/deleteKitchenOrder/Res1/1046
+DELETE http://localhost:5000/api/deleteKitchenOrder/Res1/0727369
 
 
 ###
@@ -172,3 +172,6 @@ GET http://localhost:5000/api/getAssistanceRequests/Res1
 
 ###
 DELETE http://localhost:5000/api/deleteAssistanceRequest/27ea2e26-729b-4542-8bff-69d22118b2e7
+
+###
+GET http://localhost:5000/api/getAllRequests/Res1

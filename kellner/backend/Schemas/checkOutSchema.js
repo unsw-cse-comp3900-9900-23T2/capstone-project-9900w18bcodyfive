@@ -12,7 +12,10 @@ async function connect(){
 connect();
 
 const checkOutSchema = mongoose.Schema({
-   
+    checkId : {
+        type: String
+    },
+
     rId:{
         type: String
     },
@@ -27,11 +30,8 @@ const checkOutSchema = mongoose.Schema({
 
     totalPrice :{
         type: String
-    },
-
-    checkId : {
-        type: String
     }
+   
 
 }, {timestamps : true})
 
