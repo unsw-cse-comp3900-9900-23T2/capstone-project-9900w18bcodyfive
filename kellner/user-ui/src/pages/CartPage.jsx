@@ -10,8 +10,7 @@ import Header from "../components/Header";
 import CartItems from "../components/CartItems";
 
 //Redux imports
-import { useSelector, useDispatch } from "react-redux";
-import { clearCart } from '../redux/slices/cartSlice';
+import { useSelector } from "react-redux";
 
 
 const Heading = styled('div')({
@@ -49,7 +48,6 @@ const CartPage = ()=>{
     const items = useSelector(state => state.cart.products);
     const data = [];
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     let totalPrice = 0;
 
     for (const i of items){
@@ -89,7 +87,10 @@ const CartPage = ()=>{
         let temp = {};
         for (const item of data){
             console.log(item);
-            temp.item.name = item.quantity;
+            // temp is initialized as an empty object because we want to assign both key and value dynamically
+            // in that case it is always better use the square bracket format for keys as used below because if we use the dot operator 
+            // to assign the keys dynamically javascript will assume it as undefined and will throw an error
+            temp[item.name] = item.quantity;
         }
         return temp;
     };
@@ -105,7 +106,6 @@ const CartPage = ()=>{
         })
 
         if(response.status === 200){
-            dispatch(clearCart);
             navigate('/order-placed');
         }
     }
@@ -119,6 +119,7 @@ const CartPage = ()=>{
         orderSummary.totalPrice = totalPrice;
         orderSummary.note = '';
         placeOrder(orderSummary);
+        console.log(orderSummary);
     }
 
     return(
