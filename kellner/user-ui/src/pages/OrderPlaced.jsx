@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 //Component imports
 import orderPlaced from "../assets/images/orderPlaced.gif";
@@ -41,7 +42,8 @@ const OrderPlaced = ()=>{
     const [placed, setPlaced] = React.useState(false);
     const [note, setNote] = React.useState("");
     const orderNo = useSelector(state => state.order.orderNo);
-    console.log(orderNo)
+    const navigate = useNavigate();
+    const [prepared, setPrepared] = React.useState(false);
 
     //function to post notes
     async function addNote() {
@@ -60,6 +62,38 @@ const OrderPlaced = ()=>{
             window.alert(data.errorMessage);
         }
     }
+
+    //Function to fetch the dashboard
+    async function getOrderStatus(){
+        console.log('function called');
+        const response = await fetch(`http://localhost:5000/api/getOrderStatus/${orderNo}`, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+            },
+        })
+    
+        const data = await response.json();
+        if(response.status === 200){
+            if(data.status === 'Ready to Serve'){
+                setPrepared(true);
+            }
+        }
+    }
+
+    async function callGetOrderStatus() {
+        setInterval(getOrderStatus, 5000);
+    }
+
+    React.useEffect(()=>{
+        if(prepared === true){
+            navigate('/order-prepared')
+        }
+    }, [prepared]);
+
+    React.useEffect(()=>{
+        callGetOrderStatus();
+    }, []);
 
     // timeout function to show the show the order placing animation
     setTimeout(()=>{

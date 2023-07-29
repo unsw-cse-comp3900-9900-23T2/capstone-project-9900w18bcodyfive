@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import CatItems from "./pages/CatItems";
 import CartPage from "./pages/CartPage";
 import OrderPlaced from "./pages/OrderPlaced";
+import OrderPrepared from "./pages/OrderPrepared";
 
 
 const Wrapper = ()=>{
@@ -19,6 +20,7 @@ const Wrapper = ()=>{
             <Route path="/dashboard/:cId/items" element={<CatItems/>}/>
             <Route path="/cart-page" element={<CartPage/>}/>
             <Route path="/order-placed" element={<OrderPlaced/>}/>
+            <Route path="/order-prepared" element={<OrderPrepared/>}/>
         </Routes>
     );
 };
