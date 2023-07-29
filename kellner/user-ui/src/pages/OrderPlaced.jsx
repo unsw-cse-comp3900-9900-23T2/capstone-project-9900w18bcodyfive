@@ -32,7 +32,10 @@ const Input = styled('input')({
     border: '1.5px solid #5c5c8a',
     width: '500px',
     height: '40px',
-    borderRadius: '10px'
+    borderRadius: '10px',
+    fontFamily: 'Nunito',
+    fontSize: '1.3rem',
+    padding: '0.25rem'
 });
 const OrderPlaced = ()=>{
     const [placed, setPlaced] = React.useState(false);
