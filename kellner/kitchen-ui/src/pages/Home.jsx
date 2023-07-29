@@ -96,7 +96,7 @@ const Home = ()=>{
             rName: restaurant.rName,
             rTableIds: restaurant.rTableIds
         }));
-        window.alert('restaurant selected');
+        navigate('/dashboard');
     }
     // Triggers the animation everytime the page loads
     React.useEffect(() => {

@@ -31,7 +31,9 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, restaurantReducer);
 
 const store = configureStore({
-    reducer: persistedReducer,
+    reducer: {
+        restaurant: persistedReducer
+    },
     middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
