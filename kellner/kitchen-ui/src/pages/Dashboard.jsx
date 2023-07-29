@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Grid } from "@mui/material";
 
 //component imports
 import Header from "../components/Header";
@@ -36,9 +35,13 @@ const Dashboard = ()=>{
         }
     }
 
+    async function wrap(){
+        setInterval(getAllOrders, 3000);
+    };
+
     React.useEffect(()=>{
-        getAllOrders();
-    },[]);
+        wrap();
+    },[])
     return(
         <>
             <Header/>
