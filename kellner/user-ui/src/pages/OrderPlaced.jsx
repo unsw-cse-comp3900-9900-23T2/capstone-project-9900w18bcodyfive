@@ -63,7 +63,7 @@ const OrderPlaced = ()=>{
         }
     }
 
-    //Function to fetch the dashboard
+    //Function to fetch the order status
     async function getOrderStatus(){
         console.log('function called');
         const response = await fetch(`http://localhost:5000/api/getOrderStatus/${orderNo}`, {
