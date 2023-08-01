@@ -9,6 +9,7 @@ import CatItems from "./pages/CatItems";
 import CartPage from "./pages/CartPage";
 import OrderPlaced from "./pages/OrderPlaced";
 import OrderPrepared from "./pages/OrderPrepared";
+import EnjoyYourMeal from "./pages/EnjoyYourMeal";
 
 
 const Wrapper = ()=>{
@@ -21,6 +22,7 @@ const Wrapper = ()=>{
             <Route path="/cart-page" element={<CartPage/>}/>
             <Route path="/order-placed" element={<OrderPlaced/>}/>
             <Route path="/order-prepared" element={<OrderPrepared/>}/>
+            <Route path="/enjoy-your-meal" element={<EnjoyYourMeal/>}/>
         </Routes>
     );
 };

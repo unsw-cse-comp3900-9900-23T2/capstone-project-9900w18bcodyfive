@@ -34,7 +34,7 @@ const OrderPrepared = ()=>{
         })
     
         const data = await response.json();
-        if(response.status === 200){
+        if(response.status === 404){
             if(data.status === 'Order not found'){
                 setArrived(true);
             }
