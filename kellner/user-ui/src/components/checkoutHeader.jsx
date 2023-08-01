@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import logo from '../assets/logo/Kellner-Logo.png';
 import { Paper } from '@mui/material';
 import {Button} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 
 const MasterContainer = styled('div')({
@@ -41,6 +42,11 @@ const StyledHeader = styled('header')({
 })
 
 const CheckoutHeader = () => {
+    const navigate = useNavigate();
+
+    const goToCheckout = ()=>{
+        navigate('/checkout')
+    };
     return(
         <StyledHeader>
             <Paper sx={{margin: '0', width:'100%'}}>
@@ -50,7 +56,7 @@ const CheckoutHeader = () => {
                         <NameContainer><span style={{color:'#006600'}}>Kell</span>ner</NameContainer>
                     </Container>
                     <Container>
-                        <Button variant="contained" color="success" sx={{height:'3rem', margin:'3rem', fontSize:'1.2rem'}}>Checkout</Button>
+                        <Button variant="contained" color="success" sx={{height:'3rem', margin:'3rem', fontSize:'1.2rem'}} onClick={goToCheckout}>Checkout</Button>
                     </Container>
                 </MasterContainer>
             </Paper>
