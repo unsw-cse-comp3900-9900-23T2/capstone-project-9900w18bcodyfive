@@ -6,6 +6,7 @@ import { Divider } from "@mui/material";
 import Header from "../components/Header";
 import ReadyToServe from "../components/ReadyToServe";
 import Assistance from "../components/Assistance";
+import Checkout from "../components/Checkout";
 
 //redux imports
 import { useSelector } from "react-redux";
@@ -39,7 +40,7 @@ const Dashboard = ()=>{
     const rId = useSelector(state => state.restaurant.rId);
     const [requests, setRequests] = React.useState({
         assistanceRequests: [],
-        checkoutRequests: [],
+        checkOutRequests: [],
         readyToServeOrders: []
     });
     //Function to get list of orders
@@ -55,7 +56,7 @@ const Dashboard = ()=>{
         if(response.status === 200){
             setRequests({
                 assistanceRequests: data.assistanceRequests,
-                checkoutRequests: data.checkoutRequests,
+                checkOutRequests: data.checkOutRequests,
                 readyToServeOrders: data.readyToServeOrders
             });
         }
@@ -95,6 +96,11 @@ const Dashboard = ()=>{
                 <Container>
                     <Heading>Checkout Requests</Heading>
                     <Divider/>
+                    {requests.checkOutRequests.map((request, index)=>{
+                        return(
+                            <Checkout key={index} request={request}/>
+                        );
+                    })}
                 </Container>
             </MasterContainer>
         </>
