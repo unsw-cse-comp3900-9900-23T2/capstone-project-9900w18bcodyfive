@@ -5,6 +5,7 @@ import { Divider } from "@mui/material";
 // components import
 import Header from "../components/Header";
 import ReadyToServe from "../components/ReadyToServe";
+import Assistance from "../components/Assistance";
 
 //redux imports
 import { useSelector } from "react-redux";
@@ -75,7 +76,6 @@ const Dashboard = ()=>{
                     <Heading>Ready To Serve</Heading>
                     <Divider/>
                     {requests.readyToServeOrders.map((order, index)=>{
-                        console.log(order)
                         return(
                             <ReadyToServe key={index} order={order}/>
                         );
@@ -85,6 +85,11 @@ const Dashboard = ()=>{
                 <Container>
                     <Heading>Assistance Requests</Heading>
                     <Divider/>
+                    {requests.assistanceRequests.map((request, index)=>{
+                        return(
+                            <Assistance key={index} request={request}/>
+                        );
+                    })}
                 </Container>
                 <Divider orientation="vertical" sx={{height: '100vh'}}/>
                 <Container>
