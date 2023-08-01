@@ -2,8 +2,6 @@ import styled from "@emotion/styled";
 import { Paper } from "@mui/material";
 import {Button} from "@mui/material";
 
-// redux imports
-import { useSelector } from "react-redux";
 
 const MasterContainer = styled('div')({
     display:'flex',
