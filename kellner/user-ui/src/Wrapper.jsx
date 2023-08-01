@@ -11,6 +11,7 @@ import OrderPlaced from "./pages/OrderPlaced";
 import OrderPrepared from "./pages/OrderPrepared";
 import EnjoyYourMeal from "./pages/EnjoyYourMeal";
 import CheckoutPage from "./pages/CheckoutPage";
+import ThankYou from "./pages/thankYou";
 
 
 const Wrapper = ()=>{
@@ -25,6 +26,7 @@ const Wrapper = ()=>{
             <Route path="/order-prepared" element={<OrderPrepared/>}/>
             <Route path="/enjoy-your-meal" element={<EnjoyYourMeal/>}/>
             <Route path="/checkout" element={<CheckoutPage/>}/>
+            <Route path="/thanks-page" element={<ThankYou/>}/>
         </Routes>
     );
 };
