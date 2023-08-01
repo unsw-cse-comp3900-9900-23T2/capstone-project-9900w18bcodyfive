@@ -52,7 +52,7 @@ const deleteWaitStaffOrder = async (req, res) => {
   
       await finishedOrder.save();
   
-      res.status(200).send('Order deleted from inProgress collection and moved to finishedOrders collection');
+      res.status(200).send({successMessage :'Order deleted from inProgress collection and moved to finishedOrders collection'});
     } catch (error) {
       res.status(400).send({ errorMessage: error.message });
     }
