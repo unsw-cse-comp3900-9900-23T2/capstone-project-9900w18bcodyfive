@@ -42,7 +42,7 @@ const Dashboard = ()=>{
         readyToServeOrders: []
     });
     //Function to get list of orders
-    async function getAllOrders(){
+    async function getAllRequests(){
         const response = await fetch(`http://localhost:5000/api/getAllRequests/${rId}`, {
             method: 'GET',
             headers: {
@@ -61,7 +61,7 @@ const Dashboard = ()=>{
     }
 
     async function wrap(){
-        setInterval(getAllOrders, 5000);
+        setInterval(getAllRequests, 3000);
     };
 
     React.useEffect(()=>{
