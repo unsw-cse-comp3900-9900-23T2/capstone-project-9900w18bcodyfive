@@ -36,7 +36,7 @@ const Dashboard = ()=>{
     }
 
     async function wrap(){
-        setInterval(getAllOrders, 3000);
+        setInterval(getAllOrders, 2000);
     };
 
     React.useEffect(()=>{

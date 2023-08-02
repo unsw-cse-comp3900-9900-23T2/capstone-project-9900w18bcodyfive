@@ -33,14 +33,14 @@ const Order = ({order})=>{
         })
         const data = await response.json();
         if (response.status === 200){
-            window.location.reload();
+            console.log(data)
         } else {
             console.log(data.errorMessage);
             window.alert(data.errorMessage);
         }
     }
     return(
-        <Paper sx={{ margin:'2rem', borderRadius: '1rem', backgroundColor: '#ffe6ff'}}>
+        <Paper sx={{ margin:'2rem', borderRadius: '1rem', backgroundColor: '#80bfff'}}>
             <Grid container alignItems={"center"}>
                 <Grid item xs={3} sm={3} md={3} lg={3}>
                     <div>{order.tId}</div>
