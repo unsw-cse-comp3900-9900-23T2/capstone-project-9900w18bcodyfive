@@ -114,7 +114,7 @@ const OrderPlaced = ()=>{
         ):(
             <>
                 <MainContent>Order Placed !!!</MainContent>
-                <MainContent>You Food is getting prepared</MainContent>
+                <MainContent>Your Food is getting prepared</MainContent>
                 <Content>If you want to make any corrections to your order you can enter your comments below</Content>
                 <Container>
                     <Input onChange={saveNote} value={note}/>

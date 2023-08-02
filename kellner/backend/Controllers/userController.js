@@ -235,7 +235,7 @@ const getUserDashboard = async (req, res) => {
   const sendAssitanceRequest =  async(req,res) =>{
     try{
 
-      const predefinedNote = "Assitance Needed!!"
+      const predefinedNote = "Assistance Needed...."
       const note = req.body.note ? req.body.note : predefinedNote
 
       const aId = uuidv4();
