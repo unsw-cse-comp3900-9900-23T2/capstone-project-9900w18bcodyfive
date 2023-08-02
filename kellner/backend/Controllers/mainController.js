@@ -315,7 +315,7 @@ const editRestaurant = async(req,res) => {
       }
 
       const restaurant = await Restaurant.findOne({ resId: rId }).exec();
-      console.log(rId)
+      console.log(rId, cId)
       if (!restaurant) {
         return res.status(404).send('Restaurant not found');
       }
@@ -325,17 +325,18 @@ const editRestaurant = async(req,res) => {
         return res.status(403).send('Not authorized to edit this category');
       }
 
-      const category = await Category.findOne({ cId: cId }).exec();
+      const category = await Category.find( {cId : cId, rId : rId }).exec();
       if (!category) {
         return res.status(404).send('Category not found');
       }
+      console.log(category)
     
       const imageUrl = req.body.cImage;
       const edit_cImage = await uploadImageToCloudinary(imageUrl);
       req.body.cImage = edit_cImage;
   
       const updatedCategory = await Category.findOneAndUpdate(
-        { cId: cId },
+        { cId: cId, rId : rId },
         req.body,
         { new: true }
       ).exec();
@@ -420,7 +421,7 @@ const addItem = async(req,res) =>{
 
     const cId = req.params.cId
     const itemCount = await Items.countDocuments({});
-    const iId = `Item${itemCount + 1}`;
+    const iId = `Item-${req.body.iName}`;
 
     const newItem = new Items({
       rId: resId,
@@ -498,7 +499,7 @@ const getItem = async(req,res) =>{
       req.body.iImage = edit_iImage;
   
       const updatedItem = await Items.findOneAndUpdate(
-        { iId: iId },
+        { iId, cId, rId },
         req.body,
         { new: true }
       ).exec();
