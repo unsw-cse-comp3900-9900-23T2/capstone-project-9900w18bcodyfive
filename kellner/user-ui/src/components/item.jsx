@@ -77,10 +77,10 @@ const Item = (props)=>{
     }
 
     return(
-        <Grid item xs={12} sm={12} md={4} lg={3}>
+        <Grid item xs={6} sm={6} md={4} lg={4}>
             <CardEffect>
-            <Paper sx={{maxWidth:345, borderRadius:'2rem'}}>
-                <Card sx={{maxWidth:345, borderRadius:'2rem'}}>
+            <Paper sx={{ borderRadius:'2rem'}}>
+                <Card sx={{ borderRadius:'2rem'}}>
                         <CardMedia
                             component="img"
                             alt="item image"
