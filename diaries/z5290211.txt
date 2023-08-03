@@ -1,0 +1,110 @@
+User Diary - Restaurant Management System Project
+z5290211
+Bhargav Sai Manne
+github: bhargaveng14
+
+Date: June 21, 2023
+
+Today, we started working on the Restaurant Management System project. 
+The project's repository was created, and we organized the project into separate folders, including frontend and backend. 
+We set up the basic structure of the project and began planning the features we want to implement.
+
+Date: June 27, 2023
+
+We worked on implementing user authentication and login and Registration functionality for restaurant managers
+We incorporated JSON Web Tokens (JWT) for secure authentication and added error handling for login and signup. 
+The backend now handles login and signup requests.
+
+Date: June 28, 2023
+
+Today, we focused on adding functionalities for restaurant managers to create and manage their restaurant profiles. 
+Frontend and backend functionalities were added for adding restaurants to the system. 
+We also handled errors for login and signup processes,ensuring a smooth user experience.
+
+Date: July 2, 2023
+
+We made some changes to the formatting of the controller files to match the required formatting. 
+The frontend and backend functionalities for adding restaurants were thoroughly tested, and we fixed some bugs to ensure proper functionality.
+
+Date: July 3, 2023
+
+Functionality for deleting restaurants was implemented for both frontend and backend. 
+We resolved merge conflicts in the backend folder and ensured proper data handling during the deletion process.
+
+Date: July 4, 2023
+
+Today, we made minimal changes to the restaurant schema and added functionality for updating table objects when the table count changes. 
+We incorporated JSON Web Tokens (JWT) and hashed passwords for secure login and registration processes. JWT was added for registration, and login and signup functionalities were modified to work alongside Redux.
+
+Date: July 9, 2023
+
+We made small corrections in the data sending format of the "get restaurant" route. 
+Redux was incorporated, and login and signup functionalities were modified to work smoothly with Redux. T
+hese changes enhance the user experience and ensure proper data handling.
+
+Date: July 10, 2023
+
+Today, we added cloudinary support and environment variables for better image rendering in the "get restaurant" functionality. 
+We deleted unwanted controllers and ensured that rate limiting is implemented correctly. 
+
+Date: July 11, 2023
+
+Image rendering was successfully achieved in the "get restaurant" functionality, and Cloudinary integration is working perfectly. 
+We continued to work on the backend functionality, and cloudinary uploads were successfully implemented for image uploads during restaurant editing.
+
+Date: July 15, 2023
+
+We added functionalities for restaurant managers to add and delete categories. 
+The response format for adding and deleting categories was updated for better consistency. 
+The way category IDs are generated was also modified to ensure uniqueness.
+
+Date: July 17, 2023
+
+A new route was added to allow users to get a list of all restaurants stored in the backend. 
+This feature enhances the user experience by providing access to a comprehensive list of restaurants available in the system.
+
+Date: July 20, 2023
+
+We added kitchen staff routes to display and delete orders. 
+The functionality for generating order numbers was modified to include date and month in the timestamp. 
+We also created a new folder for Swagger documentation, indicating that we plan to implement it later.
+
+Date: July 23, 2023
+
+We made some changes to the order number generation logic, ensuring that the restaurant ID is generated based on the count of documents present in the database. 
+The query for fetching food items under a particular category was updated to provide accurate results.
+
+Date: July 24, 2023
+
+Spelling errors were corrected in the backend, and error messages in the login and register sections were converted to JSON format for better consistency. 
+We made some changes to the order number generation and query logic to improve its accuracy.
+
+Date: July 26, 2023
+
+Unwanted folders and files were deleted from the backend. 
+Checkout routes and all routes for the backend were added. 
+Schemas and routes for assistance and checkout functionality were also implemented.
+
+Date: July 27, 2023
+
+More changes were made to the backend, including updates to wait staff dashboard routes, and the addition of routes to get all requests for wait staff. 
+Unnecessary files were removed, and routes for assistance and checkout were added.
+
+Date: July 28, 2023
+
+Some final changes were made to the backend, including adding rate-limiting functionality and resolving some merge conflicts. 
+Changes to fetch categories and adding authorization for CRUD operations were also implemented.
+
+Date: August 1, 2023
+
+The success message format for deleting wait staff orders was changed to JSON format for consistency. 
+More work was done on user dashboard routes, but Swagger documentation is yet to be implemented.
+
+Spelling errors were corrected in the backend, and logic was added to assign IDs for items. 
+Query strings for category and items were also added. The project is progressing well, with more features being implemented and improvements made to existing functionalities.
+
+Overall, the Restaurant Management System project has seen significant progress over the weeks. 
+We have successfully implemented various features, including user authentication, restaurant management, category and menu item creation, order placement and tracking, 
+assistance requests, check-out functionality, and kitchen staff routes. The project is on track for completion, with more features and improvements in the pipeline. 
+We look forward to finalizing the project and getting it ready for the demo on 2nd of August.
+
