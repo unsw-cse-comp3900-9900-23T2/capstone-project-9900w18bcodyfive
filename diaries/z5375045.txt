@@ -1,0 +1,105 @@
+zID: z5375045
+Name: Sevugan Chetty Kathiresan
+GitHub UserName: sevugan-kathiresan
+
+Week 1:
+    1. This week so far we formed a team of three and expecting two new members to join on next week due to some enrollment changes happened in our tutorial.
+    2. Named our Team as "CodyFive".
+    3. I was selected as Scrum Master.
+    4. I created a Jira project named "9900W18BCodyFive" and invited my team memebers and tutor.
+    5. From the List of Projects we shortlisted 4 topics and started analysing the suitability based on our interests.
+
+==========================================================================================================================================================================================
+
+Week 2:
+    1. This is the second week of the term and new mwmber patrick joined in our team currently we have four members.
+    2. We discussed our chosen topics for project to patrick and asked his opinion.
+    3. The final choice was between car space renting system and Restaurant wait management system and we decided to go with the wait management system.
+    4. Then we decided to choose a tech stack for our project and the tech stack we chose was MERN stack
+
+==========================================================================================================================================================================================
+
+Week 3:
+    1. This week we has to submit a project proposal.
+    2. I worked on writing the introduction and creating user stories for the project.
+    3. For creating user stories we organized a meeting and brainstormed and come up with the functionalities.
+    4. Then those functionalities have been converted back into user stories.
+    5. For converting the functionalities in to user stories we referred the lecture material and atlassian'd guide on how to create user stories.
+    6. Then as a scrum master i consolidated the user stories and i even categorized them in to epics.
+    7. Then i added all the user stories to our JIRA and decided up on the sprint timings.
+    8. I also took responsiblity for architecture diagram in the project proposal.
+    9. I consolidated the proposal and submitted it.
+
+==========================================================================================================================================================================================
+
+Week 4:
+    1. Me and patrick took rsponsibility for frontend and bharghav and vignesh took responsibility for backend
+    2. The front end and backend team started working on the systems.
+    3. Initially I spend significant amount of time to revise the all the concepts of React framework.
+    4. At the end of the week patrick informed us that due to certain personal problems he had to drop the course.
+    5. Since bharghav and vignesh were not familiar with much of the frontend development concepts I took the responsivility of developing frontend alone.
+
+==========================================================================================================================================================================================
+
+Week 5:
+    1. This week is our first retrospective demo.
+    2. I devloped the frontend and backend people developed the respective features associated to the sprint 1.
+    3. When we tested our system by integrating front end and backend and we found some clashes format fo data expected by the frontend from the backend and viceversa.
+    4. we fixed those issues but because of that we faced certain challenges in the sprint 1.
+    5. In the sprint 1 restrospective we came up with a plan to tackle such issues in feature.
+    6. Some of the crucial improvements we planned include meeting inperson and discussing the set of userstories whcih we our next immediate focus, and having common ground for data formats
+
+==========================================================================================================================================================================================
+
+Week 6:
+    1. This is flexi week so we planned to rectify the problems happed in the previous sprint by reworking those features in this week.
+    2. Me and backend people met in the uni and discussed each API routes seperately and dicussed the format of the json object in whcih the backend is expecting the data and 
+       at the same time how its returning the data back to the front end and decided up on having common naming conventions for variables.
+    3. Another crucial improvement we planned after our first retrospective was to develop backend functionality of a specific set of  user stories first test them then 
+       implement the frontend for it.
+    4. So our backend team after our inperson meeting they finsh their developemnt.
+    5. For testing they developed a simple commandline program which would make api calls for the backend.
+    6. Once they test it they would inform me and i would start with the front end.
+    7. In the front end initially the state was managed using local storage but that was efficient and error proof so we switched to state management library redux.
+    8. It is good that i found this issue in the flexi week bacuse i have to spend considerable amount of time learning it before implemeting it in the project.
+    9. I took me 3 days to get my self familiarised with redux state management and making states persistent.
+
+==========================================================================================================================================================================================
+
+Week 7:
+    1. Our process was going smoothly  but since we included redux in our frontend stack the old codes have to be revisted and updated to make it compliance with redux.
+    2. But we have a retrospective at week 8 so for that the front end development process have to be paced up. So I decided to plan my time more accordingly to allocate
+       more time for coding to so that we can achieve the spring goal.
+    3. And for the sprint 2 we have planned to implement all the featurs of manger as well as customer interface till placing orders so tried devloping those interfaces as quixk as possible.
+    4. One good thing happened was since im using react frequently i got more familiarised which really helped me in developing the front end.
+    5. And my debugging speed for the react environment has started seeing improvements which i would attribute to the las twoo weeks of consistent coding.
+
+==========================================================================================================================================================================================
+
+Week 8:
+    1. As for the start of the week 8 i completely finished the Manager interface and started with the customer Interface.
+    2. On tuesday every functionality of customer interafce has been implemented in frontend except cart functionality.
+    3. Cart requires complex state interactions in redux store for wich i had to refer some advanced tutorials but we only have one day left for sprint2 demo.
+    4. On wednesday morning I statred with the cart page imlementation and manged to finish the cart live updating functionality by late afternoon.
+    5. In evening of wenesday we showed our demo and this time demo went successful.
+    6. So on that retrospective B we for sprint 2 demo we included similar improvements and tried to stick to our plan as we did after retrospective 1 because that approach is working
+       better for our team.
+
+==========================================================================================================================================================================================
+
+Week 9:
+    1. The remaining user stories were assigned for sprint 3.
+    2. These user stories that have been allocated for sprint 3  require frequent interactions between frontend and backend ans as well as backend and data base.
+    3. So we asked our tutor in the lab about our approach of having different schemas in the backend database and querying those indivdual schemas to make the work of bacend easier.
+    4. The tutor gave his opinion and how we can improve and it helped us to solve the issue of frequent interaction and we implemnetd those functionalities in the backend.
+    5. Once the backend people complated I statred devloping the front end interfaces for the kitcjem staff and the wait staff.
+    6. Almost 70% of the work for the final demo were complated by end of week 9.
+
+==========================================================================================================================================================================================
+
+week 10:
+    1. On monday and tusesday I finishes all the front end functionalities and checked whther the features were working properly.
+    2. On wednesday moring our team met together and practiced our dry run for demo.
+    3. I thought it would ne nice to have a presentation as well for the final demo.
+    4. I told this idea to my team and we also prepares a short presentation in canva.
+    5. In the evening presented and the final demo went really well and I think our team learned a lot in the process both technical as well team working skills.
