@@ -37,8 +37,6 @@ const deleteKitchenOrder = async(req,res) =>{
        
         const order = await inProgress.findOne({ rId, orderNo }).exec();
         
-        //console.log('HAHAH WTFFFFF')
-        //console.log(order)
         
         // If the order exists in the InProgress collection
         
@@ -57,7 +55,6 @@ const deleteKitchenOrder = async(req,res) =>{
 
           }
           );
-          //console.log(readyOrder)
           await readyOrder.save();
     
           res.status(200).send({ successMessage: 'Order deleted from InProgress and added to ReadyToServe' });

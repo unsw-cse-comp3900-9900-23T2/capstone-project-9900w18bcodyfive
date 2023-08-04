@@ -1,5 +1,4 @@
 // This includes the routes for the user.
-// Make the schema as well.
 
 const { v4: uuidv4 } = require('uuid');
 // this customer can only be at one restaurant, and the restaurant's resID is passed as a parameter
@@ -35,7 +34,7 @@ const getAllRestaurants = async(req, res) => {
 /*================================================================================================================================== 
     FETCH CATEGORIES
 ================================================================================================================================== */
-// Pass in a restaurant ID as a parameter, and watch the magic happen.
+// Pass in a restaurant ID as a parameter.
 const getAllCategories = async (req, res) => {
     try{
 
@@ -71,8 +70,7 @@ const getTenItems = async (req, res) => {
     }
 }
 
-// Fetching upto 10 items is easy. I'm going to make it fetch RANDOMLY. - RKV
-// Works!! Checked with itemCount < 3 on Res2 with 4 items.
+// Fetch 10 random items
 const getRandomItems = async (req, res) => {
     try {
         const resId = req.params.rId
@@ -81,9 +79,6 @@ const getRandomItems = async (req, res) => {
             const resFilter = { rId : { $eq: resId }};
             const agg = Items.aggregate([{ $match: resFilter }]).sample(10);
             const items = await agg.exec();
-            //items received, but only after response sent - even after making this agg.exec() change
-            //console.log("Random item selection worked!!");
-            //console.log("Items: ", items)
             res.status(200).send({
                 item: items
             });  
@@ -105,9 +100,6 @@ const getRandomItems = async (req, res) => {
 /*================================================================================================================================== 
 FETCH USER DASHBOARD
 ================================================================================================================================== */
-// If getRandomItems works, use that, otherwise fallback to getItems
-// Including debug for getRandomItems in case it causes problems with large number of items or something.
-// Checked with 4 items, random selection of 3 occurs. Read "getRandomItems" coomments for notes.
 const getUserDashboard = async (req, res) => {
     try{
         const resId = req.params.rId

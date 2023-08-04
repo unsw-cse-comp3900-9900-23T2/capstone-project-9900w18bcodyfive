@@ -64,7 +64,6 @@ GET ASSISTANCE REQUESTS
 
 const getAssistanceRequests = async (req, res) => {
     try {
-      //console.log("dsfsfdsfdsf")
       const { rId } = req.params;
       const assistanceRequests = await assistance.find({ rId }).exec();
     
