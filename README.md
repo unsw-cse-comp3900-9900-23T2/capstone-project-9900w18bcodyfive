@@ -43,78 +43,78 @@ Note: Please follow the steps in the exact same order
 ### step 1. Installing Curl
 Enter the below two commands in the terminal one by one to install the curl.  
 
-sudo apt update  
-sudo apt install curl  
+`sudo apt update`  
+`sudo apt install curl` 
 
 ### step 2. Installing nvm (node version manager)
 You need to install node version manager to install the desired version of node. The recommended version for this system is 16.14.2. Enter the below command in the terminal to to install nvm
 
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash  
+`curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash`  
 
 ### step 3: Activating the nvm
 You need to activate the nvm before using it, for that enter the following command in the terminal  
 
-source ~/.bashrc
+`source ~/.bashrc`
 
 ### step 4: Installing Nodejs and npm
 You can install the Nodejs 16.14.2 simply by running the following command nvm will by default install npm along with the Nodejs.
 
-nvm install v16.14.2  
+`nvm install v16.14.2`  
 
 You can verify the installation of Node by typing the command "node -v" in the terminal which will return the installed version of nodejs and as well as you can use the command "npm -v" to verify the npm installation.  
 
 ### step 5: Installing backend dependencies
 Now navigate to the folder "kellner/backend" in the terminal and run the below command.
 
-npm install  
+`npm install`  
 
 This will install all the required dependencies once installation complete you can start the backend by typing  
 
-npm start  
+`npm start`  
 
 Note: The backend will start and run in port 5000
 
 ### step 6: Installing dependencies for manager
 Open a new Terminal, navigate to the folder "kellner/manager-ui" in the terminal and run the below command.
 
-npm install  
+`npm install`  
 
 This will install all the required dependencies once installation complete you can start the manager-ui by typing  
 
-npm start  
+`npm start`  
 
 Note: The manager-ui will start and run in the port 3000
 
 ### step 7: Installing dependencies for customer
 Open a new Terminal, navigate to the folder "kellner/user-ui" in the terminal and run the below command.
 
-npm install  
+`npm install`  
 
 This will install all the required dependencies once installation complete you can start the user-ui by typing  
 
-npm start  
+`npm start`  
 
 Note: While starting this will as you ask you that there is already an app running in port 3000 So would you like to start the app in different port? (yes | No) press y. this will start the app in a different port 3001
 
 ### step 8: Installing dependencies for kitchen staff
 Open a new Terminal, navigate to the folder "kellner/kitchen-ui" in the terminal and run the below command.
 
-npm install  
+`npm install`  
 
 This will install all the required dependencies once installation complete you can start the kitchen-ui by typing  
 
-npm start  
+`npm start`  
 
 Note: While starting this will as you ask you that there is already an app running in port 3000 So would you like to start the app in different port? (yes | No) press y. this will start the app in a different port 3002
 
 ### step 9: Installing dependencies for  waiters
 Open a new Terminal, navigate to the folder "kellner/waiter-ui" in the terminal and run the below command.
 
-npm install  
+`npm install`  
 
 This will install all the required dependencies once installation complete you can start the waiter-ui by typing  
 
-npm start  
+`npm start`  
 
 Note: While starting this will as you ask you that there is already an app running in port 3000 So would you like to start the app in different port? (yes | No) press y. this will start the app in a different port 3003
 
