@@ -63,37 +63,37 @@ const OrderPlaced = ()=>{
         }
     }
 
-    //Function to fetch the order status
-    async function getOrderStatus(){
-        console.log('function called');
-        const response = await fetch(`http://localhost:5000/api/getOrderStatus/${orderNo}`, {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json',
-            },
-        })
-    
-        const data = await response.json();
-        if(response.status === 200){
-            if(data.status === 'Ready to Serve'){
-                setPrepared(true);
-            }
-        }
-    }
-
-    async function callGetOrderStatus() {
-        setInterval(getOrderStatus, 5000);
-    }
-
     React.useEffect(()=>{
         if(prepared === true){
             navigate('/order-prepared')
         }
-    }, [prepared]);
+    }, [navigate, prepared]);
 
     React.useEffect(()=>{
+
+        //Function to fetch the order status
+        async function getOrderStatus(){
+            console.log('function called');
+            const response = await fetch(`http://localhost:5000/api/getOrderStatus/${orderNo}`, {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+            })
+        
+            const data = await response.json();
+            if(response.status === 200){
+                if(data.status === 'Ready to Serve'){
+                    setPrepared(true);
+                }
+            }
+        }
+
+        async function callGetOrderStatus() {
+            setInterval(getOrderStatus, 5000);
+        }
         callGetOrderStatus();
-    }, []);
+    }, [orderNo]);
 
     // timeout function to show the show the order placing animation
     setTimeout(()=>{

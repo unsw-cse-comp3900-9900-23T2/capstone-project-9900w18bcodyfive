@@ -43,32 +43,32 @@ const Dashboard = ()=>{
         checkOutRequests: [],
         readyToServeOrders: []
     });
-    //Function to get list of orders
-    async function getAllRequests(){
-        const response = await fetch(`http://localhost:5000/api/getAllRequests/${rId}`, {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json',
-            },
-        })
-
-        const data = await response.json();
-        if(response.status === 200){
-            setRequests({
-                assistanceRequests: data.assistanceRequests,
-                checkOutRequests: data.checkOutRequests,
-                readyToServeOrders: data.readyToServeOrders
-            });
-        }
-    }
-
-    async function wrap(){
-        setInterval(getAllRequests, 3000);
-    };
 
     React.useEffect(()=>{
+        //Function to get list of orders
+        async function getAllRequests(){
+            const response = await fetch(`http://localhost:5000/api/getAllRequests/${rId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+            })
+
+            const data = await response.json();
+            if(response.status === 200){
+                setRequests({
+                    assistanceRequests: data.assistanceRequests,
+                    checkOutRequests: data.checkOutRequests,
+                    readyToServeOrders: data.readyToServeOrders
+                });
+            }
+        }
+
+        async function wrap(){
+            setInterval(getAllRequests, 3000);
+        };
         wrap();
-    },[])
+    },[rId])
     return(
         <>
             <Header/>

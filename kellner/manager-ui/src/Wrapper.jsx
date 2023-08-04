@@ -24,8 +24,6 @@ const Wrapper = ()=>{
             if (['/'].includes(location.pathname)) {
             navigate('/dashboard');
             }
-        } else { // If the user is not logged in take him to the home page
-            navigate('/');
         }
         setGlobalLoading(false); // Setting the page loading state to false because we checked for the token and navigated user accordingly
       }, [location.pathname, navigate, token]);

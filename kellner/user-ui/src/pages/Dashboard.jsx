@@ -47,29 +47,28 @@ const Dashboard = ()=>{
         rand:''
     });
 
-    //Function to fetch the dashboard
-    async function getUserDashboard(){
-        const response = await fetch(`http://localhost:5000/api/getUserDashboard/${rId}`, {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json',
-            },
-        })
-    
-        const data = await response.json();
-        if(response.status === 200){
-            let temp ={
-                cat: data.category,
-                rand: data.item
-            };
-            setData(temp);
-            setLoading(false);
-        }
-    }
-
     React.useEffect(()=>{
+        //Function to fetch the dashboard
+        async function getUserDashboard(){
+            const response = await fetch(`http://localhost:5000/api/getUserDashboard/${rId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+            })
+        
+            const data = await response.json();
+            if(response.status === 200){
+                let temp ={
+                    cat: data.category,
+                    rand: data.item
+                };
+                setData(temp);
+                setLoading(false);
+            }
+        }
         getUserDashboard();
-    },[]);
+    },[rId]);
     return(
         <>
         {loading === false ?(

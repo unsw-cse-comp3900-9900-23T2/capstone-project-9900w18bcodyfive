@@ -24,17 +24,17 @@ const Container = styled('div')({
 const ThankYou = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const clearEverything = ()=>{
-        dispatch(clearCart());
-        dispatch(removeOrderNo());
-        dispatch(removeTable());
-        dispatch(removeRestaurant());
-        navigate('/');
-    }
 
     React.useEffect(()=>{
+        const clearEverything = ()=>{
+            dispatch(clearCart());
+            dispatch(removeOrderNo());
+            dispatch(removeTable());
+            dispatch(removeRestaurant());
+            navigate('/');
+        }
         window.setTimeout(clearEverything, 5000);
-    }, []);
+    }, [dispatch, navigate]);
     return(
         <>
             <PlainHeader/>

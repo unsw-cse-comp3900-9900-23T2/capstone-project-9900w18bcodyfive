@@ -23,37 +23,38 @@ const OrderPrepared = ()=>{
     const [arrived, setArrived] = React.useState(false);
     const navigate = useNavigate();
 
-    //Function to fetch the order status
-    async function getOrderStatus(){
-        console.log('function called');
-        const response = await fetch(`http://localhost:5000/api/getOrderStatus/${orderNo}`, {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json',
-            },
-        })
-    
-        const data = await response.json();
-        if(response.status === 404){
-            if(data.status === 'Order not found'){
-                setArrived(true);
-            }
-        }
-    }
-
-    async function callGetOrderStatus() {
-        setInterval(getOrderStatus, 5000);
-    }
 
     React.useEffect(()=>{
         if (arrived === true){
             navigate('/enjoy-your-meal')
         }
-    },[arrived]);
+    },[arrived, navigate]);
 
     React.useEffect(()=>{
+        //Function to fetch the order status
+        async function getOrderStatus(){
+            console.log('function called');
+            const response = await fetch(`http://localhost:5000/api/getOrderStatus/${orderNo}`, {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+            })
+        
+            const data = await response.json();
+            if(response.status === 404){
+                if(data.status === 'Order not found'){
+                    setArrived(true);
+                }
+            }
+        }
+
+        async function callGetOrderStatus() {
+            setInterval(getOrderStatus, 5000);
+        }
+
         callGetOrderStatus();
-    }, []);
+    }, [orderNo]);
 
     return(
         <>
