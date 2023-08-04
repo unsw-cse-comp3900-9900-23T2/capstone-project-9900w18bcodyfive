@@ -61,7 +61,7 @@ You can install the Nodejs 16.14.2 simply by running the following command nvm w
 
 `nvm install v16.14.2`  
 
-You can verify the installation of Node by typing the command "node -v" in the terminal which will return the installed version of nodejs and as well as you can use the command "npm -v" to verify the npm installation.  
+You can verify the installation of Node by typing the command "node -v" in the terminal which will return the installed version of nodejs and as well as you can use the command "npm -v" to verify the npm installation. If Incase the npm is not installed please do install it using sudo apt install command and the preferred version of npm is 8.5.0
 
 ### step 5: Installing backend dependencies
 Now navigate to the folder "kellner/backend" in the terminal and run the below command.
