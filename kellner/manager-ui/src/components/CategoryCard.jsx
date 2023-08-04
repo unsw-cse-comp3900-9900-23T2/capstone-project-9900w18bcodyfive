@@ -42,7 +42,6 @@ const CategoryCard = (props)=>{
     const [open, setOpen] = React.useState(false);
     const rId = cat.rId;
     const cId = cat.cId;
-    const cName = cat.cName;
     //function to open edit category popup
     const handleOpen = ()=>{
         setOpen(true);
@@ -69,10 +68,6 @@ const CategoryCard = (props)=>{
         }
     }
 
-    // function to navigate to items page
-    const goToItems = ()=>{
-        navigate(`${cat.cId}/items`);
-    }
     return(
         <Grid item xs={12} sm={12} md={4} lg={3}>
             <CardEffect>

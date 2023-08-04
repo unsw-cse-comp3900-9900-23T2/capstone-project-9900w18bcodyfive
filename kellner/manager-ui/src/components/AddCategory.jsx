@@ -1,7 +1,9 @@
+// Libraries import
 import React from "react";
 import { Dialog } from "@mui/material";
 import styled from "@emotion/styled";
 
+// Components import
 import FormInput from "./FormInput";
 import { fileToDataUrl } from "./fileToDataUrl";
 import Loading from "../assets/images/Loading.gif"
