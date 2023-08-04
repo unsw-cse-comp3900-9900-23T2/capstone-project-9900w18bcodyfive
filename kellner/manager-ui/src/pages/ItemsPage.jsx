@@ -20,24 +20,27 @@ const ItemsPage =(props)=>{
         console.log(userInput);
     };
 
-    // function to fetch categories from backend
-    async function getCategories() {
-        const response = await fetch(`http://localhost:5000/api/getItems/${rId}/${cId}`, {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json',
-            },
-        })
-    
-        const data = await response.json();
-        if (response.status === 200){
-            console.log(data.item);
-            setItems(data.item)
-        }
-    
-    }
 
-    React.useEffect(()=>{getCategories()},[]);
+    React.useEffect(()=>{
+        // function to fetch categories from backend
+        async function getCategories() {
+            const response = await fetch(`http://localhost:5000/api/getItems/${rId}/${cId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+            })
+        
+            const data = await response.json();
+            if (response.status === 200){
+                console.log(data.item);
+                setItems(data.item)
+            }
+        
+        }
+        
+        getCategories()
+    },[cId, rId]);
     return(
         <>
             <CirclePattern/>

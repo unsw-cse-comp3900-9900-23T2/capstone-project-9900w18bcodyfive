@@ -9,7 +9,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import styled from "@emotion/styled";
 import EditCategory from './EditCategory';
-import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 //Redux imports
 import { useSelector } from 'react-redux/es/hooks/useSelector';
@@ -36,7 +35,6 @@ const EditEffect = styled('div')({
 });
 
 const CategoryCard = (props)=>{
-    const navigate = useNavigate();
     const token = useSelector(state=>state.manager.token);
     const cat= props.cat;
     const [open, setOpen] = React.useState(false);

@@ -23,26 +23,26 @@ const Categories = (props)=>{
         setOpen(false);
     }
 
-    // function to fetch categories from backend
-    async function getCategories() {
-        const response = await fetch(`http://localhost:5000/api/getCategory/${rId}`, {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json',
-            },
-        })
-    
-        const data = await response.json();
-        if (response.status === 200){
-            console.log(data.category);
-            setCategories(data.category);
-        }
-    
-    }
 
     React.useEffect(()=>{
+        // function to fetch categories from backend
+        async function getCategories() {
+            const response = await fetch(`http://localhost:5000/api/getCategory/${rId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+            })
+        
+            const data = await response.json();
+            if (response.status === 200){
+                console.log(data.category);
+                setCategories(data.category);
+            }
+        
+        }
         getCategories();
-    },[]);
+    },[rId]);
     return(
         <>
             {categories.length === 0 ?(

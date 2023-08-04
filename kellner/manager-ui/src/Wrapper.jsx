@@ -28,7 +28,7 @@ const Wrapper = ()=>{
             navigate('/');
         }
         setGlobalLoading(false); // Setting the page loading state to false because we checked for the token and navigated user accordingly
-      }, []);
+      }, [location.pathname, navigate, token]);
 
     // If the page is loading return this
     if (globalLoading === true) {
