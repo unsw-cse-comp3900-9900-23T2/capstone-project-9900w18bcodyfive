@@ -10,7 +10,7 @@ Vigneshwar R.K - z5252129 - Developer
 Our Team has worked on Wait management system called KELLNER. The system comprises of four entities Restaurant Manager, Customer, Kitchen staff, and waiters. So the code is structred in a way that four different user interfaces each one corresponding to one entity and a common backend.
 
 ## Section 3: Platform information
-Our team prefer to run our system in the virtual machine platform VMWAre Workstation with Lubuntu 20.4.1 LTS and do make sure that the virtual machine has internet access. (proper internet connection is mandatory for the running of the system)
+Our team prefer to run our system in the virtual machine platform VMWAre Workstation with Lubuntu 20.04.1 LTS and do make sure that the virtual machine has internet access. (proper internet connection is mandatory for the running of the system)
 
 ## Section 4: Tech Stack used
 We Used MERN stack for our system
@@ -24,6 +24,7 @@ For state management - Redux toolkit, react-redux and redux persist were utilize
 
 
 ## Section 5: Folder Structure:
+The submitted file can be unizipped using "unzip" command followed by the file name or you can also use Ark utility Tool which comes pre installed in the Lubuntu 20.04.1  
 The submitted zip file consist of one folder (kellner) and one README.md file.
 
 The entire source code is located inside the kellner folder.
@@ -36,7 +37,7 @@ The kellner folder has four sub folders
 
 
 ## Section 6: Steps to follow to run the system
-This section describes how to install the required dependencies and run our system in virtual machine (VMWare Work station - with Lubuntu 20.4.1 LTS).
+This section describes how to install the required dependencies and run our system in virtual machine (VMWare Work station - with Lubuntu 20.04.1 LTS).
 
 Note: Please follow the steps in the exact same order
 
