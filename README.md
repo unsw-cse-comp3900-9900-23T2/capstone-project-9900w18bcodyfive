@@ -25,7 +25,7 @@ For state management - Redux toolkit, react-redux and redux persist were utilize
 
 ## Section 5: Folder Structure:
 The submitted file can be unizipped using "unzip" command followed by the file name or you can also use Ark utility Tool which comes pre installed in the Lubuntu 20.04.1  
-The submitted zip file consist of one folder (kellner) and one README.md file.
+The submitted zip file consist of two folders (kellner and images) and one README.md file.
 
 The entire source code is located inside the kellner folder.
 The kellner folder has four sub folders
@@ -33,7 +33,13 @@ The kellner folder has four sub folders
 * manager-ui - source code for manager user interface
 * user-ui - source code for customer user interface
 * kitchen-ui - source code for kitchen staff user interface
-* waiter-ui - source code for waiter user interface
+* waiter-ui - source code for waiter user interface  
+
+The images folder is provided for your convenience to use the images while testing the system instead of downloading from external source. For example when you want add a restaurant you will need to upload a picture to our system and in that case you can use the images provided inside these folders. This folder is structured in to 3 different sub folders.
+
+* categories - contains images related to categories
+* food - conatins images of food items
+* restaurant - contains images of restaurants
 
 
 ## Section 6: Steps to follow to run the system
