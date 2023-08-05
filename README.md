@@ -84,7 +84,7 @@ This will install all the required dependencies once installation complete you c
 
 `npm start`  
 
-#### Note: The manager-ui will start and run in the port 3000 in a tab in the browser. You can test the functionalities of the manager interface(no need to close the tab after testing). It is recommended that you finish the testing of the manager first, even before start running the remaining entities (user/customer, kitcken staff, waiter) because these 3 entities fetch data from what you have configures as a manager and do note that for testing the remaining 3 entities (customer(user), kitchen staff and waiter) you need to run them parallely(simultaneously) because they all interact with each other in real time. the steps to run them are provided below.
+#### Note: The manager-ui will start and run in the port 3000 in a tab in the browser. You can test the functionalities of the manager interface(no need to close the tab after testing). It is recommended that you finish the testing of the manager first, even before start running the remaining entities (user/customer, kitcken staff, waiter) because these 3 entities fetch data from what you have configured as a manager and do note that for testing the remaining 3 entities (customer(user), kitchen staff and waiter) you need to run them parallely(simultaneously) because they all interact with each other in real time. the steps to run them are provided below.
 
 ### step 7: Installing dependencies for customer(user)
 Open a new Terminal, navigate to the folder "kellner/user-ui" in the terminal and run the below command.
