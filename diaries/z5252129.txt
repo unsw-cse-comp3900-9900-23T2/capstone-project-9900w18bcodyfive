@@ -1,0 +1,50 @@
+User Diary - Restaurant Management System Project
+z5252129
+Vigneshwar Ramesh Kanagapathy
+github: rkv-2401
+
+August 1st:
+
+Our Kellner Restaurant Management System has really developed into a solid application with a really good user interface. When I started writing some of the first few routes, I had no idea what the final product would look like. But our team members and I have coordinated well and developed a strong application with an aesthetic interface. The project looks to be on track for completion, with all the features we designed working effectively and all the user stories being addressed as of 2 days ago. With minor work pending to tidy up the code base, it seems we shall finish it on time. 
+
+This has been a great learning experience and I am thankful to my team mates, Bhargav and Sevugan, for 
+the great communication and teamwork they have demonstrated throughout this project.
+
+Week 10: (July 31st)
+
+Some final minor work with the codebase to get it prepped and ready for submission. We removed comments that weren't strictly necessary, removed console logs that we used for debugging, and consolidated everything together.
+
+Week 9: (July 24th)
+
+We tidied up the codebase for the backend and tested everything to ensure that they'd work as expected during our final demo. We cleaned up the comments, removed unnecessary folders and files, included the checkout and assistance routes and integrated them with the frontend. A few other small updates were made to the backend, including adding rate-limiting functionality and adding authorization for all CRUD operations.
+
+Week 8: (July 17th)
+
+I wrote the 3 schemas for inProgress, readyToServe and Finished and sent them to the other backend team member for integration. We had our sprint 2 demo and this went well, we made the deliverables ahead of time and were able to integrate and test it in time for the demo. During retrospective B we brainstormed some more improvements and also decided to stick to our revised approach developed during retrospective A because this worked really well for our team. 
+
+I also helped write the kitchen staff routes which were integrated into the final project by Bhargav.
+
+Week 7: (July 10th)
+
+Bhargav had come up with a tool that we could use to test API calls for the backend. However, we were using different environments and that tool did not work for me. I had to spend a moderate amount of time trying to find a way for me to test the routes that I wrote. This inspired me to make Swagger docs for the routes.
+
+I did make some Swagger documentation, but decided not to because there are a lot of lines of comments even for relatively simple routes. I wrote some routes for the userDashboard, including one with randomly retrieving items from the menu to make the dashboard more engaging! The random retrieval of items was not as straightforward as I expected, but I was able to implement it on time in the end.
+
+Week 6: (July 3rd)
+
+This week, we incorporated JSON Web Tokens (JWT) and hashed passwords to secure the login and registration processes and protect the manager's routes. We integrated this with the frontend after a few trials. The frontend team also started working on Redux to make handling the states easier.
+
+
+Week 5: (June 26th)
+
+Our first sprint demo was this week. We were not able to complete all the features in time because it took a lot longer than expected to get the backend and the frontend in sync with one another. We were able to integrate them in time for the demo, but a few issues designated for this sprint are still pending. We'll tackle those first and get them done. We made a plan to improve our flow of work in the Retrospective A meeting and we are hopeful that we will be able to follow through.
+
+I organized the routes into a controller to make the backend codebase more readable. This has really made working on the backend easier and less cluttered.
+
+Week 4: (June 19th)
+
+We started our work on our Restaurant Management System project, Kellner, today.
+The project repository was set up, and we created two folders for the backend and for the manager-ui today. We will create a folder for each of the 4 entities' user interface when we create them. We began planning the features we want to implement, and I designed some basic routes and schemas for the manager.
+
+
+
